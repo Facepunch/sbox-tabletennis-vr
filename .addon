@@ -1,0 +1,25 @@
+{
+  "Title": "Table Tennis VR",
+  "Type": "game",
+  "Org": "local",
+  "Ident": "tabletennis_vr",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "ResourcePaths": null,
+  "HasCode": true,
+  "CodePath": "/code/",
+  "RootNamespace": "TableTennis",
+  "Metadata": {
+    "MapList": [
+      "facepunch.construct"
+    ],
+    "PerMapRanking": false,
+    "LeaderboardType": 0,
+    "RankType": 0,
+    "MapSelect": 0,
+    "GameNetworkType": 0,
+    "MaxPlayers": 0,
+    "MinPlayers": 0
+  }
+}
