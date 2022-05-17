@@ -16,12 +16,18 @@ public partial class TableTennisGame : Game
 {
 	public Ball ActiveBall { get; set; }
 
+	public Transform[] AnchorTransforms = new Transform[]
+	{
+		new Transform( new Vector3( -72.0f, 0, 0 ), Rotation.FromYaw( 0 ) ),
+		new Transform( new Vector3( 72.0f, 0, 0 ), Rotation.FromYaw( 180 ) ),
+	};
+
 	TimeSince LastSpawn = 0;
 
 	[Event.Tick.Server]
 	public void BallTimer()
 	{
-		if ( LastSpawn < 3.0f ) return;
+		if ( LastSpawn < 10.0f ) return;
 		SpawnBall();
 		LastSpawn = 0;
 	}
@@ -31,6 +37,7 @@ public partial class TableTennisGame : Game
 		base.ClientJoined( cl );
 
 		cl.Pawn = new PlayerPawn();
+		cl.Pawn.Transform = AnchorTransforms[cl.Id % 2];
 	}
 
 	public override void Simulate( Client cl )
@@ -42,6 +49,8 @@ public partial class TableTennisGame : Game
 		if ( pawn.Paddle is null ) return;
 
 		DebugOverlay.ScreenText( "F2 for devcam" );
+
+		cl.Pawn.Transform = AnchorTransforms[cl.Id % 2];
 
 		// Debug for testing
 		if ( !cl.IsUsingVr )
@@ -83,9 +92,9 @@ public partial class TableTennisGame : Game
 			camSetup.FieldOfView = 60;
 		}
 
-		// PostCameraSetup( ref camSetup );
+		PostCameraSetup( ref camSetup );
 
-		VR.Anchor = VR.Anchor.WithPosition( new Vector3( -72.0f, 0, 16.0f ) );
+		// VR.Anchor = VR.Anchor.WithPosition( new Vector3( -72.0f, 0, 0.0f ) );
 
 		return camSetup;
 	}

@@ -29,6 +29,7 @@ public partial class Paddle : ModelEntity
 		{
 			Transform = Input.VR.RightHand.Transform;
 			Velocity = Input.VR.RightHand.Velocity;
+			AngularVelocity = Input.VR.RightHand.AngularVelocity.EulerAngles; // ?
 
 			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) );
 		}
