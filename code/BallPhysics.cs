@@ -58,7 +58,7 @@ public static partial class BallPhysics
 			.Run();
 
 		if ( !trace.Hit ) return;
-		if ( trace.Entity != this ) return;
+		if ( trace.Entity != paddle ) return;
 
 		// DebugOverlay.Line( trace.StartPosition, trace.EndPosition );
 
