@@ -18,8 +18,8 @@ public partial class TableTennisGame : Game
 
 	public Transform[] AnchorTransforms = new Transform[]
 	{
-		new Transform( new Vector3( -72.0f, 0, 0 ), Rotation.FromYaw( 0 ) ),
-		new Transform( new Vector3( 72.0f, 0, 0 ), Rotation.FromYaw( 180 ) ),
+		new Transform( new Vector3( 76.0f, 0, 0 ), Rotation.FromYaw( 180 ) ),
+		new Transform( new Vector3( -76.0f, 0, 0 ), Rotation.FromYaw( 0 ) ),
 	};
 
 	TimeSince LastSpawn = 0;
@@ -52,10 +52,12 @@ public partial class TableTennisGame : Game
 
 		cl.Pawn.Transform = AnchorTransforms[cl.Id % 2];
 
+		DebugOverlay.Sphere( cl.Pawn.Transform.Position, 5, Color.Green );
+
 		// Debug for testing
 		if ( !cl.IsUsingVr )
 		{
-			pawn.Paddle.Position = ActiveBall.Position.WithX( -62.0f ).WithZ( 35 );
+			pawn.Paddle.Position = ActiveBall.Position.WithX( 62.0f ).WithZ( 35 );
 			pawn.Paddle.Rotation = Rotation.FromRoll( 80 ) * Rotation.FromYaw( 30 );
 			 
 			pawn.Paddle.Position += Vector3.Left * 5.0f;
