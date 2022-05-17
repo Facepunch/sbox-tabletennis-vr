@@ -20,6 +20,17 @@
 							offset_angles = [ 0.0, 0.0, 0.0 ]
 						}
 					},
+					{
+						_class = "GenericGameData"
+						game_class = "ao_proxy_box"
+						game_keys = 
+						{
+							bonename = ""
+							dimensions = [ 0.65, 0.957787, 4.2238 ]
+							offset_origin = [ 0.0, 0.006087, 0.159768 ]
+							offset_angles = [ 0.0, 0.0, 0.0 ]
+						}
+					},
 				]
 			},
 			{
@@ -34,9 +45,9 @@
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						origin = [ 0.0, 0.0, 5.0 ]
+						origin = [ 0.0, -0.004228, 5.100449 ]
 						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 0.7, 5.8, 6.6 ]
+						dimensions = [ 0.7, 6.214395, 6.800899 ]
 					},
 				]
 			},
@@ -45,34 +56,32 @@
 				children = 
 				[
 					{
-						_class = "RenderPrimitiveBox"
-						name = "handle"
+						_class = "RenderMeshFile"
+						filename = "models/paddle/table_tennis_paddle.fbx"
+						import_translation = [ 0.0, 0.0, -5.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 0.3937
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
 						parent_bone = ""
-						material_name = "materials/generic/wood_a.vmat"
-						origin = [ 0.0, 0.0, 0.0 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						max_u = 1.0
-						max_v = 1.0
-						dimensions = [ 0.9, 1.2, 3.75 ]
-						segments_x = 1
-						segments_y = 1
-						segments_z = 1
-						invert = false
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
 					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
 					{
-						_class = "RenderPrimitiveBox"
-						name = "bat2"
-						parent_bone = ""
-						material_name = "materials/generic/floor_rubber.vmat"
-						origin = [ 0.0, 0.0, 5.0 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						max_u = 1.0
-						max_v = 1.0
-						dimensions = [ 0.625, 5.9, 6.7 ]
-						segments_x = 1
-						segments_y = 1
-						segments_z = 1
-						invert = false
+						_class = "DefaultMaterialGroup"
+						remaps = [  ]
+						use_global_default = true
+						global_default_material = "models/paddle/textures/paddle_01a_base.vmat"
 					},
 				]
 			},
