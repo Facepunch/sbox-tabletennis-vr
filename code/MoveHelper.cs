@@ -5,29 +5,26 @@ public struct MoveHelper
 	public Vector3 Position;
 	public Vector3 Velocity;
 
-	public bool HitWall;
-	public Entity WallEntity;
-	public Vector3 HitWallPos;
+	public bool Hit;
+	public Vector3 HitPos;
+	public Surface HitSurface;
 
-	public Vector3 GroundVelocity;
 	public float Bounce;
-	public float MaxStandableAngle;
 	public Trace Trace;
 
 	public MoveHelper( Vector3 position, Vector3 velocity ) : this()
 	{
 		Velocity = velocity;
 		Position = position;
-		GroundVelocity = Vector3.Zero;
 		Bounce = 0.0f;
-		MaxStandableAngle = 10.0f;
 
-		// Hit everything but other balls
+		// Hit everything but the paddle
 		Trace = Trace.Ray( 0, 0 )
 			.WorldAndEntities()
 			.HitLayer( CollisionLayer.Solid, true )
 			.HitLayer( CollisionLayer.PLAYER_CLIP, true )
-			.HitLayer( CollisionLayer.GRATE, true );
+			.HitLayer( CollisionLayer.GRATE, true )
+			.WithoutTags( "paddle" );
 	}
 
 	public TraceResult TraceFromTo( Vector3 start, Vector3 end )
@@ -44,9 +41,9 @@ public struct MoveHelper
 	{
 		var timeLeft = timestep;
 		float travelFraction = 0;
-		HitWall = false;
-		WallEntity = null;
-		HitWallPos = Vector3.Zero;
+		Hit = false;
+		HitPos = Vector3.Zero;
+		HitSurface = null;
 
 		using var moveplanes = new VelocityClipPlanes( Velocity );
 
@@ -73,14 +70,16 @@ public struct MoveHelper
 				moveplanes.StartBump( Velocity );
 			}
 
-			if ( !HitWall && !pm.StartedSolid && pm.Hit && pm.Normal.Angle( Vector3.Up ) >= MaxStandableAngle )
+			if ( !Hit && !pm.StartedSolid && pm.Hit )
 			{
-				HitWall = true;
-				WallEntity = pm.Entity;
-				HitWallPos = pm.EndPosition;
+				Hit = true;
+				HitPos = pm.EndPosition;
+				HitSurface = pm.Surface;
 			}
 
 			timeLeft -= timeLeft * pm.Fraction;
+
+			// TODO: Derive Bounce from Surface
 
 			if ( !moveplanes.TryAdd( pm.Normal, ref Velocity, Bounce ) )
 				break;

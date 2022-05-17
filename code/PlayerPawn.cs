@@ -20,5 +20,7 @@ public class PlayerPawn : Entity
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
+
+		Paddle?.Simulate( cl );
 	}
 }

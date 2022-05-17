@@ -14,7 +14,7 @@ namespace TableTennis;
 
 public partial class TableTennisGame : Game
 {
-	Ball ActiveBall;
+	public Ball ActiveBall { get; set; }
 
 	TimeSince LastSpawn = 0;
 
@@ -41,8 +41,10 @@ public partial class TableTennisGame : Game
 		if ( !ActiveBall.IsValid() ) return;
 		if ( pawn.Paddle is null ) return;
 
+		DebugOverlay.ScreenText( "F2 for devcam" );
+
 		pawn.Paddle.Position = ActiveBall.Position.WithX( -62.0f ).WithZ( 35 );
-		pawn.Paddle.Rotation = Rotation.FromRoll( 75 ) * Rotation.FromPitch( -15 );
+		pawn.Paddle.Rotation = Rotation.FromRoll( 80 ) * Rotation.FromYaw( 30 );
 
 		pawn.Paddle.Position += Vector3.Left * 5.0f;
 	}
@@ -72,7 +74,7 @@ public partial class TableTennisGame : Game
 		// if we have no cam, lets use the pawn's eyes directly
 		if ( cam == null && Local.Pawn != null )
 		{
-			camSetup.Position = new Vector3( -96, -16, 54 );
+			camSetup.Position = new Vector3( -92, -12, 54 );
 			camSetup.Rotation = Rotation.FromYaw( 10 ) * Rotation.FromPitch( 15 );
 			camSetup.FieldOfView = 60;
 		}
