@@ -6,6 +6,8 @@ public partial class Ball : ModelEntity
 	{
 		SetModel( "models/tabletennis.ball.vmdl" );
 
+		Particles.Create( "particles/ball_trail/ball_trail.vpcf", this );
+
 		SetupPhysicsFromModel( PhysicsMotionType.Static, false );
 
 		CollisionGroup = CollisionGroup.Debris;

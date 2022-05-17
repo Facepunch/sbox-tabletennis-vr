@@ -40,6 +40,7 @@ public static partial class BallPhysics
 		{
 			// TODO: Different shit depending on surface
 			Sound.FromWorld( "tabletennis.bounce", mover.HitPos );
+			Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf",ball );
 		}
 
 		ball.Position = mover.Position;
