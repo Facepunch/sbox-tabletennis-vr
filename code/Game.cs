@@ -43,9 +43,9 @@ public partial class TableTennisGame : Game
 
 	public override CameraSetup BuildCamera( CameraSetup camSetup )
 	{
-		camSetup.Position = new Vector3( 32, 88, 64 );
-		camSetup.Rotation = Rotation.FromYaw( -105 ) * Rotation.FromPitch( 20 );
-		camSetup.FieldOfView = 80;
+		camSetup.Position = new Vector3( -96, -16, 54 );
+		camSetup.Rotation = Rotation.FromYaw( 10 ) * Rotation.FromPitch( 15 );
+		camSetup.FieldOfView = 60;
 
 		return base.BuildCamera( camSetup );
 	}
