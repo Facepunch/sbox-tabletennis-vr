@@ -81,6 +81,30 @@
 						angles = [ 0.0, 0.0, 0.0 ]
 						dimensions = [ 70.240379, 0.08134, 4.853432 ]
 					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 35.500507, -0.00209, 32.996742 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 0.762505, 0.744183, 5.496096 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "default"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -35.504765, -0.00209, 32.996742 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 0.762505, 0.744183, 5.496096 ]
+					},
 				]
 			},
 		]

@@ -47,7 +47,7 @@
 						_class = "RenderPrimitiveSphere"
 						name = "ball"
 						parent_bone = ""
-						material_name = "materials/emoji_kiss_golf_ball.vmat"
+						material_name = "materials/pingpong/ball/default/tabletennis_ball_01a.vmat"
 						origin = [ 0.0, 0.0, 0.0 ]
 						angles = [ 0.0, 0.0, 0.0 ]
 						max_u = 1.0
