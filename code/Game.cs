@@ -14,6 +14,8 @@ namespace TableTennis;
 
 public partial class TableTennisGame : Game
 {
+	Ball ActiveBall;
+
 	TimeSince LastSpawn = 0;
 
 	[Event.Tick.Server]
@@ -24,29 +26,59 @@ public partial class TableTennisGame : Game
 		LastSpawn = 0;
 	}
 
-	[ServerCmd]
-	public static void SpawnBall()
+	public override void ClientJoined( Client cl )
 	{
-		var ball = new Ball();
-		ball.Position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		ball.Velocity = Vector3.Backward * Rand.Float(160.0f, 180.0f);
+		base.ClientJoined( cl );
 
-		var paddle = new Paddle();
-		paddle.Position = ball.Position.WithX( -62.0f ).WithZ( 35 );
-		paddle.Rotation = Rotation.FromRoll( 75 ) * Rotation.FromPitch( -15 );
+		cl.Pawn = new PlayerPawn();
+	}
 
-		paddle.Position += Vector3.Left * 5.0f;
+	public override void Simulate( Client cl )
+	{
+		base.Simulate( cl );
 
-		ball.DeleteAsync( 3.0f );
-		paddle.DeleteAsync( 3.0f );
+		if ( cl.Pawn is not PlayerPawn pawn ) return;
+		if ( !ActiveBall.IsValid() ) return;
+		if ( pawn.Paddle is null ) return;
+
+		pawn.Paddle.Position = ActiveBall.Position.WithX( -62.0f ).WithZ( 35 );
+		pawn.Paddle.Rotation = Rotation.FromRoll( 75 ) * Rotation.FromPitch( -15 );
+
+		pawn.Paddle.Position += Vector3.Left * 5.0f;
+	}
+
+	public void SpawnBall()
+	{
+		if ( ActiveBall.IsValid() ) ActiveBall.Delete();
+
+		ActiveBall = new Ball();
+		ActiveBall.Position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		ActiveBall.Velocity = Vector3.Backward * Rand.Float(160.0f, 180.0f);
 	}
 
 	public override CameraSetup BuildCamera( CameraSetup camSetup )
 	{
-		camSetup.Position = new Vector3( -96, -16, 54 );
-		camSetup.Rotation = Rotation.FromYaw( 10 ) * Rotation.FromPitch( 15 );
-		camSetup.FieldOfView = 60;
+		var cam = FindActiveCamera();
 
-		return base.BuildCamera( camSetup );
+		if ( LastCamera != cam )
+		{
+			LastCamera?.Deactivated();
+			LastCamera = cam as CameraMode;
+			LastCamera?.Activated();
+		}
+
+		cam?.Build( ref camSetup );
+
+		// if we have no cam, lets use the pawn's eyes directly
+		if ( cam == null && Local.Pawn != null )
+		{
+			camSetup.Position = new Vector3( -96, -16, 54 );
+			camSetup.Rotation = Rotation.FromYaw( 10 ) * Rotation.FromPitch( 15 );
+			camSetup.FieldOfView = 60;
+		}
+
+		PostCameraSetup( ref camSetup );
+
+		return camSetup;
 	}
 }
