@@ -6,5 +6,12 @@
 		[
 			"sounds/tabletennis.paddle.vsnd",
 		]
+		ui = false
+		volume = 1.0
+		volumerandom = 0.0
+		pitch = 1.0
+		pitchrandom = 0.1
+		distancemax = 360.0
+		selectionmode = "3"
 	}
 }
