@@ -43,10 +43,14 @@ public partial class TableTennisGame : Game
 
 		DebugOverlay.ScreenText( "F2 for devcam" );
 
-		pawn.Paddle.Position = ActiveBall.Position.WithX( -62.0f ).WithZ( 35 );
-		pawn.Paddle.Rotation = Rotation.FromRoll( 80 ) * Rotation.FromYaw( 30 );
-
-		pawn.Paddle.Position += Vector3.Left * 5.0f;
+		// Debug for testing
+		if ( !cl.IsUsingVr )
+		{
+			pawn.Paddle.Position = ActiveBall.Position.WithX( -62.0f ).WithZ( 35 );
+			pawn.Paddle.Rotation = Rotation.FromRoll( 80 ) * Rotation.FromYaw( 30 );
+			 
+			pawn.Paddle.Position += Vector3.Left * 5.0f;
+		}
 	}
 
 	public void SpawnBall()
@@ -79,7 +83,9 @@ public partial class TableTennisGame : Game
 			camSetup.FieldOfView = 60;
 		}
 
-		PostCameraSetup( ref camSetup );
+		// PostCameraSetup( ref camSetup );
+
+		VR.Anchor = VR.Anchor.WithPosition( new Vector3( -72.0f, 0, 16.0f ) );
 
 		return camSetup;
 	}

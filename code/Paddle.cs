@@ -25,12 +25,33 @@ public partial class Paddle : ModelEntity
 
 		// TODO: Set position from VR hand
 
+		if ( cl.IsUsingVr )
+		{
+			Transform = Input.VR.RightHand.Transform;
+			Velocity = Input.VR.RightHand.Velocity;
+
+			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) );
+		}
+
 		if ( Game.Current is not TableTennisGame game ) return;
 		if ( !game.ActiveBall.IsValid() ) return;
 
 		using ( Prediction.Off() )
 		{
 			BallPhysics.PaddleBall( this, game.ActiveBall );
+		}
+	}
+
+	public override void FrameSimulate( Client cl )
+	{
+		base.FrameSimulate( cl );
+
+		if ( cl.IsUsingVr )
+		{
+			Transform = Input.VR.RightHand.Transform;
+			Velocity = Input.VR.RightHand.Velocity;
+
+			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) );
 		}
 	}
 }
