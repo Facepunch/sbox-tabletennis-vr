@@ -32,6 +32,7 @@ public partial class Paddle : ModelEntity
 			AngularVelocity = Input.VR.RightHand.AngularVelocity.EulerAngles; // ?
 
 			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) * Rotation.FromYaw( 180 ) );
+			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
 		}
 
 		if ( Game.Current is not TableTennisGame game ) return;
