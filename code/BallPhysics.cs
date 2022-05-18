@@ -16,43 +16,112 @@ public static partial class BallPhysics
 	// Gravity ( 9.81m/s2 in MKS )
 	public static readonly Vector3 Gravity = Vector3.Down * 386.1f;
 	public static readonly float BallMass = 0.0027f; // 2.7g
-	public static readonly float BallDiameter = 1.57f; // inches
-	public static readonly float BounceFactor = 0.76f; // actual standard
+	public static readonly float BallRadius = 0.785f; // inches
+
+	//
+	// Our desired COR ( coefficient of restitution ) of a ball bouncing on the table should be at least 0.76.
+	// Based off the fact that average bouncing height should be at least 23cm from a 30cm drop
+	// 
+	// The International Table Tennis Federation specifies that the ball shall bounce up 24–26 cm when
+	// dropped from a height of 30.5 cm on to a standard steel block thereby having a COR of 0.887 to 0.92.
+	//
+	// So our table probably has a COR of about 0.14 and our ball has a COR of 0.9.
+	// We'll define these in our surface assets.
+	//
+	// https://sasportssience.blob.core.windows.net/ijtts/IJTTS_3_pdf%20files/IJTTS_3_17_49_Araki_Collisional.pdf
+	//
+
+	//
+	// Just making my code easy to read/dev for now, throw this on the surface assets afterwards
+	//
+	public static readonly float BallCOR = 0.89f;
+	public static readonly float PaddleRubberCOR = 0.05f;
+	public static readonly float TableCOR = 0.1f;
 
 	public static void Move( Ball ball )
 	{
-		var mover = new MoveHelper( ball.Position, ball.Velocity );
-		mover.Trace = mover.Trace.Radius( BallDiameter / 2.0f ).Ignore( ball );
-		mover.Bounce = BounceFactor;
+		var velocity = ball.Velocity;
+		var position = ball.Position;
 
-		// Apply gravity
-		mover.Velocity += Gravity * Time.Delta;
+		// Hit everything but the paddle
+		var trace = Trace.Ray( 0, 0 )
+			.Radius( BallRadius )
+			.WorldAndEntities()
+			.Ignore( ball )
+			.WithoutTags( "paddle" );
 
-		// Apply drag ( TODO: This can be better )
-		var drag = -ball.Velocity * ball.Velocity.Length * 0.0004f / (BallMass * 40);
-		mover.Velocity += drag * Time.Delta;
+		velocity += Gravity * Time.Delta;
+
+		var drag = -velocity * velocity.Length * 0.0004f / (BallMass * 40); // MKS
+		velocity += drag * Time.Delta;
 
 		// TODO: Magnus factor if we're feeling fancy?
 
-		mover.TryMove( Time.Delta );
-
-		if ( mover.Hit )
 		{
-			// TODO: Different shit depending on surface
-			Sound.FromWorld( "tabletennis.bounce", mover.HitPos );
-			Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf",ball );
+			var timeLeft = Time.Delta;
+			float travelFraction = 0;
+			var hit = false;
+			var hitPos = Vector3.Zero;
+			Surface hitSurface = null;
+
+			using var moveplanes = new VelocityClipPlanes( velocity );
+
+			for ( int bump = 0; bump < moveplanes.Max; bump++ )
+			{
+				if ( velocity.Length.AlmostEqual( 0.0f ) )
+					break;
+
+				var pm = trace.FromTo( position, position + velocity * timeLeft ).Run();
+
+				if ( pm.StartedSolid )
+				{
+					position += pm.Normal * 0.01f;
+
+					continue;
+				}
+
+				travelFraction += pm.Fraction;
+
+				if ( pm.Fraction > 0.0f )
+				{
+					position = pm.EndPosition + pm.Normal * 0.01f;
+
+					moveplanes.StartBump( velocity );
+				}
+
+				if ( !hit && !pm.StartedSolid && pm.Hit )
+				{
+					hit = true;
+					hitPos = pm.EndPosition;
+					hitSurface = pm.Surface;
+
+					// TODO: Different shit depending on surface
+					Sound.FromWorld( "tabletennis.bounce", hitPos );
+					Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf", ball );
+				}
+
+				timeLeft -= timeLeft * pm.Fraction;
+
+				// Surface restitution "absorbs" kinetic energy of the ball
+				// var bounce = 0.90f - pm.Surface.Elasticity;
+				var bounce = BallCOR - TableCOR;
+
+				if ( !moveplanes.TryAdd( pm.Normal, ref velocity, bounce ) )
+					break;
+			}
+
+			if ( travelFraction == 0 )
+				velocity = 0;
 		}
 
-		ball.Position = mover.Position;
-		ball.Velocity = mover.Velocity;
-
-		// DebugOverlay.Line( ball.Position, ball.Position + ball.Velocity.Normal * 32.0f );
+		ball.Position = position;
+		ball.Velocity = velocity;
 	}
 
 	public static void PaddleBall( Paddle paddle, Ball ball )
 	{
 		var trace = Trace.Ray( ball.Position, ball.Position + ball.Velocity * Time.Delta )
-			.Radius( BallDiameter / 2.0f )
+			.Radius( BallRadius )
 			.EntitiesOnly()
 			.WithTag( "paddle" )
 			.Run();
