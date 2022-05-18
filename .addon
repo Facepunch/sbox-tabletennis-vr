@@ -1,8 +1,8 @@
 {
   "Title": "Table Tennis VR",
   "Type": "game",
-  "Org": "local",
-  "Ident": "tabletennis_vr",
+  "Org": "facepunch",
+  "Ident": "tabletennis",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
