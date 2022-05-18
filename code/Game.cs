@@ -28,8 +28,10 @@ public partial class TableTennisGame : Game
 	public void BallTimer()
 	{
 		if ( LastSpawn < 10.0f ) return;
-		SpawnBall();
-		LastSpawn = 0;
+		// SpawnBall();
+		// ActiveBall.Position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		// ActiveBall.Velocity = Vector3.Backward * Rand.Float( 160.0f, 180.0f );
+		// LastSpawn = 0;
 	}
 
 	public override void ClientJoined( Client cl )
@@ -45,10 +47,16 @@ public partial class TableTennisGame : Game
 		base.Simulate( cl );
 
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
-		if ( !ActiveBall.IsValid() ) return;
 		if ( pawn.Paddle is null ) return;
 
-		DebugOverlay.ScreenText( "F2 for devcam" );
+		DebugOverlay.Sphere( Input.VR.LeftHand.Transform.Position, 3, Color.Blue );
+		if ( Input.VR.LeftHand.ButtonA.WasPressed )
+		{
+			SpawnBall();
+			ActiveBall.Position = Input.VR.LeftHand.Transform.Position;
+		}
+
+		if ( !ActiveBall.IsValid() ) return;
 
 		cl.Pawn.Transform = AnchorTransforms[cl.Id % 2];
 
@@ -67,10 +75,7 @@ public partial class TableTennisGame : Game
 	public void SpawnBall()
 	{
 		if ( ActiveBall.IsValid() ) ActiveBall.Delete();
-
 		ActiveBall = new Ball();
-		ActiveBall.Position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		ActiveBall.Velocity = Vector3.Backward * Rand.Float(160.0f, 180.0f);
 	}
 
 	public override CameraSetup BuildCamera( CameraSetup camSetup )

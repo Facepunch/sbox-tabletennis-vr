@@ -126,17 +126,18 @@ public static partial class BallPhysics
 			.WithTag( "paddle" )
 			.Run();
 
+		// Log.Info( $"{ paddle.AngularVelocity }" );
+
 		if ( !trace.Hit ) return;
 		if ( trace.Entity != paddle ) return;
 
 		// DebugOverlay.Line( trace.StartPosition, trace.EndPosition );
 
-		if ( trace.Hit )
-		{
-			// DebugOverlay.Sphere( trace.EndPosition, BallDiameter / 2, Color.Red );
-			Sound.FromWorld( "tabletennis.paddle", trace.EndPosition ).SetVolume( 0.5f );
+		// DebugOverlay.Sphere( trace.EndPosition, BallDiameter / 2, Color.Red );
+		Sound.FromWorld( "tabletennis.paddle", trace.EndPosition ).SetVolume( 0.5f );
 
-			ball.Velocity = trace.Normal * ball.Velocity.Length * 2f;
-		}
+		// just typing random shit, we can do this waaaaaaaaaaaaay better
+		var magnitude = paddle.Velocity.Length * 3.0f + ball.Velocity.Length * 0.6f;
+		ball.Velocity = trace.Normal * magnitude;
 	}
 }
