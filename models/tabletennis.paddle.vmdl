@@ -91,8 +91,34 @@
 				[
 					{
 						_class = "DefaultMaterialGroup"
-						remaps = [  ]
-						use_global_default = true
+						remaps = 
+						[
+							{
+								from = "blade.vmat"
+								to = "models/paddle/textures/paddle_01a_base.vmat"
+							},
+							{
+								from = "circle.vmat"
+								to = "models/paddle/textures/stickertable.vmat"
+							},
+							{
+								from = "handle.vmat"
+								to = "models/paddle/textures/paddle_01a_base.vmat"
+							},
+							{
+								from = "sponge.vmat"
+								to = "models/paddle/textures/paddle_01a_base.vmat"
+							},
+							{
+								from = "surface.vmat"
+								to = "models/paddle/textures/paddle_01a_base.vmat"
+							},
+							{
+								from = "surface2.vmat"
+								to = "models/paddle/textures/paddle_01a_base.vmat"
+							},
+						]
+						use_global_default = false
 						global_default_material = "models/paddle/textures/paddle_01a_base.vmat"
 					},
 				]
