@@ -2,7 +2,6 @@
 global using Sandbox.UI;
 global using Sandbox.UI.Construct;
 global using Sandbox.Component;
-global using Hammer;
 
 global using System;
 global using System.Collections.Generic;

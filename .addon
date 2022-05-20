@@ -2,7 +2,7 @@
   "Title": "Table Tennis VR",
   "Type": "game",
   "Org": "facepunch",
-  "Ident": "tabletennis_vr",
+  "Ident": "tabletennis",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -17,7 +17,7 @@
     "PerMapRanking": false,
     "LeaderboardType": 0,
     "RankType": 0,
-    "MapSelect": 3,
+    "MapSelect": 1,
     "GameNetworkType": 0,
     "MaxPlayers": 2,
     "MinPlayers": 1
