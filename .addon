@@ -2,7 +2,7 @@
   "Title": "Table Tennis VR",
   "Type": "game",
   "Org": "facepunch",
-  "Ident": "tabletennis",
+  "Ident": "tabletennis_vr",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -12,12 +12,12 @@
   "RootNamespace": "TableTennis",
   "Metadata": {
     "MapList": [
-      "facepunch.construct"
+      "facepunch.tt_arena"
     ],
     "PerMapRanking": false,
     "LeaderboardType": 0,
     "RankType": 0,
-    "MapSelect": 0,
+    "MapSelect": 3,
     "GameNetworkType": 0,
     "MaxPlayers": 2,
     "MinPlayers": 1
