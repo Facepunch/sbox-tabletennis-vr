@@ -23,7 +23,7 @@ public partial class Paddle : ModelEntity
 		// cba doing predicted atm
 		if ( !IsServer ) return;
 
-		// TODO: Set position from VR hand
+		var oldTransform = Transform;
 
 		if ( cl.IsUsingVr )
 		{
@@ -31,20 +31,16 @@ public partial class Paddle : ModelEntity
 			Velocity = Input.VR.RightHand.Velocity;
 			AngularVelocity = Input.VR.RightHand.AngularVelocity; // ?
 
-			// Log.Info( Input.VR.RightHand.AngularVelocity );
-
-			DebugOverlay.Line( Input.VR.RightHand.Transform.Position, Input.VR.RightHand.Transform.Position + Input.VR.RightHand.AngularVelocity.Direction );
-
 			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) * Rotation.FromYaw( 180 ) );
 			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
 		}
 
 		if ( Game.Current is not TableTennisGame game ) return;
 		if ( !game.ActiveBall.IsValid() ) return;
-
+		
 		using ( Prediction.Off() )
 		{
-			BallPhysics.PaddleBall( this, game.ActiveBall );
+			BallPhysics.PaddleBall( this, oldTransform, Transform, game.ActiveBall );
 		}
 	}
 
@@ -57,7 +53,17 @@ public partial class Paddle : ModelEntity
 			Transform = Input.VR.RightHand.Transform;
 			Velocity = Input.VR.RightHand.Velocity;
 
-			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) );
+			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) * Rotation.FromYaw( 180 ) );
+			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
 		}
+
+
+		if ( Game.Current is not TableTennisGame game ) return;
+		if ( !game.ActiveBall.IsValid() ) return;
+
+		//
+		// Run our ball physics clientside each frame so it doesn't look like shit
+		//
+		game.ActiveBall.FrameSimulate( cl );
 	}
 }

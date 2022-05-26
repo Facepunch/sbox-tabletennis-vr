@@ -2,16 +2,21 @@
 
 public partial class Ball : ModelEntity
 {
+	public Ball()
+	{
+		Predictable = true;
+	}
+
 	public override void Spawn()
 	{
 		SetModel( "models/tabletennis.ball.vmdl" );
 
 		Particles.Create( "particles/ball_trail/ball_trail.vpcf", this );
 
-		SetupPhysicsFromModel( PhysicsMotionType.Static, false );
+		SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );
 
 		CollisionGroup = CollisionGroup.Debris;
-		EnableTraceAndQueries = false;
+		EnableTraceAndQueries = true;
 
 		PhysicsBody.Mass = BallPhysics.BallMass;
 
@@ -24,5 +29,12 @@ public partial class Ball : ModelEntity
 		if ( !IsServer || !IsValid ) return;
 
 		BallPhysics.Move( this );
+	}
+
+	public override void FrameSimulate( Client cl )
+	{
+		base.FrameSimulate( cl );
+
+		// BallPhysics.Move( this );
 	}
 }

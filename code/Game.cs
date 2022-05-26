@@ -13,7 +13,7 @@ namespace TableTennis;
 
 public partial class TableTennisGame : Game
 {
-	public Ball ActiveBall { get; set; }
+	[Net] public Ball ActiveBall { get; set; }
 
 	public Transform[] AnchorTransforms = new Transform[]
 	{
@@ -49,7 +49,7 @@ public partial class TableTennisGame : Game
 		if ( pawn.Paddle is null ) return;
 
 		DebugOverlay.Sphere( Input.VR.LeftHand.Transform.Position, 3, Color.Blue );
-		if ( Input.VR.LeftHand.ButtonA.WasPressed )
+		if ( Input.VR.LeftHand.ButtonA.WasPressed && IsServer )
 		{
 			SpawnBall();
 			ActiveBall.Position = Input.VR.LeftHand.Transform.Position;

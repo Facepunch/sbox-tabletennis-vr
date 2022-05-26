@@ -38,28 +38,16 @@
 				children = 
 				[
 					{
-						_class = "PhysicsShapeBox"
+						_class = "PhysicsShapeCylinder"
 						parent_bone = ""
 						surface_prop = "rubber"
 						collision_group = ""
 						collision_interact_as = ""
 						collision_interact_with = ""
 						collision_interact_exclude = ""
-						origin = [ 0.0, -0.004228, 5.100449 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 0.7, 6.214395, 6.800899 ]
-					},
-					{
-						_class = "PhysicsShapeBox"
-						parent_bone = ""
-						surface_prop = "wood"
-						collision_group = ""
-						collision_interact_as = ""
-						collision_interact_with = ""
-						collision_interact_exclude = ""
-						origin = [ 0.0, 0.00941, -0.136658 ]
-						angles = [ 0.0, 0.0, 0.0 ]
-						dimensions = [ 0.7, 1.142285, 3.677013 ]
+						radius = 3.4
+						point0 = [ -0.2, 0.0, 5.1 ]
+						point1 = [ 0.2, 0.0, 5.1 ]
 					},
 				]
 			},

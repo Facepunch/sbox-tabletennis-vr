@@ -118,26 +118,22 @@ public static partial class BallPhysics
 		ball.Velocity = velocity;
 	}
 
-	public static void PaddleBall( Paddle paddle, Ball ball )
+	/// <summary>
+	/// Check if the paddle is hitting the ball
+	/// </summary>
+	public static void PaddleBall( Paddle paddle, Transform from, Transform to, Ball ball )
 	{
-		var trace = Trace.Ray( ball.Position, ball.Position + ball.Velocity * Time.Delta )
-			.Radius( BallRadius )
-			.EntitiesOnly()
-			.WithTag( "paddle" )
-			.Run();
+		var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).EntitiesOnly().Ignore( paddle ).Run();
 
-		// Log.Info( $"{ paddle.AngularVelocity }" );
+		if ( !sweep.Hit ) return;
+		if ( sweep.Entity is not Ball ) return;
 
-		if ( !trace.Hit ) return;
-		if ( trace.Entity != paddle ) return;
-
-		// DebugOverlay.Line( trace.StartPosition, trace.EndPosition );
-
-		// DebugOverlay.Sphere( trace.EndPosition, BallDiameter / 2, Color.Red );
-		Sound.FromWorld( "tabletennis.paddle", trace.EndPosition ).SetVolume( 0.5f );
+		Sound.FromWorld( "tabletennis.paddle", sweep.EndPosition ).SetVolume( 0.5f );
 
 		// just typing random shit, we can do this waaaaaaaaaaaaay better
 		var magnitude = paddle.Velocity.Length * 3.0f + ball.Velocity.Length * 0.6f;
-		ball.Velocity = trace.Normal * magnitude;
+		ball.Velocity = sweep.Normal * magnitude;
+
+		DebugOverlay.Line( sweep.EndPosition, sweep.EndPosition + sweep.Normal * 64.0f, 10, false );
 	}
 }

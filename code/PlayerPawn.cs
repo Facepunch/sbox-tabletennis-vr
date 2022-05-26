@@ -1,8 +1,8 @@
 ﻿namespace TableTennis;
 
-public class PlayerPawn : Entity
+public partial class PlayerPawn : Entity
 {
-	public Paddle Paddle { get; set; }
+	[Net] public Paddle Paddle { get; set; }
 
 	public override void Spawn()
 	{
@@ -10,6 +10,7 @@ public class PlayerPawn : Entity
 		Paddle.Owner = this;
 
 		Transmit = TransmitType.Always;
+		Predictable = true;
 	}
 
 	protected override void OnDestroy()
