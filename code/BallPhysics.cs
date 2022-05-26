@@ -138,7 +138,7 @@ public static partial class BallPhysics
 		if ( sweep.Entity is not Ball ) return;
 
 		// get hit position local to the paddle
-		var localHitpos = ( sweep.EndPosition - paddle.Position ) * paddle.Rotation.Inverse;
+		var localHitpos = ( sweep.HitPosition - paddle.Position ) * paddle.Rotation.Inverse;
 
 		// get our velocity at the hit point from the paddle angular velocity ( v = rw )
 		var velocityFromAngular = localHitpos.z * MathX.DegreeToRadian( paddle.AngularVelocity.pitch );
@@ -149,6 +149,6 @@ public static partial class BallPhysics
 		// Probably some shit we can do with the ball mass / paddle mass blah blah, this feels about right for now though
 		ball.Velocity += (paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
 
-		Sound.FromWorld( "tabletennis.paddle", sweep.EndPosition ).SetVolume( ball.Velocity.Length / 300.0f );
+		Sound.FromWorld( "tabletennis.paddle", sweep.HitPosition ).SetVolume( ball.Velocity.Length / 300.0f );
 	}
 }
