@@ -41,6 +41,7 @@ public partial class Paddle : ModelEntity
 		using ( Prediction.Off() )
 		{
 			BallPhysics.PaddleBall( this, oldTransform, Transform, game.ActiveBall );
+			BallPhysics.Move( game.ActiveBall ); // TODO: Do this after all players simulated and not each! ( I don't think tick event is what we want for that.. )
 		}
 	}
 
@@ -64,6 +65,6 @@ public partial class Paddle : ModelEntity
 		//
 		// Run our ball physics clientside each frame so it doesn't look like shit
 		//
-		game.ActiveBall.FrameSimulate( cl );
+		// game.ActiveBall.FrameSimulate( cl );
 	}
 }

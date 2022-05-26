@@ -22,19 +22,4 @@ public partial class Ball : ModelEntity
 
 		Predictable = true;
 	}
-	
-	[Event.Tick]
-	public void Tick()
-	{
-		if ( !IsServer || !IsValid ) return;
-
-		BallPhysics.Move( this );
-	}
-
-	public override void FrameSimulate( Client cl )
-	{
-		base.FrameSimulate( cl );
-
-		// BallPhysics.Move( this );
-	}
 }

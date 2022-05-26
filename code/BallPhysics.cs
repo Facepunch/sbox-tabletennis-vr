@@ -123,17 +123,32 @@ public static partial class BallPhysics
 	/// </summary>
 	public static void PaddleBall( Paddle paddle, Transform from, Transform to, Ball ball )
 	{
+		// Debug linear velocity at points
+		/* for ( float x = 0.0f; x < 8.0f; x++ )
+		{
+			var pos = paddle.Position + (Vector3.Up * x) * paddle.Rotation;
+			DebugOverlay.Sphere( pos, 0.25f, Color.Blue );
+			var v = x * MathX.DegreeToRadian( paddle.AngularVelocity.pitch );
+			DebugOverlay.Line( pos, pos + paddle.Rotation.Forward * v );
+		} */
+
 		var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).EntitiesOnly().Ignore( paddle ).Run();
 
 		if ( !sweep.Hit ) return;
 		if ( sweep.Entity is not Ball ) return;
 
-		Sound.FromWorld( "tabletennis.paddle", sweep.EndPosition ).SetVolume( 0.5f );
+		// get hit position local to the paddle
+		var localHitpos = ( sweep.EndPosition - paddle.Position ) * paddle.Rotation.Inverse;
 
-		// just typing random shit, we can do this waaaaaaaaaaaaay better
-		var magnitude = paddle.Velocity.Length * 3.0f + ball.Velocity.Length * 0.6f;
-		ball.Velocity = sweep.Normal * magnitude;
+		// get our velocity at the hit point from the paddle angular velocity ( v = rw )
+		var velocityFromAngular = localHitpos.z * MathX.DegreeToRadian( paddle.AngularVelocity.pitch );
 
-		DebugOverlay.Line( sweep.EndPosition, sweep.EndPosition + sweep.Normal * 64.0f, 10, false );
+		// Our ball will bounce off this normal a tiny bit (cor is gonna be about 0.15 on rubber?)
+		ball.Velocity = Vector3.Reflect( ball.Velocity.Normal, sweep.Normal ) * ball.Velocity.Length * 0.15f; ;
+
+		// Probably some shit we can do with the ball mass / paddle mass blah blah, this feels about right for now though
+		ball.Velocity += (paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
+
+		Sound.FromWorld( "tabletennis.paddle", sweep.EndPosition ).SetVolume( ball.Velocity.Length / 300.0f );
 	}
 }
