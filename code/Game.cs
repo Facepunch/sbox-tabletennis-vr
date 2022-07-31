@@ -13,6 +13,12 @@ namespace TableTennis;
 
 public partial class TableTennisGame : Game
 {
+	public TableTennisGame()
+	{
+		if ( IsServer )
+			_ = new HudEntity();
+	}
+
 	[Net] public Ball ActiveBall { get; set; }
 
 	public Transform[] AnchorTransforms = new Transform[]
@@ -27,10 +33,10 @@ public partial class TableTennisGame : Game
 	public void BallTimer()
 	{
 		if ( LastSpawn < 10.0f ) return;
-		// SpawnBall();
-		// ActiveBall.Position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		// ActiveBall.Velocity = Vector3.Backward * Rand.Float( 160.0f, 180.0f );
-		// LastSpawn = 0;
+		//SpawnBall();
+		//ActiveBall.Position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		//ActiveBall.Velocity = Vector3.Backward * Rand.Float( 160.0f, 180.0f );
+		//LastSpawn = 0;
 	}
 
 	public override void ClientJoined( Client cl )
