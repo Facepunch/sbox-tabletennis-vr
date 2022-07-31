@@ -15,11 +15,11 @@ public partial class Ball : ModelEntity
 
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );
 
-		CollisionGroup = CollisionGroup.Debris;
 		EnableTraceAndQueries = true;
 
 		PhysicsBody.Mass = BallPhysics.BallMass;
-
 		Predictable = true;
+
+		Tags.Add( "ball" );
 	}
 }

@@ -8,9 +8,7 @@ public partial class Paddle : ModelEntity
 
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );
 
-		CollisionGroup = CollisionGroup.Debris;
 		EnableTraceAndQueries = true;
-
 		Predictable = true;
 
 		Tags.Add( "paddle" );
