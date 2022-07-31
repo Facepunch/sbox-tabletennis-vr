@@ -1,0 +1,9 @@
+ScoreWidget {
+    border-radius: 16px;
+    padding: 15px;
+    flex-direction: column;
+    transition: all 0.25s ease;
+    opacity: 1;
+
+    background-image: linear-gradient( to top, rgba( #0094ff, 1 ), rgba( #005b9d, 1 ) );
+}
