@@ -2,17 +2,25 @@ namespace TableTennis;
 
 public partial class FocusWorldPanel : WorldPanel
 {
-	float forward => 50f;
+	// These panels can define where they'll be relative to the player
+	protected float Forward { get; set; } = 50f;
+	protected float Right { get; set; } = 0;
+	protected float Up { get; set; } = 50f;
+
 	Transform head => Input.VR.Head;
 
 	Vector3 GetWishPosition()
 	{
-		return head.Position + head.Rotation.Forward * forward;
+		return head.Position
+			+ head.Rotation.Forward * Forward
+			+ head.Rotation.Right * Right
+			+ head.Rotation.Up * Up;
 	}
 
 	Rotation GetWishRotation()
 	{
-		return head.Rotation.RotateAroundAxis( Vector3.Right, 180f );
+		// Have the panel face the player's head at all times
+		return Rotation.FromYaw( head.Rotation.Yaw() + 180f );
 	}
 
 	Transform GetFocus()
