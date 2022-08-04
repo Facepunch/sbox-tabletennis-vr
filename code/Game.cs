@@ -41,10 +41,21 @@ public partial class TableTennisGame : Game
 
 	public override void ClientJoined( Client cl )
 	{
-		base.ClientJoined( cl );
-
 		cl.Pawn = new PlayerPawn();
 		cl.Pawn.Transform = AnchorTransforms[cl.Id % 2];
+
+		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.PlayerId}" );
+	}
+
+	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	{
+		if ( cl.Pawn.IsValid() )
+		{
+			cl.Pawn.Delete();
+			cl.Pawn = null;
+		}
+
+		HintWidget.AddMessage( To.Everyone, $"{cl.Name} left", $"avatar:{cl.PlayerId}" );
 	}
 
 	public override void Simulate( Client cl )

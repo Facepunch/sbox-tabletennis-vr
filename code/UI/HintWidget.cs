@@ -2,7 +2,7 @@ namespace TableTennis;
 
 internal class HintWidgetEntry : Panel
 {
-	public HintWidgetEntry( string text, float lifetime = 5f, string icon = null )
+	public HintWidgetEntry( string text, string icon = null, float lifetime = 5f )
 	{
 		if ( !string.IsNullOrEmpty( icon ) )
 		{
@@ -37,9 +37,9 @@ public partial class HintWidget : WorldPanel
 		Current = this;
 	}
 
-	public void AddMessage( string text, float lifetime = 5f, string icon = null )
+	public void AddEntry( string text, string icon = null, float lifetime = 5f )
 	{
-		Canvas.AddChild( new HintWidgetEntry( text, lifetime, icon ) );
+		Canvas.AddChild( new HintWidgetEntry( text, icon, lifetime ) );
 	}
 
 	public override void Tick()
@@ -51,15 +51,28 @@ public partial class HintWidget : WorldPanel
 		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
 	}
 
+	[ConCmd.Client( "tt_addmessage", CanBeCalledFromServer = true )]
+	public static void AddMessage( string message, string icon = null, float lifetime = 5f )
+	{
+		Current.AddEntry( message, icon, lifetime );
+
+		if ( !Global.IsListenServer )
+		{
+			Log.Info( $"{message}" );
+		}
+	}
+
 	[ConCmd.Client( "tt_hinttest" )]
 	public static void HintTest()
 	{
-		Current.AddMessage( "DevulTj joined the game", 5f, "login" );
+		Current.AddEntry( "DevulTj joined", "avatar:76561197973858781" );
+
 		var a = async () =>
 		{
-
+			await GameTask.DelaySeconds( 3f );
+			Current.AddEntry( "Blue scored 10 points", "recommend" );
 			await GameTask.DelaySeconds( 4f );
-			Current.AddMessage( "matt left the game", 5f, "logout" );
+			Current.AddEntry( "matt left", "avatar:76561197996859119" );
 			
 		};
 		_ = a();
