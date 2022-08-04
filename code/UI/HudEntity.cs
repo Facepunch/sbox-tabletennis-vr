@@ -3,6 +3,7 @@ namespace TableTennis;
 public class HudEntity : HudEntity<RootPanel>
 {
 	public ScoreWidget Scores { get; set; }
+	public HintWidget Hints { get; set; }
 
 	public HudEntity()
 	{
@@ -10,5 +11,6 @@ public class HudEntity : HudEntity<RootPanel>
 			return;
 
 		Scores = new ScoreWidget();
+		Hints = new HintWidget();
 	}
 }
