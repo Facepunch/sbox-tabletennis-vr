@@ -4,12 +4,8 @@ Layer0
 {
 	shader "glass.vfx"
 
-	//---- Translucent ----
-	F_ADDITIVE_BLEND 1
-	F_TRANSLUCENT 1
-
 	//---- Ambient Occlusion ----
-	TextureAmbientOcclusion "materials/default/default_ao.tga"
+	TextureAmbientOcclusion "[1.000000 1.000000 1.000000 0.000000]"
 
 	//---- Color ----
 	g_flModelTintAmount "1.000"
@@ -17,9 +13,9 @@ Layer0
 	TextureColor "materials/default/default_color.tga"
 
 	//---- Emissive ----
-	g_flEmissiveEdgeColorFalloff "3.211"
-	g_flEmissiveEdgeColorThickness "0.137"
-	g_flEmissiveStrength "2.074"
+	g_flEmissiveEdgeColorFalloff "3.528"
+	g_flEmissiveEdgeColorThickness "0.000"
+	g_flEmissiveStrength "10.000"
 	g_vEmissiveColor "[0.000000 0.000000 0.000000 0.000000]"
 	g_vEmissiveEdgeColor "[0.000000 0.647059 1.000000 1.000000]"
 
@@ -42,13 +38,13 @@ Layer0
 	g_flDirectionalLightmapStrength "1.000"
 
 	//---- Metalness ----
-	g_flMetalness "0.000"
+	g_flMetalness "1.000"
 
 	//---- Normal ----
 	TextureNormal "materials/default/default_normal.tga"
 
 	//---- Roughness ----
-	TextureRoughness "materials/default/default_rough.tga"
+	TextureRoughness "[0.000000 0.000000 0.000000 0.000000]"
 
 	//---- Texture Coordinates ----
 	g_nScaleTexCoordUByModelScaleAxis "0"
