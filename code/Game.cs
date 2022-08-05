@@ -50,8 +50,8 @@ public partial class TableTennisGame : Game
 	{
 		if ( LastSpawn < 10.0f ) return;
 		//SpawnBall();
-		//ActiveBall.Position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		//ActiveBall.Velocity = Vector3.Backward * Rand.Float( 160.0f, 180.0f );
+		//ActiveBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		//ActiveBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
 		//LastSpawn = 0;
 	}
 
