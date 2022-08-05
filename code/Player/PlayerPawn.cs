@@ -51,7 +51,13 @@ public partial class PlayerPawn : Entity
 		if ( HeadModel.IsValid() )
 		{
 			HeadModel.Position = EyePosition;
-			HeadModel.Rotation = EyeRotation;
+			HeadModel.Rotation = Client.IsUsingVr ? EyeRotation : Rotation;
+
+			var team = Client.GetTeam();
+			if ( team != null )
+			{
+				HeadModel.SceneObject.Attributes.Set( "PlayerColor", team.Color );
+			}
 		}
 	}
 }

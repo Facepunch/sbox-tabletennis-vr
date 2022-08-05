@@ -13,6 +13,8 @@ namespace TableTennis;
 
 public partial class TableTennisGame : Game
 {
+	public static new TableTennisGame Current => Game.Current as TableTennisGame;
+
 	public TableTennisGame()
 	{
 		if ( IsServer )
@@ -80,7 +82,6 @@ public partial class TableTennisGame : Game
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
 		if ( !pawn.Paddle.IsValid() ) return;
 
-		DebugOverlay.Sphere( Input.VR.LeftHand.Transform.Position, 3, Color.Blue );
 		if ( ( Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump ) ) && IsServer )
 		{
 			SpawnBall();

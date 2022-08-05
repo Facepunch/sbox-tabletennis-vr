@@ -71,7 +71,7 @@ public partial class Team : BaseNetworkable
 	{
 		public Red()
 		{
-			Color = Color.Parse( "#EE6352" ) ?? default;
+			Color = Color.Parse( "#D71920" ) ?? default;
 			Name = "Red Team";
 			Anchor = new( new Vector3( 76.0f, 0, 0 ), Rotation.FromYaw( 180 ) );
 			UIAnchor = new( new Vector3( -1.2f, 0f, 33f ), Rotation.FromYaw( 180f ) );
@@ -87,5 +87,18 @@ public partial class Team : BaseNetworkable
 			Anchor = new( new Vector3( -76.0f, 0, 0 ), Rotation.FromYaw( 0 ) );
 			UIAnchor = new( new Vector3( -1.2f, 0f, 33f ), Rotation.FromYaw( 0f ) );
 		}
+	}
+}
+
+public static class ClientExtensions
+{
+	public static Team GetTeam( this Client cl )
+	{
+		var game = TableTennisGame.Current;
+
+		if ( game.BlueTeam.Client == cl )
+			return game.BlueTeam;
+
+		return game.RedTeam;
 	}
 }
