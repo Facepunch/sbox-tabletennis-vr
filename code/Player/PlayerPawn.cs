@@ -58,6 +58,8 @@ public partial class PlayerPawn : Entity
 			{
 				HeadModel.SceneObject.Attributes.Set( "PlayerColor", team.Color );
 			}
+
+			HeadModel.EnableDrawing = CurrentView.Viewer != Client;
 		}
 	}
 }
