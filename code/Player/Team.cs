@@ -74,7 +74,7 @@ public partial class Team : BaseNetworkable
 			Color = Color.Parse( "#D71920" ) ?? default;
 			Name = "Red Team";
 			Anchor = new( new Vector3( 76.0f, 0, 0 ), Rotation.FromYaw( 180 ) );
-			UIAnchor = new( new Vector3( -1.2f, 0f, 33f ), Rotation.FromYaw( 180f ) );
+			UIAnchor = new( new Vector3( -1.2f, 0f, 33f ), Rotation.FromYaw( 0f ) );
 		}
 	}
 
@@ -85,7 +85,7 @@ public partial class Team : BaseNetworkable
 			Color = Color.Parse( "#08B2E3" ) ?? default;
 			Name = "Blue Team";
 			Anchor = new( new Vector3( -76.0f, 0, 0 ), Rotation.FromYaw( 0 ) );
-			UIAnchor = new( new Vector3( -1.2f, 0f, 33f ), Rotation.FromYaw( 0f ) );
+			UIAnchor = new( new Vector3( 1.2f, 0f, 33f ), Rotation.FromYaw( 180f ) );
 		}
 	}
 }

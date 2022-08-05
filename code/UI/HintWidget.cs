@@ -46,9 +46,16 @@ public partial class HintWidget : WorldPanel
 	{
 		base.Tick();
 
-		// TODO - Decide where this is based on what team you're on
-		Position = new Vector3( -1.2f, 0f, 50f );
-		Rotation = Rotation.FromYaw( 180f );
+		var game = TableTennisGame.Current;
+		if ( !game.IsValid() )
+			return;
+
+		var myTeam = Local.Client?.GetTeam();
+		if ( myTeam == null )
+			return;
+
+		Position = myTeam.UIAnchor.Position + Vector3.Up * 17f;
+		Rotation = myTeam.UIAnchor.Rotation;
 		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
 	}
 
