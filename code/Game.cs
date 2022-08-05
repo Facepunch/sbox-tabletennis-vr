@@ -16,16 +16,30 @@ public partial class TableTennisGame : Game
 	public TableTennisGame()
 	{
 		if ( IsServer )
+		{
 			_ = new HudEntity();
+
+			BlueTeam = new Team.Blue();
+			RedTeam = new Team.Red();
+		}
 	}
 
 	[Net] public Ball ActiveBall { get; set; }
 
-	public Transform[] AnchorTransforms = new Transform[]
+	[Net] public Team BlueTeam { get; set; }
+
+	[Net] public Team RedTeam { get; set; }
+
+	public void AddPlayerToTeam( Client cl )
 	{
-		new Transform( new Vector3( 76.0f, 0, 0 ), Rotation.FromYaw( 180 ) ),
-		new Transform( new Vector3( -76.0f, 0, 0 ), Rotation.FromYaw( 0 ) ),
-	};
+		if ( !BlueTeam.TryAdd( cl ) )
+		{
+			if ( !RedTeam.TryAdd( cl ) )
+			{
+				// TODO - Assign spectators
+			}
+		}
+	}
 
 	TimeSince LastSpawn = 0;
 
@@ -42,7 +56,8 @@ public partial class TableTennisGame : Game
 	public override void ClientJoined( Client cl )
 	{
 		cl.Pawn = new PlayerPawn();
-		cl.Pawn.Transform = AnchorTransforms[cl.Id % 2];
+
+		AddPlayerToTeam( cl );
 
 		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.PlayerId}" );
 	}
@@ -63,20 +78,20 @@ public partial class TableTennisGame : Game
 		base.Simulate( cl );
 
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
-		if ( pawn.Paddle is null ) return;
+		if ( !pawn.Paddle.IsValid() ) return;
 
 		DebugOverlay.Sphere( Input.VR.LeftHand.Transform.Position, 3, Color.Blue );
-		if ( Input.VR.LeftHand.ButtonA.WasPressed && IsServer )
+		if ( ( Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump ) ) && IsServer )
 		{
 			SpawnBall();
-			ActiveBall.Position = Input.VR.LeftHand.Transform.Position;
+
+			if ( cl.IsUsingVr )
+				ActiveBall.Position = Input.VR.LeftHand.Transform.Position;
+			else
+				ActiveBall.Position = ActiveBall.Position.WithX( 30.0f ).WithZ( 65 );
 		}
 
 		if ( !ActiveBall.IsValid() ) return;
-
-		cl.Pawn.Transform = AnchorTransforms[cl.Id % 2];
-
-		DebugOverlay.Sphere( cl.Pawn.Transform.Position, 5, Color.Green );
 
 		// Debug for testing
 		if ( !cl.IsUsingVr )
