@@ -11,8 +11,6 @@ public partial class Ball : ModelEntity
 	{
 		SetModel( "models/tabletennis.ball.vmdl" );
 
-		Particles.Create( "particles/ball_trail/ball_trail.vpcf", this );
-
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );
 
 		EnableTraceAndQueries = true;
@@ -21,5 +19,12 @@ public partial class Ball : ModelEntity
 		Predictable = true;
 
 		Tags.Add( "ball" );
+	}
+	public override void OnNewModel( Model model )
+	{
+		base.OnNewModel( model );
+
+		if ( IsClient )
+			Particles.Create( "particles/ball_trail/ball_trail.vpcf", this );
 	}
 }
