@@ -24,8 +24,7 @@ public struct FingerData
 
 	public void DebugLog()
 	{
-		string Realm = Host.IsServer ? "Server" : "Client";
-		Log.Info( $"{Realm}: {Thumb}, {Index}, {Middle}, {Ring}, {Pinky}" );
+		Log.Info( $"{Host.Name}: {Thumb}, {Index}, {Middle}, {Ring}, {Pinky}" );
 	}
 }
 
@@ -80,6 +79,7 @@ public partial class ServeHand : AnimatedEntity
 	{
 		SetAnimParameter( "bGrab", true );
 		SetAnimParameter( "BasePose", 1 );
+		SetAnimParameter( "GrabMode", 1 );
 
 		SetAnimParameter( "FingerCurl_Middle", FingerData.Middle );
 		SetAnimParameter( "FingerCurl_Ring", FingerData.Ring );

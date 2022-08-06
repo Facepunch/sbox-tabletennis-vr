@@ -5,7 +5,8 @@ public partial class PlayerPawn : Entity
 	[Net] public Paddle Paddle { get; set; }
 
 	protected ModelEntity HeadModel { get; set; }
-	protected ServeHand ServeHand { get; set; }
+	
+	[Net, Predicted] protected ServeHand ServeHand { get; set; }
 
 	public override void Spawn()
 	{
