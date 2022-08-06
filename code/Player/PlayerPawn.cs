@@ -5,6 +5,7 @@ public partial class PlayerPawn : Entity
 	[Net] public Paddle Paddle { get; set; }
 
 	protected ModelEntity HeadModel { get; set; }
+	protected ServeHand ServeHand { get; set; }
 
 	public override void Spawn()
 	{
@@ -13,6 +14,8 @@ public partial class PlayerPawn : Entity
 
 		Transmit = TransmitType.Always;
 		Predictable = true;
+
+		ServeHand = new();
 	}
 
 	public override void ClientSpawn()
@@ -27,6 +30,14 @@ public partial class PlayerPawn : Entity
 		Paddle?.Delete();
 	}
 
+	protected Transform GetHandTransform( Client cl )
+	{
+		if ( cl.IsUsingVr )
+			return Input.VR.LeftHand.Transform;
+		else
+			return Transform.WithPosition( EyePosition + EyeRotation.Down * 8f + EyeRotation.Forward * 10f + EyeRotation.Left * 12.5f );
+	}
+
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
@@ -35,7 +46,12 @@ public partial class PlayerPawn : Entity
 			EyePosition = Input.VR.Head.Position;
 		else
 			EyePosition = Position + Vector3.Up * 50f;
-	
+
+		if ( ServeHand.IsValid() )
+		{
+			ServeHand.Transform = GetHandTransform( cl );
+		}
+
 		Paddle?.Simulate( cl );
 	}
 
