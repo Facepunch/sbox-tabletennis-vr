@@ -1,12 +1,12 @@
 namespace TableTennis;
 
-public struct FingerData
+public partial class FingerData : BaseNetworkable
 {
-	public float Index { get; set; }
-	public float Middle { get; set; }
-	public float Ring { get; set; }
-	public float Pinky { get; set; }
-	public float Thumb { get; set; }
+	[Net] public float Index { get; set; }
+	[Net] public float Middle { get; set; }
+	[Net] public float Ring { get; set; }
+	[Net] public float Pinky { get; set; }
+	[Net] public float Thumb { get; set; }
 
 	public bool IsTriggerDown()
 	{
@@ -32,7 +32,7 @@ public partial class ServeHand : AnimatedEntity
 {
 	protected static Material MaterialOverride = Material.Load( "materials/hands/vr_hand.vmat" );
 
-	public FingerData FingerData = new();
+	[Net] public FingerData FingerData { get; set; }
 
 	public ServeHand()
 	{
@@ -43,6 +43,8 @@ public partial class ServeHand : AnimatedEntity
 	{
 		SetModel( "models/hands/alyx_hand_left.vmdl" );
 		Tags.Add( "serve_hand" );
+
+		FingerData = new();
 	}
 
 	public override void OnNewModel( Model model )
