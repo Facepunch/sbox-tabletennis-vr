@@ -32,14 +32,19 @@ public partial class TableTennisGame : Game
 
 	TimeSince LastSpawn = 0;
 
+	[ConVar.Replicated( "tt_debug_ballspawn" )]
+	public static bool BallSpawnDebug { get; set; } = false;
+
 	[Event.Tick.Server]
 	public void BallTimer()
 	{
+		if ( !BallSpawnDebug ) return;
 		if ( LastSpawn < 10.0f ) return;
-		//SpawnBall();
-		//ActiveBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		//ActiveBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
-		//LastSpawn = 0;
+
+		SpawnBall();
+		ActiveBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		ActiveBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
+		LastSpawn = 0;
 	}
 
 	public override void ClientJoined( Client cl )
