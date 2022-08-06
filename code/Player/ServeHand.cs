@@ -77,16 +77,56 @@ public partial class ServeHand : AnimatedEntity
 		Animate();
 	}
 
+	protected void OkSign()
+	{
+		SetAnimParameter( "FingerCurl_Middle", 0f );
+		SetAnimParameter( "FingerCurl_Ring", 0f );
+		SetAnimParameter( "FingerCurl_Pinky", 0f );
+		SetAnimParameter( "FingerCurl_Index", 0.55f );
+		SetAnimParameter( "FingerCurl_Thumb", 0.8f );
+	}
+
+	protected void FlipOff()
+	{
+		SetAnimParameter( "FingerCurl_Middle", 0.2f );
+		SetAnimParameter( "FingerCurl_Ring", 1f );
+		SetAnimParameter( "FingerCurl_Pinky", 1f );
+		SetAnimParameter( "FingerCurl_Index", 1f );
+		SetAnimParameter( "FingerCurl_Thumb", 1f );
+	}
+	
 	private void Animate()
 	{
 		SetAnimParameter( "bGrab", true );
 		SetAnimParameter( "BasePose", 1 );
 		SetAnimParameter( "GrabMode", 1 );
 
-		SetAnimParameter( "FingerCurl_Middle", FingerData.Middle );
-		SetAnimParameter( "FingerCurl_Ring", FingerData.Ring );
-		SetAnimParameter( "FingerCurl_Pinky", FingerData.Pinky );
-		SetAnimParameter( "FingerCurl_Index", FingerData.Index );
-		SetAnimParameter( "FingerCurl_Thumb", FingerData.Thumb );
+		if ( Input.VR.IsKnuckles )
+		{
+			SetAnimParameter( "FingerCurl_Middle", FingerData.Middle );
+			SetAnimParameter( "FingerCurl_Ring", FingerData.Ring );
+			SetAnimParameter( "FingerCurl_Pinky", FingerData.Pinky );
+			SetAnimParameter( "FingerCurl_Index", FingerData.Index );
+			SetAnimParameter( "FingerCurl_Thumb", FingerData.Thumb );
+		}
+		else
+		{
+			if ( FingerData.Index > 0.8f )
+			{
+				OkSign();
+			}
+			else if ( FingerData.Ring > 0.8f )
+			{
+				FlipOff();
+			}
+			else
+			{
+				SetAnimParameter( "FingerCurl_Middle", 1f );
+				SetAnimParameter( "FingerCurl_Ring", 1f );
+				SetAnimParameter( "FingerCurl_Pinky", 1f );
+				SetAnimParameter( "FingerCurl_Index", 1f );
+				SetAnimParameter( "FingerCurl_Thumb", 1f );
+			}
+		}
 	}
 }
