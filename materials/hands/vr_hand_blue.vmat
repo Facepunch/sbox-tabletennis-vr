@@ -1,0 +1,68 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "skin.vfx"
+
+	//---- Animation ----
+	F_MORPH_SUPPORTED 1
+
+	//---- Per-Instance Tint Mask ----
+	F_TINT_MASK 1
+
+	//---- Skin ----
+	F_USE_PER_VERTEX_CURVATURE 1
+
+	//---- Ambient Occlusion ----
+	g_flAmbientOcclusionDirectDiffuse "1.000"
+	g_flAmbientOcclusionDirectSpecular "1.000"
+	g_vAmbientOcclusionColorBleed "[0.000000 0.000000 1.000000 1.000000]"
+	TextureAmbientOcclusion "materials/default/default_ao.tga"
+
+	//---- Color ----
+	g_flModelTintAmount "1.000"
+	g_vColorTint "[1.000000 1.000000 1.000000 0.000000]"
+	TextureColor "[1.000000 1.000000 1.000000 0.000000]"
+	TextureTintMask "materials/default/default.tga"
+
+	//---- Curvature ----
+	g_flCurvatureScale "3.000"
+
+	//---- Face Occlusion ----
+	g_flMouthInteriorBrightnessScale "1.000"
+	TextureInsideMouth "materials/default/default_black_mask.tga"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- Lookup Textures ----
+	g_vAmbientNormalSoftness "[0.000000 0.000000 1.000000 1.000000]"
+	TextureDiffuseFalloff "[0.501961 0.501961 0.501961 0.000000]"
+
+	//---- Normal ----
+	g_flDiffuseNormalBlur "4.000"
+	TextureNormal "materials/default/default_normal.tga"
+
+	//---- Roughness ----
+	TextureRoughness "[1.000000 1.000000 1.000000 0.000000]"
+
+	//---- Specular ----
+	g_flSecondSpecularLobeGlossiness "1.000"
+	g_flSecondSpecularLobeRatio "1.000"
+
+	//---- Texture Coordinates ----
+	g_vTexCoordOffset "[0.000 0.000]"
+	g_vTexCoordScale "[1.000 1.000]"
+
+	//---- Transmission ----
+	g_flTransmissionFalloff "0.000"
+	g_vTransmissionColor "[0.000000 0.000000 1.000000 1.000000]"
+	TextureTransmissiveMask "materials/default/default_trans.tga"
+
+	DynamicParams
+	{
+		g_vAmbientOcclusionColorBleed "Vrhand"
+		g_vAmbientNormalSoftness "Vrhand"
+		g_vTransmissionColor "Vrhand"
+	}
+}

@@ -30,7 +30,8 @@ public partial class FingerData : BaseNetworkable
 
 public partial class ServeHand : AnimatedEntity
 {
-	protected static Material MaterialOverride = Material.Load( "materials/hands/vr_hand.vmat" );
+	protected static Material RedMaterialOverride = Material.Load( "materials/hands/vr_hand.vmat" );
+	protected static Material BlueMaterialOverride = Material.Load( "materials/hands/vr_hand_blue.vmat" );
 
 	[Net] public FingerData FingerData { get; set; }
 	[Net] protected bool UsePresets { get; set; } = true;
@@ -55,8 +56,8 @@ public partial class ServeHand : AnimatedEntity
 
 		if ( IsClient )
 		{
-			Log.Info( $"Material Override: {MaterialOverride.ResourceName}" );
-			SetMaterialOverride( MaterialOverride );
+			var team = Client.GetTeam();
+			SetMaterialOverride( team is Team.Red ? RedMaterialOverride : BlueMaterialOverride );
 		}
 	}
 
