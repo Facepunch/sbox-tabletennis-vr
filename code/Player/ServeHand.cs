@@ -33,6 +33,7 @@ public partial class ServeHand : AnimatedEntity
 	protected static Material MaterialOverride = Material.Load( "materials/hands/vr_hand.vmat" );
 
 	[Net] public FingerData FingerData { get; set; }
+	[Net] protected bool UsePresets { get; set; } = true;
 
 	public ServeHand()
 	{
@@ -66,6 +67,7 @@ public partial class ServeHand : AnimatedEntity
 
 		// Parse finger data
 		FingerData.Parse( Input.VR.LeftHand );
+		UsePresets = Input.VR.IsKnuckles;
 
 		Animate();
 	}
@@ -101,7 +103,7 @@ public partial class ServeHand : AnimatedEntity
 		SetAnimParameter( "BasePose", 1 );
 		SetAnimParameter( "GrabMode", 1 );
 
-		if ( Input.VR.IsKnuckles )
+		if ( !UsePresets )
 		{
 			SetAnimParameter( "FingerCurl_Middle", FingerData.Middle );
 			SetAnimParameter( "FingerCurl_Ring", FingerData.Ring );
