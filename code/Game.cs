@@ -28,21 +28,6 @@ public partial class TableTennisGame : Game
 
 	[Net] public Ball ActiveBall { get; set; }
 
-	[Net] public Team BlueTeam { get; set; }
-
-	[Net] public Team RedTeam { get; set; }
-
-	public void AddPlayerToTeam( Client cl )
-	{
-		if ( !BlueTeam.TryAdd( cl ) )
-		{
-			if ( !RedTeam.TryAdd( cl ) )
-			{
-				// TODO - Assign spectators
-			}
-		}
-	}
-
 	TimeSince LastSpawn = 0;
 
 	[Event.Tick.Server]
