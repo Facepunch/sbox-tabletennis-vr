@@ -2,8 +2,9 @@ namespace TableTennis;
 
 public partial class TableTennisGame
 {
-	public GameState State { get; set; } = GameState.WaitingForPlayers;
-
+	/// <summary>
+	/// Z position that dictates that the ball is below the table, and thus out of bounds.
+	/// </summary>
 	public static float OutOfBoundsZ => 0f;
 
 	/// <summary>
@@ -11,12 +12,18 @@ public partial class TableTennisGame
 	/// A game must be won by two points.
 	/// </summary>
 	public static int MaxPoints => 11;
+	
+	/// <summary>
+	/// The game's state. <see cref="GameState"/> for all available states of play.
+	/// </summary>
+	[Net] public GameState State { get; set; }
 
 	/// <summary>
 	/// The current serve. In table tennis, the person who serves gets alternated evey 2 serves.
 	/// </summary>
 	[Net] public int CurrentServe { get; set; } = 0;
 
+	// Teams
 	[Net] public Team BlueTeam { get; set; }
 	[Net] public Team RedTeam { get; set; }
 
@@ -27,7 +34,7 @@ public partial class TableTennisGame
 		RedTeam.Reset();
 	}
 
-	public void AddPlayerToTeam( Client cl )
+	protected void AddPlayerToTeam( Client cl )
 	{
 		if ( !BlueTeam.TryAdd( cl ) )
 		{
@@ -37,9 +44,9 @@ public partial class TableTennisGame
 			}
 		}
 	}
-
+	
 	[Event.Tick.Server]
-	public void TickGameLoop()
+	protected void TickGameLoop()
 	{
 		var ball = ActiveBall;
 		if ( !ball.IsValid() )
