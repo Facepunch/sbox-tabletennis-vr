@@ -24,6 +24,8 @@ public partial class TableTennisGame : Game
 			BlueTeam = new Team.Blue();
 			RedTeam = new Team.Red();
 		}
+
+		Global.TickRate = 128;
 	}
 
 	[Net] public Ball ActiveBall { get; set; }
