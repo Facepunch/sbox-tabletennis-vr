@@ -34,6 +34,8 @@ public partial class Team : BaseNetworkable
 	/// </summary>
 	public void Reset()
 	{
+		CurrentScore = 0;
+
 		if ( !Client.IsValid() )
 			return;
 	
