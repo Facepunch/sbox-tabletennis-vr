@@ -23,6 +23,12 @@ public partial class TableTennisGame
 	/// </summary>
 	[Net] public int CurrentServe { get; set; } = 0;
 
+	/// <summary>
+	/// The current bounce. When this hits two, we can assume a point will be awarded.
+	/// This is reset when a ball is hit.
+	/// </summary>
+	[Net] public int CurrentBounce { get; set; } = 0;
+
 	// Teams
 	[Net] public Team BlueTeam { get; set; }
 	[Net] public Team RedTeam { get; set; }
@@ -56,5 +62,11 @@ public partial class TableTennisGame
 		{
 			// TODO - The ball hit the floor, let's act on it.
 		}
+	}
+
+	public void OnBallBounce( Ball ball, Vector3 hitPos )
+	{
+		// TODO - Game loop stuff
+		CurrentBounce++;
 	}
 }

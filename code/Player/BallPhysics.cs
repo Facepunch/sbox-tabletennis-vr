@@ -98,6 +98,8 @@ public static partial class BallPhysics
 					// TODO: Different shit depending on surface
 					Sound.FromWorld( "tabletennis.bounce", hitPos );
 					Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf", hitPos );
+
+					TableTennisGame.Current?.OnBallBounce( ball, hitPos );
 				}
 
 				timeLeft -= timeLeft * pm.Fraction;
