@@ -34,6 +34,7 @@ public partial class ServeHand : AnimatedEntity
 
 	[Net] public FingerData FingerData { get; set; }
 	[Net] protected bool UsePresets { get; set; } = true;
+	[Net] public Ball Ball { get; set; }
 
 	public ServeHand()
 	{
@@ -59,15 +60,30 @@ public partial class ServeHand : AnimatedEntity
 		}
 	}
 
+	Vector3 LastPosition;
+	Vector3 VelocityDelta;
+
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
+
+		var cachedPos = LastPosition;
+		LastPosition = Position;
+		VelocityDelta = Position - cachedPos;
 
 		//FingerData.DebugLog();
 
 		// Parse finger data
 		FingerData.Parse( Input.VR.LeftHand );
 		UsePresets = Input.VR.IsKnuckles;
+
+		if ( Ball.IsValid() )
+		{
+			if ( Input.VR.LeftHand.Grip > 0.5f )
+			{
+				DropBall();
+			}
+		}
 
 		Animate();
 	}
@@ -88,6 +104,25 @@ public partial class ServeHand : AnimatedEntity
 		SetAnimParameter( "FingerCurl_Thumb", 0.8f );
 	}
 
+	internal void SetBall( Ball ball )
+	{
+		Ball = ball;
+		ball.Parent = this;
+		ball.Position = Position + Rotation.Forward * 1.35f + Rotation.Right * 1f + Rotation.Up * 1f;
+	}
+
+	const float throwPower = 100f;
+	public void DropBall()
+	{
+		var ball = Ball;
+
+		ball.Parent = null;
+		Ball = null;
+
+		if ( IsServer )
+			ball.Velocity = VelocityDelta * throwPower;
+	}
+
 	protected void FlipOff()
 	{
 		SetAnimParameter( "FingerCurl_Middle", 0.2f );
@@ -102,6 +137,19 @@ public partial class ServeHand : AnimatedEntity
 		SetAnimParameter( "bGrab", true );
 		SetAnimParameter( "BasePose", 1 );
 		SetAnimParameter( "GrabMode", 1 );
+
+		if ( Ball.IsValid() )
+		{
+			var a = 0.5f;
+			SetAnimParameter( "FingerCurl_Middle", a );
+			SetAnimParameter( "FingerCurl_Ring", a );
+			SetAnimParameter( "FingerCurl_Pinky", a );
+			SetAnimParameter( "FingerCurl_Index", a );
+			SetAnimParameter( "FingerCurl_Thumb", a );
+
+			return;
+		}
+
 
 		if ( !UsePresets )
 		{

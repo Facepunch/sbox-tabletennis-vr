@@ -79,7 +79,9 @@ public partial class TableTennisGame : Game
 			SpawnBall();
 
 			if ( cl.IsUsingVr )
-				ActiveBall.Position = Input.VR.LeftHand.Transform.Position;
+			{
+				pawn.ServeHand.SetBall( ActiveBall );
+			}
 			else
 				ActiveBall.Position = ActiveBall.Position.WithX( 30.0f ).WithZ( 65 );
 		}

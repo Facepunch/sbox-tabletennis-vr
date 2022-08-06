@@ -40,6 +40,8 @@ public static partial class BallPhysics
 
 	public static void Move( Ball ball )
 	{
+		if ( ball.Parent.IsValid() ) return;
+
 		var velocity = ball.Velocity;
 		var position = ball.Position;
 

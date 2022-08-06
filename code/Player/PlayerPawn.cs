@@ -6,7 +6,7 @@ public partial class PlayerPawn : Entity
 
 	protected ModelEntity HeadModel { get; set; }
 	
-	[Net, Predicted] protected ServeHand ServeHand { get; set; }
+	[Net, Predicted] public ServeHand ServeHand { get; set; }
 
 	public override void Spawn()
 	{
