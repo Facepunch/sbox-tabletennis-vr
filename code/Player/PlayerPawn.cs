@@ -15,7 +15,10 @@ public partial class PlayerPawn : Entity
 		Transmit = TransmitType.Always;
 		Predictable = true;
 
-		ServeHand = new();
+		ServeHand = new()
+		{
+			Owner = this
+		};
 	}
 
 	public override void ClientSpawn()
@@ -51,6 +54,7 @@ public partial class PlayerPawn : Entity
 		if ( ServeHand.IsValid() )
 		{
 			ServeHand.Transform = GetHandTransform( cl );
+			ServeHand.Simulate( cl );
 		}
 
 		Paddle?.Simulate( cl );
@@ -60,6 +64,11 @@ public partial class PlayerPawn : Entity
 	{
 		base.FrameSimulate( cl );
 		Paddle?.FrameSimulate( cl );
+
+		if ( ServeHand.IsValid() )
+		{
+			ServeHand.FrameSimulate( cl );
+		}
 	}
 
 	[Event.Frame]
