@@ -67,6 +67,15 @@ public partial class TableTennisGame : Game
 	{
 		base.Simulate( cl );
 
+		// TODO - Remove me
+		if ( IsServer )
+		{
+			if ( Input.VR.LeftHand.ButtonB.WasPressed )
+			{
+				ResetGame();
+			}
+		}
+
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
 		if ( !pawn.Paddle.IsValid() ) return;
 
