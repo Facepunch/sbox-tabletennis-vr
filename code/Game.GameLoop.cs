@@ -57,9 +57,10 @@ public partial class TableTennisGame
 		CurrentServe = 0;
 		CurrentBounce = 0;
 		State = GameState.WaitingForPlayers;
-
 		BlueTeam.Reset();
 		RedTeam.Reset();
+
+		HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"database" );
 	}
 
 	protected void CreatePawn( Client cl )
@@ -120,17 +121,27 @@ public partial class TableTennisGame
 
 	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface )
 	{
+		if ( State == GameState.Serving )
+		{
+			// Give the ball back to the player who fucked up their serve
+			GiveServingBall( ServingTeam.Client );
+
+			HintWidget.AddMessage( To.Single( ServingTeam.Client ), "Hit the ball with your paddle to serve.", $"sports_tennis" );
+
+			return;
+		}
+
 		// We only care about ball bounce events when we're in play.
 		if ( State != GameState.Playing )
 			return;
 
 		// TODO - Better way to check the table?
-		if ( surface.ResourcePath != "tabletennis.tabletop_wood" )
+	    /* if ( surface.ResourcePath != "tabletennis.tabletop_wood" )
 		{
 			// TODO - the person who last hit the ball loses here, they hit the floor or some shit
 
 			return;
-		}
+		} */
 
 		CurrentBounce++;
 
@@ -183,6 +194,8 @@ public partial class TableTennisGame
 		{
 			if ( newState == GameState.WaitingForPlayers )
 			{
+				ActiveBall?.Delete();
+				
 				if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 				{
 					State = GameState.Serving;
@@ -212,10 +225,10 @@ public partial class TableTennisGame
 	[Event.Tick.Server]
 	protected void GameStateDebug()
 	{
-		DebugOverlay.ScreenText( $"Game State: {State}", 0 );
-		DebugOverlay.ScreenText( $"Current bounce: {CurrentBounce}", 2 );
-		DebugOverlay.ScreenText( $"Current serve: {CurrentServe}", 3 );
-		DebugOverlay.ScreenText( $"Serving team: {ServingTeam?.Name ?? "nobody"}", 4 );
-		DebugOverlay.ScreenText( $"Last ball hitter: {LastHitter?.Client?.Name ?? "nobody"}", 5 );
+		DebugOverlay.Text( $"Game State: {State}", Vector3.Zero );
+		DebugOverlay.Text( $"Current bounce: {CurrentBounce}", Vector3.Zero + Vector3.Down * 8f );
+		DebugOverlay.Text( $"Current serve: {CurrentServe}", Vector3.Zero + Vector3.Down * 16f );
+		DebugOverlay.Text( $"Serving team: {ServingTeam?.Name ?? "nobody"}", Vector3.Zero + Vector3.Down * 24f );
+		DebugOverlay.Text( $"Last ball hitter: {LastHitter?.Client?.Name ?? "nobody"}", Vector3.Zero + Vector3.Down * 32f );
 	}
 }
