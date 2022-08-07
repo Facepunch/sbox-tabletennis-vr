@@ -5,7 +5,7 @@ public partial class TableTennisGame
 	/// <summary>
 	/// Z position that dictates that the ball is below the table, and thus out of bounds.
 	/// </summary>
-	public static float OutOfBoundsZ => 0f;
+	public static float OutOfBoundsZ => 20f;
 
 	/// <summary>
 	/// A game of table tennis has a total of 11 points.
@@ -24,6 +24,7 @@ public partial class TableTennisGame
 		set
 		{
 			if ( DebugNoFlow ) return;
+			if ( value == _state ) return;
 
 			var oldState = _state;
 			_state = value;
@@ -49,6 +50,14 @@ public partial class TableTennisGame
 	[Net] public Team BlueTeam { get; set; }
 	[Net] public Team RedTeam { get; set; }
 
+	public Team GetOppositeTeam( Team team )
+	{
+		if ( team == BlueTeam )
+			return RedTeam;
+
+		return BlueTeam;
+	}
+
 	public Team ServingTeam { get; set; }
 
 	public void ResetGame()
@@ -57,10 +66,10 @@ public partial class TableTennisGame
 		CurrentServe = 0;
 		CurrentBounce = 0;
 		State = GameState.WaitingForPlayers;
-		BlueTeam.Reset();
-		RedTeam.Reset();
+		BlueTeam?.Reset();
+		RedTeam?.Reset();
 
-		HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"database" );
+		HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"info" );
 	}
 
 	protected void CreatePawn( Client cl )
@@ -113,21 +122,34 @@ public partial class TableTennisGame
 		if ( !ball.IsValid() )
 			return;
 
-		if ( ball.Position.z <= OutOfBoundsZ )
+		if ( State == GameState.Playing )
 		{
-			// TODO - The ball hit the floor, let's act on it.
+			if ( ball.Position.z <= OutOfBoundsZ )
+			{
+				if ( CurrentBounce > 1f && CurrentBounce <= 2f && LastHitter != null )
+				{
+					LastHitter.CurrentScore++;
+				}
+				else
+				{
+					GetOppositeTeam( LastHitter ).CurrentScore++;
+				}
+
+				State = GameState.Serving;
+			}
 		}
+	}
+
+	public void DecideServeWinner()
+	{
+		
 	}
 
 	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface )
 	{
 		if ( State == GameState.Serving )
 		{
-			// Give the ball back to the player who fucked up their serve
 			GiveServingBall( ServingTeam.Client );
-
-			HintWidget.AddMessage( To.Single( ServingTeam.Client ), "Hit the ball with your paddle to serve.", $"sports_tennis" );
-
 			return;
 		}
 
@@ -148,6 +170,9 @@ public partial class TableTennisGame
 		if ( CurrentBounce == 2f )
 		{
 			var winner = GetBounceWinner( ball, hitPos );
+
+			State = GameState.Serving;
+			
 			if ( winner != null )
 			{
 				winner.CurrentScore++;
@@ -156,11 +181,14 @@ public partial class TableTennisGame
 		}
 	}
 
-	[Net] public PlayerPawn LastHitter { get; set; }
+	[Net] public Team LastHitter { get; set; }
+	[Net] public TimeSince SinceLastHit { get; set; }
 	
 	public void OnPaddleHit( Paddle paddle, Ball ball )
 	{
-		LastHitter = paddle.Owner as PlayerPawn;
+		var pawn = paddle.Owner as PlayerPawn;
+		LastHitter = pawn.GetTeam();
+		SinceLastHit = 0;
 
 		// TODO - Second hit of the paddle needs to have bounced at least once, otherwise it's illegal
 		if ( State == GameState.Serving )
@@ -204,6 +232,9 @@ public partial class TableTennisGame
 
 			if ( newState == GameState.Serving )
 			{
+				CurrentBounce = 0;
+				LastHitter = null;
+
 				if ( CurrentServe % 2 == 0 )
 				{
 					SetServingTeam( ServingTeam == BlueTeam ? RedTeam : BlueTeam );

@@ -1,7 +1,12 @@
 namespace TableTennis;
 
-public partial class Team : BaseNetworkable
+public partial class Team : Entity
 {
+	public Team()
+	{
+		Transmit = TransmitType.Always;
+	}
+
 	// Networkable data
 	[Net] public Client Client { get; set; }
 	[Net] public int CurrentScore { get; set; }

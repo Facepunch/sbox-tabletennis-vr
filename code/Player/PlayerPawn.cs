@@ -96,4 +96,6 @@ public partial class PlayerPawn : Entity
 			HeadModel.EnableDrawing = CurrentView.Viewer != Client;
 		}
 	}
+
+	public Team GetTeam() => Client.GetTeam();
 }

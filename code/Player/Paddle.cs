@@ -35,11 +35,14 @@ public partial class Paddle : ModelEntity
 
 		if ( Game.Current is not TableTennisGame game ) return;
 		if ( !game.ActiveBall.IsValid() ) return;
-		
+
+		if ( TableTennisGame.SimulatedPhysicsThisTickHack ) return;
+
 		using ( Prediction.Off() )
 		{
 			BallPhysics.PaddleBall( this, oldTransform, Transform, game.ActiveBall );
 			BallPhysics.Move( game.ActiveBall ); // TODO: Do this after all players simulated and not each! ( I don't think tick event is what we want for that.. )
+			TableTennisGame.SimulatedPhysicsThisTickHack = true;
 		}
 	}
 
