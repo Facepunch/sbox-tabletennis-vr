@@ -28,7 +28,6 @@ public partial class Team : BaseNetworkable
 	/// </summary>
 	public Transform UIAnchor { get; set; }
 
-
 	/// <summary>
 	/// Resets the player's anchor position, and anything else we might want to reset.
 	/// </summary>

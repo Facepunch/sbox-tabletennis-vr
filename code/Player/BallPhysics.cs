@@ -101,7 +101,7 @@ public static partial class BallPhysics
 					Sound.FromWorld( "tabletennis.bounce", hitPos );
 					Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf", hitPos );
 
-					TableTennisGame.Current?.OnBallBounce( ball, hitPos );
+					TableTennisGame.Current?.OnBallBounce( ball, hitPos, pm.Surface );
 				}
 
 				timeLeft -= timeLeft * pm.Fraction;
@@ -154,5 +154,7 @@ public static partial class BallPhysics
 		ball.Velocity += (paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
 
 		Sound.FromWorld( "tabletennis.paddle", sweep.HitPosition ).SetVolume( ball.Velocity.Length / 300.0f );
+
+		TableTennisGame.Current?.OnPaddleHit( paddle, ball );
 	}
 }

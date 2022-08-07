@@ -64,9 +64,41 @@ public partial class TableTennisGame
 		}
 	}
 
-	public void OnBallBounce( Ball ball, Vector3 hitPos )
+	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface )
 	{
-		// TODO - Game loop stuff
+		// We only care about ball bounce events when we're in play.
+		if ( State != GameState.Playing )
+			return;
+
+		// TODO - Better way to check the table?
+		if ( surface.ResourcePath != "tabletennis.tabletop_wood" )
+			return;
+
 		CurrentBounce++;
+
+		if ( CurrentBounce == 2f )
+		{
+			var winner = GetBounceWinner( ball, hitPos );
+			// TODO - Progress game state, award points
+		}
+	}
+
+	public void OnPaddleHit( Paddle paddle, Ball ball )
+	{
+		// TODO - Second hit of the paddle needs to have bounced at least once, otherwise it's illegal
+	}
+
+	public Team GetBounceWinner( Ball ball, Vector3 hitPos )
+	{
+		// TODO - Do this better, support multiple tables in the future?
+		var tableX = 0f;
+
+		if ( hitPos.x < tableX - 1f )
+			return RedTeam;
+		else if ( hitPos.x > tableX + 1f )
+			return BlueTeam;
+
+		// No winner, maybe hit the net?
+		return null;
 	}
 }
