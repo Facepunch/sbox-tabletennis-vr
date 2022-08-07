@@ -30,23 +30,6 @@ public partial class TableTennisGame : Game
 
 	[Net] public Ball ActiveBall { get; set; }
 
-	TimeSince LastSpawn = 0;
-
-	[ConVar.Replicated( "tt_debug_ballspawn" )]
-	public static bool BallSpawnDebug { get; set; } = false;
-
-	[Event.Tick.Server]
-	public void BallTimer()
-	{
-		if ( !BallSpawnDebug ) return;
-		if ( LastSpawn < 10.0f ) return;
-
-		SpawnBall();
-		ActiveBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		ActiveBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
-		LastSpawn = 0;
-	}
-
 	public override void ClientJoined( Client cl )
 	{
 		cl.Pawn = new PlayerPawn();
@@ -89,11 +72,10 @@ public partial class TableTennisGame : Game
 		if ( !ActiveBall.IsValid() ) return;
 
 		// Debug for testing
-		if ( !cl.IsUsingVr )
+		if ( BallSpawnDebug )
 		{
+			DebugPaddle = pawn.Paddle;
 			pawn.Paddle.Position = ActiveBall.Position.WithX( 62.0f ).WithZ( 35 );
-			pawn.Paddle.Rotation = Rotation.FromRoll( 80 ) * Rotation.FromYaw( 30 );
-			 
 			pawn.Paddle.Position += Vector3.Left * 5.0f;
 		}
 	}
