@@ -32,11 +32,7 @@ public partial class TableTennisGame : Game
 
 	public override void ClientJoined( Client cl )
 	{
-		cl.Pawn = new PlayerPawn();
-
-		AddPlayerToTeam( cl );
-
-		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.PlayerId}" );
+		SetupPlayer( cl );
 	}
 
 	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
@@ -45,9 +41,26 @@ public partial class TableTennisGame : Game
 		{
 			cl.Pawn.Delete();
 			cl.Pawn = null;
+
+			// Clear the player's team data
+			cl.GetTeam()?.Reset();
 		}
 
 		HintWidget.AddMessage( To.Everyone, $"{cl.Name} left", $"avatar:{cl.PlayerId}" );
+	}
+
+	/// <summary>
+	/// Gives a client's pawn the ability to serve the active ball.
+	/// </summary>
+	/// <param name="cl"></param>
+	public void GiveServingBall( Client cl )
+	{
+		if ( cl.Pawn is not PlayerPawn pawn ) 
+			return;
+		
+		SpawnBall();
+
+		pawn.ServeHand.SetBall( ActiveBall );
 	}
 
 	public override void Simulate( Client cl )
@@ -57,22 +70,18 @@ public partial class TableTennisGame : Game
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
 		if ( !pawn.Paddle.IsValid() ) return;
 
-		if ( ( Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump ) ) && IsServer )
+		if ( IsServer && DebugSpawnBallAlways )
 		{
-			SpawnBall();
-
-			if ( cl.IsUsingVr )
-			{
-				pawn.ServeHand.SetBall( ActiveBall );
-			}
-			else
-				ActiveBall.Position = ActiveBall.Position.WithX( 30.0f ).WithZ( 65 );
+			var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
+			if ( spawnButtonPressed )
+				GiveServingBall( cl );
 		}
 
-		if ( !ActiveBall.IsValid() ) return;
+		if ( !ActiveBall.IsValid() )
+			return;
 
 		// Debug for testing
-		if ( BallSpawnDebug )
+		if ( DebugBallPhysics )
 		{
 			DebugPaddle = pawn.Paddle;
 			pawn.Paddle.Position = ActiveBall.Position.WithX( 62.0f ).WithZ( 35 );
@@ -84,6 +93,8 @@ public partial class TableTennisGame : Game
 	{
 		if ( ActiveBall.IsValid() ) ActiveBall.Delete();
 		ActiveBall = new Ball();
+
+		Log.Info( $"{Host.Name} ball: {ActiveBall}" );
 	}
 
 	public override CameraSetup BuildCamera( CameraSetup camSetup )
@@ -93,7 +104,7 @@ public partial class TableTennisGame : Game
 		if ( LastCamera != cam )
 		{
 			LastCamera?.Deactivated();
-			LastCamera = cam as CameraMode;
+			LastCamera = cam;
 			LastCamera?.Activated();
 		}
 
@@ -108,8 +119,6 @@ public partial class TableTennisGame : Game
 		}
 
 		PostCameraSetup( ref camSetup );
-
-		// VR.Anchor = VR.Anchor.WithPosition( new Vector3( -72.0f, 0, 0.0f ) );
 
 		return camSetup;
 	}

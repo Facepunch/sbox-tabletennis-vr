@@ -32,7 +32,14 @@ public partial class PlayerPawn : Entity
 	protected override void OnDestroy()
 	{
 		if ( IsServer )
+		{
 			Paddle?.Delete();
+			ServeHand?.Delete();
+		}
+		else
+		{
+			HeadModel?.Delete();
+		}
 	}
 
 	protected Transform GetHandTransform( Client cl )

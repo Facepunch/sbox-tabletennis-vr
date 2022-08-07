@@ -16,7 +16,23 @@ public partial class TableTennisGame
 	/// <summary>
 	/// The game's state. <see cref="GameState"/> for all available states of play.
 	/// </summary>
-	[Net] public GameState State { get; set; }
+	[Net, Change( "OnStateChanged" )] private GameState _state { get; set; }
+
+	public GameState State
+	{
+		get => _state;
+		set
+		{
+			if ( DebugNoFlow ) return;
+
+			var oldState = _state;
+			_state = value;
+
+			Log.Info( $"{Host.Name}: Game state has changed from {oldState} to {_state}" );
+
+			OnStateChanged( oldState, _state );
+		}
+	}
 
 	/// <summary>
 	/// The current serve. In table tennis, the person who serves gets alternated evey 2 serves.
@@ -33,15 +49,23 @@ public partial class TableTennisGame
 	[Net] public Team BlueTeam { get; set; }
 	[Net] public Team RedTeam { get; set; }
 
+	public Team ServingTeam { get; set; }
+
 	public void ResetGame()
 	{
+		ServingTeam = null;
 		CurrentServe = 0;
+		CurrentBounce = 0;
+		State = GameState.WaitingForPlayers;
+
 		BlueTeam.Reset();
 		RedTeam.Reset();
 	}
 
-	protected void AddPlayerToTeam( Client cl )
+	protected void CreatePawn( Client cl )
 	{
+		cl.Pawn = new PlayerPawn();
+
 		if ( !BlueTeam.TryAdd( cl ) )
 		{
 			if ( !RedTeam.TryAdd( cl ) )
@@ -49,8 +73,38 @@ public partial class TableTennisGame
 				// TODO - Assign spectators
 			}
 		}
+
+		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.PlayerId}" );
+
+		if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
+		{
+			State = GameState.Serving;
+		}
 	}
-	
+
+	protected void SetupPlayer( Client cl )
+	{
+		if ( DebugNoFlow )
+		{
+			CreatePawn( cl );
+			return;
+		}
+
+		// Non-VR players can't play Table Tennis - only watch.
+		// Circumvented if Debug Mode is enabled
+		// TODO - Turn this off when ready to release.
+		if ( false /*!cl.IsUsingVr*/ )
+		{
+			// TODO - Make the player a Spectator
+			// cl.Pawn = new SpectatorPawn();
+			Log.Info( $"{cl.Name} (Vr: {cl.IsUsingVr}) joined as a spectator" );
+			
+			return;
+		}
+
+		CreatePawn( cl );
+	}
+
 	[Event.Tick.Server]
 	protected void TickGameLoop()
 	{
@@ -72,20 +126,36 @@ public partial class TableTennisGame
 
 		// TODO - Better way to check the table?
 		if ( surface.ResourcePath != "tabletennis.tabletop_wood" )
+		{
+			// TODO - the person who last hit the ball loses here, they hit the floor or some shit
+
 			return;
+		}
 
 		CurrentBounce++;
 
 		if ( CurrentBounce == 2f )
 		{
 			var winner = GetBounceWinner( ball, hitPos );
-			// TODO - Progress game state, award points
+			if ( winner != null )
+			{
+				winner.CurrentScore++;
+				State = GameState.Serving;
+			}
 		}
 	}
 
+	[Net] public PlayerPawn LastHitter { get; set; }
+	
 	public void OnPaddleHit( Paddle paddle, Ball ball )
 	{
+		LastHitter = paddle.Owner as PlayerPawn;
+
 		// TODO - Second hit of the paddle needs to have bounced at least once, otherwise it's illegal
+		if ( State == GameState.Serving )
+		{
+			State = GameState.Playing;
+		}
 	}
 
 	public Team GetBounceWinner( Ball ball, Vector3 hitPos )
@@ -100,5 +170,52 @@ public partial class TableTennisGame
 
 		// No winner, maybe hit the net?
 		return null;
+	}
+
+	/// <summary>
+	/// Called on server & client when the game state changes.
+	/// </summary>
+	/// <param name="oldState"></param>
+	/// <param name="newState"></param>
+	public void OnStateChanged( GameState oldState, GameState newState )
+	{
+		if ( IsServer )
+		{
+			if ( newState == GameState.WaitingForPlayers )
+			{
+				if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
+				{
+					State = GameState.Serving;
+				}
+			}
+
+			if ( newState == GameState.Serving )
+			{
+				if ( CurrentServe % 2 == 0 )
+				{
+					SetServingTeam( ServingTeam == BlueTeam ? RedTeam : BlueTeam );
+				}
+
+				CurrentServe++;
+			}
+		}
+	}
+
+	protected void SetServingTeam( Team team )
+	{
+		if ( State != GameState.Serving ) return;
+
+		ServingTeam = team;
+		GiveServingBall( team.Client );
+	}
+
+	[Event.Tick.Server]
+	protected void GameStateDebug()
+	{
+		DebugOverlay.ScreenText( $"Game State: {State}", 0 );
+		DebugOverlay.ScreenText( $"Current bounce: {CurrentBounce}", 2 );
+		DebugOverlay.ScreenText( $"Current serve: {CurrentServe}", 3 );
+		DebugOverlay.ScreenText( $"Serving team: {ServingTeam?.Name ?? "nobody"}", 4 );
+		DebugOverlay.ScreenText( $"Last ball hitter: {LastHitter?.Client?.Name ?? "nobody"}", 5 );
 	}
 }

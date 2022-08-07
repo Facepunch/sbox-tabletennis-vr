@@ -5,19 +5,28 @@ public partial class TableTennisGame
 	TimeSince LastSpawn = 0;
 	Paddle DebugPaddle;
 
-	[ConVar.Replicated( "tt_debug_ballspawn" )]
-	public static bool BallSpawnDebug { get; set; } = false;
+	/// <summary>
+	/// Debug Mode disables the default game flow.
+	/// Only use it if you wish to fuck about and test game features.
+	/// </summary>
+	public static bool DebugNoFlow => false;
 
-	[ConVar.Replicated( "tt_debug_ballspawnthrow" )]
+	[ConVar.Server( "tt_debug_physics_test" )]
+	public static bool DebugBallPhysics { get; set; } = false;
+
+	[ConVar.Server( "tt_debug_spawn_ball" )]
+	public static bool DebugSpawnBallAlways { get; set; } = false;
+
+	[ConVar.Server( "tt_debug_ballspawnthrow" )]
 	public static int BallSpawnThrowResponse { get; set; } = 1;
 
-	[ConVar.Replicated( "tt_debug_ballspawntime" )]
+	[ConVar.Server( "tt_debug_ballspawntime" )]
 	public static int BallSpawnTime { get; set; } = 3;
 
 	[Event.Tick.Server]
 	public void BallTimer()
 	{
-		if ( !BallSpawnDebug ) return;
+		if ( !DebugBallPhysics ) return;
 
 		// Don't worry about this code getting ugly as shit
 
