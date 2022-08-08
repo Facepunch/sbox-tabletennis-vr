@@ -80,7 +80,7 @@ public partial class ServeHand : AnimatedEntity
 
 		if ( Ball.IsValid() )
 		{
-			if ( Input.VR.LeftHand.Grip > 0.5f )
+			if ( Input.VR.LeftHand.Grip >= 0.9f )
 			{
 				DropBall();
 			}
