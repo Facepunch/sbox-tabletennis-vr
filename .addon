@@ -6,7 +6,9 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "ResourcePaths": null,
+  "ResourcePaths": [
+    "/code/ui/*"
+  ],
   "HasCode": true,
   "CodePath": "/code/",
   "RootNamespace": "TableTennis",
@@ -15,13 +17,13 @@
       "facepunch.tt_arena"
     ],
     "PerMapRanking": false,
-    "LeaderboardType": "None",
-    "RankType": "None",
+    "LeaderboardType": "Ascending",
+    "RankType": "Elo",
     "MapSelect": "Hidden",
     "GameNetworkType": "Multiplayer",
     "MaxPlayers": 2,
     "MinPlayers": 1,
-    "GameCategory": "None",
+    "GameCategory": "Sports",
     "ControlModes": {
       "VR": true
     },
