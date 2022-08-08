@@ -28,6 +28,8 @@ public partial class TableTennisGame : Game
 			RedTeam = new Team.Red();
 		}
 
+		Audio.ReverbScale = 3f;
+		Audio.ReverbVolume = 3f;
 		Global.TickRate = 128;
 	}
 
