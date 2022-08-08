@@ -245,6 +245,14 @@ public partial class TableTennisGame
 		}
 	}
 
+	internal string GetPaddleSound()
+	{
+		if ( LastHitter == null )
+			return "tabletennis.serve";
+
+		return "tabletennis.paddle";
+	}
+
 	protected void SetServingTeam( Team team )
 	{
 		if ( State != GameState.Serving ) return;

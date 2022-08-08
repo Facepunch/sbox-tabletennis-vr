@@ -153,7 +153,7 @@ public static partial class BallPhysics
 		// Probably some shit we can do with the ball mass / paddle mass blah blah, this feels about right for now though
 		ball.Velocity += (paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
 
-		Sound.FromWorld( "tabletennis.paddle", sweep.HitPosition ).SetVolume( ball.Velocity.Length / 300.0f );
+		Sound.FromWorld( TableTennisGame.Current?.GetPaddleSound(), sweep.HitPosition ).SetVolume( ball.Velocity.Length / 50f );
 
 		TableTennisGame.Current?.OnPaddleHit( paddle, ball );
 	}
