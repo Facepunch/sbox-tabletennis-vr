@@ -126,13 +126,13 @@ public partial class TableTennisGame
 		{
 			if ( ball.Position.z <= OutOfBoundsZ )
 			{
-				if ( CurrentBounce > 1f && CurrentBounce <= 2f && LastHitter != null )
+				if ( CurrentBounce == 1f && LastHitter != null )
 				{
-					LastHitter.CurrentScore++;
+					LastHitter.ScorePoint();
 				}
 				else
 				{
-					GetOppositeTeam( LastHitter ).CurrentScore++;
+					GetOppositeTeam( LastHitter ).ScorePoint();
 				}
 
 				State = GameState.Serving;
@@ -175,7 +175,7 @@ public partial class TableTennisGame
 			
 			if ( winner != null )
 			{
-				winner.CurrentScore++;
+				winner.ScorePoint();
 				State = GameState.Serving;
 			}
 		}

@@ -8,8 +8,14 @@ public partial class Team : Entity
 	}
 
 	// Networkable data
-	[Net] public Client Client { get; set; }
-	[Net] public int CurrentScore { get; set; }
+	[Net] public new Client Client { get; set; }
+	[Net] public int CurrentScore { get; protected set; }
+
+	public void ScorePoint()
+	{
+		CurrentScore++;
+		HintWidget.AddMessage( To.Everyone, $"{Name} scored", $"sports_score" );
+	}
 
 	/// <summary>
 	/// The team's color, used for UI elements mainly.
