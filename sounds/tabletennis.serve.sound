@@ -2,9 +2,18 @@
 {
 	data = 
 	{
-		sounds = 
+		UI = false
+		Volume = 1
+		VolumeRandom = 0
+		Pitch = 1
+		PitchRandom = 0
+		Decibels = 105
+		Sounds = 
 		[
-			"sounds/tabletennis.serve.vsnd",
+			resource:"sounds/tabletennis.serve.vsnd",
 		]
+		SelectionMode = "Random"
+		MaximumDistance = 2533.85
+		MinimumDistance = 126.692505
 	}
 }

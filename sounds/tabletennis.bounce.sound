@@ -2,16 +2,18 @@
 {
 	data = 
 	{
-		sounds = 
+		UI = false
+		Volume = 1
+		VolumeRandom = 0
+		Pitch = 1
+		PitchRandom = 0.1
+		Decibels = 105
+		Sounds = 
 		[
-			"sounds/tabletennis.bounce.mp3",
+			resource:"sounds/tabletennis.bounce.vsnd",
 		]
-		ui = false
-		volume = 1.0
-		volumerandom = 0.0
-		pitch = 1.0
-		pitchrandom = 0.1
-		distancemax = 360.0
-		selectionmode = "3"
+		SelectionMode = "Random"
+		MaximumDistance = 2533.85
+		MinimumDistance = 126.692505
 	}
 }
