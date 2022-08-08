@@ -133,4 +133,13 @@ public partial class TableTennisGame : Game
 
 		return camSetup;
 	}
+
+	[Event.Tick.Server]
+	protected void SimulateBall()
+	{
+		if ( !ActiveBall.IsValid() ) return;
+		
+		// I moved this into server tick FOR NOW. This is temporary.
+		BallPhysics.Move( ActiveBall );
+	}
 }
