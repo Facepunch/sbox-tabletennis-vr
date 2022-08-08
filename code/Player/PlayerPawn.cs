@@ -55,7 +55,10 @@ public partial class PlayerPawn : Entity
 		base.Simulate( cl );
 
 		if ( cl.IsUsingVr )
+		{
 			EyePosition = Input.VR.Head.Position;
+			EyeRotation = Input.VR.Head.Rotation;
+		}
 		else
 			EyePosition = Position + Vector3.Up * 50f;
 
@@ -85,7 +88,7 @@ public partial class PlayerPawn : Entity
 		if ( HeadModel.IsValid() )
 		{
 			HeadModel.Position = EyePosition;
-			HeadModel.Rotation = Client.IsUsingVr ? EyeRotation : Rotation;
+			HeadModel.Rotation = EyeRotation;
 
 			var team = Client.GetTeam();
 			if ( team != null )
