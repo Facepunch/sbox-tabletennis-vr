@@ -15,9 +15,6 @@ public partial class TableTennisGame : Game
 {
 	public static new TableTennisGame Current => Game.Current as TableTennisGame;
 
-	// TODO - Kill this ASAP
-	public static bool SimulatedPhysicsThisTickHack = false;
-
 	public TableTennisGame()
 	{
 		if ( IsServer )
@@ -66,13 +63,6 @@ public partial class TableTennisGame : Game
 		SpawnBall();
 
 		pawn.ServeHand.SetBall( ActiveBall );
-	}
-
-	[Event.Tick.Server]
-	protected void PhysicsHack()
-	{
-		// TODO - Delete me when physics fixed
-		SimulatedPhysicsThisTickHack = false;
 	}
 
 	public override void Simulate( Client cl )
