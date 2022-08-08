@@ -23,6 +23,9 @@ public partial class TableTennisGame
 	[ConVar.Server( "tt_debug_ballspawntime" )]
 	public static int BallSpawnTime { get; set; } = 3;
 
+	[ConVar.Server( "tt_debug_gamestate" )]
+	public static bool DebugGameState { get; set; } = false;
+
 	[Event.Tick.Server]
 	public void BallTimer()
 	{

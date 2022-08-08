@@ -264,6 +264,9 @@ public partial class TableTennisGame
 	[Event.Tick.Server]
 	protected void GameStateDebug()
 	{
+		if ( !DebugGameState )
+			return;
+
 		DebugOverlay.Text( $"Game State: {State}", Vector3.Zero );
 		DebugOverlay.Text( $"Current bounce: {CurrentBounce}", Vector3.Zero + Vector3.Down * 8f );
 		DebugOverlay.Text( $"Current serve: {CurrentServe}", Vector3.Zero + Vector3.Down * 16f );
