@@ -140,13 +140,9 @@ public partial class TableTennisGame
 		}
 	}
 
-	public void DecideServeWinner()
-	{
-		
-	}
-
 	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface )
 	{
+		// If the ball bounces while we're serving, the player threw the ball and didn't hit it
 		if ( State == GameState.Serving )
 		{
 			GiveServingBall( ServingTeam.Client );
@@ -156,14 +152,6 @@ public partial class TableTennisGame
 		// We only care about ball bounce events when we're in play.
 		if ( State != GameState.Playing )
 			return;
-
-		// TODO - Better way to check the table?
-	    /* if ( surface.ResourcePath != "tabletennis.tabletop_wood" )
-		{
-			// TODO - the person who last hit the ball loses here, they hit the floor or some shit
-
-			return;
-		} */
 
 		CurrentBounce++;
 

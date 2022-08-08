@@ -9,6 +9,7 @@ public partial class ScoreWidget : WorldPanel
 	Vector2 Size => new( 1200, 64 );
 	public ScoreWidget()
 	{
+		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
 	}
 
 	public override void Tick()
@@ -25,7 +26,6 @@ public partial class ScoreWidget : WorldPanel
 
 		Position = myTeam.UIAnchor.Position;
 		Rotation = myTeam.UIAnchor.Rotation;
-		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
 
 		var blueTeam = game.BlueTeam;
 		BlueScore = blueTeam.CurrentScore;

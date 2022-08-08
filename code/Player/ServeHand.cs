@@ -76,7 +76,7 @@ public partial class ServeHand : AnimatedEntity
 
 		// Parse finger data
 		FingerData.Parse( Input.VR.LeftHand );
-		UsePresets = Input.VR.IsKnuckles;
+		UsePresets = !Input.VR.IsKnuckles;
 
 		if ( Ball.IsValid() )
 		{

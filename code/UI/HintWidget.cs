@@ -35,6 +35,7 @@ public partial class HintWidget : WorldPanel
 	public HintWidget()
 	{
 		Current = this;
+		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
 	}
 
 	public void AddEntry( string text, string icon = null, float lifetime = 5f )
@@ -56,7 +57,6 @@ public partial class HintWidget : WorldPanel
 
 		Position = myTeam.UIAnchor.Position + Vector3.Up * 17f;
 		Rotation = myTeam.UIAnchor.Rotation;
-		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
 	}
 
 	[ConCmd.Client( "tt_addmessage", CanBeCalledFromServer = true )]
