@@ -27,6 +27,12 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 		tx.Scale = 1f;
 		
 		NameTag.Transform = tx;
+
+		var team = Entity.GetTeam();
+		if ( team != null )
+		{
+			NameTag.SetClass( "red", team is Team.Red );
+		}
 	}
 
 	/// <summary>

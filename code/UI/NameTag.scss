@@ -1,7 +1,6 @@
 NameTag {
     transition: all 0.25s ease;
     opacity: 1;
-
     justify-content: center;
     align-items: center;
 
@@ -9,7 +8,7 @@ NameTag {
         font-family: Roboto;
         font-size: 30px;
         white-space: nowrap;
-        color: white;
+        color: #08B2E3;
         text-shadow: 0px 0px 5px black;
     }
 
@@ -19,5 +18,16 @@ NameTag {
         margin-right: 15px;
         border-radius: 100px;
         background-size: cover;
+        box-shadow: 0px 0px 12px 1px rgba( #08B2E3, 0.2 );
+    }
+
+    &.red {
+        .title {
+            color: #D71920;
+        }
+
+        .avatar {
+            box-shadow: 0px 0px 12px 1px rgba( #D71920, 0.2 );
+        }
     }
 }
