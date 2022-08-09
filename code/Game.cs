@@ -92,7 +92,7 @@ public partial class TableTennisGame : Game
 			return;
 
 		// TODO: Accept based on what side of the table we're on... Middle of the table is server?
-		if ( ActiveBall.Created > 0.1f )
+		if ( ActiveBall.Created > 0.1f && IsServer )
 		{
 			ActiveBall.Position = Input.Position;
 		}
