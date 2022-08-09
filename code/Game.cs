@@ -91,21 +91,38 @@ public partial class TableTennisGame : Game
 		if ( !ActiveBall.IsValid() )
 			return;
 
-		// Debug for testing
-		if ( DebugBallPhysics )
+		// TODO: Accept based on what side of the table we're on... Middle of the table is server?
+		if ( ActiveBall.Created > 0.1f )
 		{
-			DebugPaddle = pawn.Paddle;
-			pawn.Paddle.Position = ActiveBall.Position.WithX( 62.0f ).WithZ( 35 );
-			pawn.Paddle.Position += Vector3.Left * 5.0f;
+			ActiveBall.Position = Input.Position;
 		}
+	}
+
+	public override void BuildInput( InputBuilder inputBuilder )
+	{
+		base.BuildInput( inputBuilder );
+
+		if ( ActiveBall.IsValid() )
+		{
+			// Tell the server where I think the ball should be
+			inputBuilder.Position = ActiveBall.Position;
+		}
+	}
+
+	public override void FrameSimulate( Client cl )
+	{
+		if ( ActiveBall.IsValid() )
+		{
+			BallPhysics.Move( ActiveBall );
+		}
+
+		base.FrameSimulate( cl );	
 	}
 
 	public void SpawnBall()
 	{
 		if ( ActiveBall.IsValid() ) ActiveBall.Delete();
 		ActiveBall = new Ball();
-
-		Log.Info( $"{Host.Name} ball: {ActiveBall}" );
 	}
 
 	public override CameraSetup BuildCamera( CameraSetup camSetup )
@@ -132,14 +149,5 @@ public partial class TableTennisGame : Game
 		PostCameraSetup( ref camSetup );
 
 		return camSetup;
-	}
-
-	[Event.Tick.Server]
-	protected void SimulateBall()
-	{
-		if ( !ActiveBall.IsValid() ) return;
-		
-		// I moved this into server tick FOR NOW. This is temporary.
-		BallPhysics.Move( ActiveBall );
 	}
 }
