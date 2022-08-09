@@ -135,6 +135,11 @@ public static partial class BallPhysics
 			var v = x * MathX.DegreeToRadian( paddle.AngularVelocity.pitch );
 			DebugOverlay.Line( pos, pos + paddle.Rotation.Forward * v );
 		} */
+		
+		//
+		// This shouldn't be needed if we do some math
+		//
+		if ( TableTennisGame.Current.SinceLastHit < 0.2f ) return;
 
 		var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).EntitiesOnly().Ignore( paddle ).Run();
 
@@ -151,7 +156,9 @@ public static partial class BallPhysics
 		ball.Velocity = Vector3.Reflect( ball.Velocity.Normal, sweep.Normal ) * ball.Velocity.Length * 0.15f; ;
 
 		// Probably some shit we can do with the ball mass / paddle mass blah blah, this feels about right for now though
-		ball.Velocity += (paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
+		ball.Velocity += Math.Abs(paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
+
+		// DebugOverlay.Line( ball.Position, ball.Position + ball.Velocity, Color.Orange, 2 );
 
 		Sound.FromWorld( TableTennisGame.Current?.GetPaddleSound(), sweep.HitPosition ).SetVolume( ball.Velocity.Length / 50f );
 
