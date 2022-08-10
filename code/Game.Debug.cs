@@ -17,9 +17,6 @@ public partial class TableTennisGame
 	[ConVar.Server( "tt_debug_spawn_ball" )]
 	public static bool DebugSpawnBallAlways { get; set; } = false;
 
-	[ConVar.Server( "tt_debug_ballspawnthrow" )]
-	public static int BallSpawnThrowResponse { get; set; } = 1;
-
 	[ConVar.Server( "tt_debug_ballspawntime" )]
 	public static int BallSpawnTime { get; set; } = 3;
 
