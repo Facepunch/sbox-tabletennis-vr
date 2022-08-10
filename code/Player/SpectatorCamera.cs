@@ -21,21 +21,15 @@ public class SpectatorCamera : CameraMode
 		LookAngles = Rotation.Angles();
 	}
 
+	float FlySpeed => 150f;
+
 	public override void Update()
 	{
 		var player = Local.Client;
-		if ( player == null ) return;
-
-		var tr = Trace.Ray( Position, Position + Rotation.Forward * 4096 ).UseHitboxes().Run();
-
-		// DebugOverlay.Box( tr.EndPosition, Vector3.One * -1, Vector3.One, Color.Red );
+		if ( !player.IsValid() ) 
+			return;
 
 		Viewer = null;
-		{
-			var lerpTarget = tr.EndPosition.Distance( Position );
-
-			DoFPoint = lerpTarget;// DoFPoint.LerpTo( lerpTarget, Time.Delta * 10 );
-		}
 
 		FreeMove();
 	}
@@ -52,23 +46,16 @@ public class SpectatorCamera : CameraMode
 		if ( input.Down( InputButton.Slot2 ) ) LerpMode = 0.5f;
 		if ( input.Down( InputButton.Slot3 ) ) LerpMode = 0.9f;
 
-		if ( input.Down( InputButton.Use ) )
-			DoFBlurSize = Math.Clamp( DoFBlurSize + (Time.Delta * 3.0f), 0.0f, 100.0f );
-
-		if ( input.Down( InputButton.Menu ) )
-			DoFBlurSize = Math.Clamp( DoFBlurSize - (Time.Delta * 3.0f), 0.0f, 100.0f );
-
 		LookAngles += input.AnalogLook;
 		LookAngles.roll = 0;
 
 		input.ClearButton( InputButton.PrimaryAttack );
-
 		input.StopProcessing = true;
 	}
 
 	void FreeMove()
 	{
-		var mv = MoveInput.Normal * 300 * RealTime.Delta * Rotation * MoveSpeed;
+		var mv = MoveInput.Normal * FlySpeed * RealTime.Delta * Rotation * MoveSpeed;
 
 		TargetRot = Rotation.From( LookAngles );
 		TargetPos += mv;
