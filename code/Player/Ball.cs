@@ -35,6 +35,12 @@ public partial class Ball : ModelEntity
 		}
 	}
 
+	public void SetFromServer()
+	{
+		_clientPosition = base.Position;
+		_clientVelocity = _velocity;
+	}
+
 	[Net]
 	private Vector3 _velocity { get; set; }
 	private Vector3 _clientVelocity { get; set; }

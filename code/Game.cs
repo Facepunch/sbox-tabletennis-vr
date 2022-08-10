@@ -15,7 +15,7 @@ public partial class TableTennisGame : Game
 {
 	public static new TableTennisGame Current => Game.Current as TableTennisGame;
 
-	[Net] public Client AuthoritativeClient { get; set; }
+	[Net, Change] public Client AuthoritativeClient { get; set; }
 
 	public TableTennisGame()
 	{
@@ -171,6 +171,16 @@ public partial class TableTennisGame : Game
 		if ( ActiveBall.IsValid() ) ActiveBall.Delete();
 		ActiveBall = new Ball();
 	}
+
+	public void OnAuthoritativeClientChanged( Client old, Client client )
+	{
+		// If authority is being transferred to us, make sure our clientside vars are up to date
+		if ( client == Local.Client && ActiveBall.IsValid() )
+		{
+			ActiveBall.SetFromServer();
+		}
+	}
+
 
 	public override CameraSetup BuildCamera( CameraSetup camSetup )
 	{
