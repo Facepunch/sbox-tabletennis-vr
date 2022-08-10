@@ -80,7 +80,7 @@ public partial class TableTennisGame
 		{
 			if ( !RedTeam.TryAdd( cl ) )
 			{
-				// TODO - Assign spectators
+				MakeSpectator( cl );
 			}
 		}
 
@@ -90,6 +90,12 @@ public partial class TableTennisGame
 		{
 			State = GameState.Serving;
 		}
+	}
+
+	protected void MakeSpectator( Client cl )
+	{
+		Log.Info( $"{cl.Name} (Vr: {cl.IsUsingVr}) joined as a spectator" );
+		cl.Pawn = new SpectatorPawn();
 	}
 
 	protected void SetupPlayer( Client cl )
@@ -102,13 +108,10 @@ public partial class TableTennisGame
 
 		// Non-VR players can't play Table Tennis - only watch.
 		// Circumvented if Debug Mode is enabled
-		// TODO - Turn this off when ready to release.
-		if ( false /*!cl.IsUsingVr*/ )
+		// Turn this back on when the game's ripe and ready to go.
+		if ( /* !cl.IsUsingVr */ false )
 		{
-			// TODO - Make the player a Spectator
-			// cl.Pawn = new SpectatorPawn();
-			Log.Info( $"{cl.Name} (Vr: {cl.IsUsingVr}) joined as a spectator" );
-			
+			MakeSpectator( cl );
 			return;
 		}
 
