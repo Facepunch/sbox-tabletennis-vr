@@ -94,6 +94,9 @@ public partial class TableTennisGame
 
 	protected void MakeSpectator( Client cl )
 	{
+		cl.Pawn?.Delete();
+		cl.Pawn = null;
+
 		Log.Info( $"{cl.Name} (Vr: {cl.IsUsingVr}) joined as a spectator" );
 		cl.Pawn = new SpectatorPawn();
 	}
