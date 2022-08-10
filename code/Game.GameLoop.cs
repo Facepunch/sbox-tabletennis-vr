@@ -203,11 +203,12 @@ public partial class TableTennisGame
 	[ClientRpc]
 	public void OnPaddleHit( Paddle paddle, Ball ball = null )
 	{
+		SinceLastHit = 0;
+
 		if ( !IsServer ) return;
 
 		var pawn = paddle.Owner as PlayerPawn;
 		LastHitter = pawn.GetTeam();
-		SinceLastHit = 0;
 
 		// TODO - Second hit of the paddle needs to have bounced at least once, otherwise it's illegal
 		if ( State == GameState.Serving )
