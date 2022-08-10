@@ -111,12 +111,30 @@ public partial class TableTennisGame : Game
 
 	public override void FrameSimulate( Client cl )
 	{
-		if ( ActiveBall.IsValid() )
-		{
-			BallPhysics.Move( ActiveBall );
-		}
+		if ( cl.Pawn is not PlayerPawn pawn ) return;
+		if ( !pawn.Paddle.IsValid() ) return;
 
-		base.FrameSimulate( cl );	
+		// Get where our paddle was last frame and where it is this frame, sweep along that path!
+		var oldPaddleTransform = pawn.Paddle.ClientTransform;
+		pawn.FrameSimulate( cl );
+		var newPaddleTransform = pawn.Paddle.ClientTransform;
+
+		if ( !ActiveBall.IsValid() ) return;
+
+		//
+		// Simulate our physics with substeps
+		// without substeps a headset locked at 90hz would frequently miss the ball with semi-fast movements
+		//
+		const float timeStep = 0.005f;
+		bool hit = false;
+		for ( float timeLeft = Time.Delta; timeLeft > 0.0f; timeLeft -= timeStep )
+		{
+			// Paddle every substep... But if we hit fuckin stop
+			if ( !hit ) hit = BallPhysics.PaddleBall( pawn.Paddle, oldPaddleTransform, newPaddleTransform, ActiveBall );
+			
+			// Do whatever we have left
+			BallPhysics.Move( ActiveBall, MathF.Min( timeStep, timeLeft ) );
+		}
 	}
 
 	public void SpawnBall()

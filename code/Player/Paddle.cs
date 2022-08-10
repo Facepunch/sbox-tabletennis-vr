@@ -2,7 +2,7 @@
 
 public partial class Paddle : ModelEntity
 {
-	Transform LocalTransform;
+	public Transform ClientTransform { get; set; }
 
 	public override void Spawn()
 	{
@@ -39,7 +39,7 @@ public partial class Paddle : ModelEntity
 	{
 		base.FrameSimulate( cl );
 
-		var oldTransform = LocalTransform;
+		var oldTransform = ClientTransform;
 
 		if ( cl.IsUsingVr )
 		{
@@ -51,9 +51,10 @@ public partial class Paddle : ModelEntity
 			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
 		}
 
-		var activeBall = TableTennisGame.Current.ActiveBall;
-		
-		Position = activeBall.Position.WithX( 62.0f ).WithZ( 35 );
+		if ( Game.Current is not TableTennisGame game ) return;
+		if ( !game.ActiveBall.IsValid() ) return;
+	
+		Position = game.ActiveBall.Position.WithX( 62.0f ).WithZ( 35 );
 		Position += Vector3.Left * 4.5f;
 		
 		{
@@ -63,10 +64,8 @@ public partial class Paddle : ModelEntity
 			AngularVelocity = new Angles( 1500, 0, 0 );
 		}
 
-		if ( Game.Current is not TableTennisGame game ) return;
-		if ( !game.ActiveBall.IsValid() ) return;
-
-		LocalTransform = Transform;
-		BallPhysics.PaddleBall( this, oldTransform, LocalTransform, game.ActiveBall );
+		ClientTransform = Transform;
+		
+		// BallPhysics.PaddleBall( this, oldTransform, LocalTransform, game.ActiveBall );
 	}
 }

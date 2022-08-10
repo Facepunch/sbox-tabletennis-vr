@@ -38,7 +38,7 @@ public static partial class BallPhysics
 	public static readonly float PaddleRubberCOR = 0.05f;
 	public static readonly float TableCOR = 0.1f;
 
-	public static void Move( Ball ball )
+	public static void Move( Ball ball, float delta )
 	{
 		if ( ball.Parent.IsValid() ) return;
 
@@ -52,15 +52,16 @@ public static partial class BallPhysics
 			.Ignore( ball )
 			.WithoutTags( "paddle" );
 
-		velocity += Gravity * Time.Delta;
+		velocity += Gravity * delta;
 
 		var drag = -velocity * velocity.Length * 0.0004f / (BallMass * 40); // MKS
-		velocity += drag * Time.Delta;
+		velocity += drag * delta;
 
 		// TODO: Magnus factor if we're feeling fancy?
 
+		// move and collide with shit
 		{
-			var timeLeft = Time.Delta;
+			var timeLeft = delta;
 			float travelFraction = 0;
 			var hit = false;
 			var hitPos = Vector3.Zero;
@@ -125,7 +126,7 @@ public static partial class BallPhysics
 	/// <summary>
 	/// Check if the paddle is hitting the ball
 	/// </summary>
-	public static void PaddleBall( Paddle paddle, Transform from, Transform to, Ball ball )
+	public static bool PaddleBall( Paddle paddle, Transform from, Transform to, Ball ball )
 	{
 		// Debug linear velocity at points
 		/* for ( float x = 0.0f; x < 8.0f; x++ )
@@ -139,12 +140,12 @@ public static partial class BallPhysics
 		//
 		// This shouldn't be needed if we do some math
 		//
-		if ( TableTennisGame.Current.SinceLastHit < 0.2f ) return;
+		if ( TableTennisGame.Current.SinceLastHit < 0.2f ) return false;
 
 		var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).EntitiesOnly().Ignore( paddle ).Run();
 
-		if ( !sweep.Hit ) return;
-		if ( sweep.Entity is not Ball ) return;
+		if ( !sweep.Hit ) return false;
+		if ( sweep.Entity is not Ball ) return false;
 
 		// get hit position local to the paddle
 		var localHitpos = ( sweep.HitPosition - paddle.Position ) * paddle.Rotation.Inverse;
@@ -163,5 +164,7 @@ public static partial class BallPhysics
 		Sound.FromWorld( TableTennisGame.Current?.GetPaddleSound(), sweep.HitPosition ).SetVolume( ball.Velocity.Length / 50f );
 
 		TableTennisGame.Current?.OnPaddleHit( paddle, ball );
+
+		return true;
 	}
 }
