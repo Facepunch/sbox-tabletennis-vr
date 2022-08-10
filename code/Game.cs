@@ -15,6 +15,8 @@ public partial class TableTennisGame : Game
 {
 	public static new TableTennisGame Current => Game.Current as TableTennisGame;
 
+	[Net] public Client AuthoritativeClient { get; set; }
+
 	public TableTennisGame()
 	{
 		if ( IsServer )
@@ -62,26 +64,26 @@ public partial class TableTennisGame : Game
 		
 		SpawnBall();
 
+		AuthoritativeClient = cl;
 		pawn.ServeHand.SetBall( ActiveBall );
 	}
 
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
+		
+		// Everything here is server only
+		if ( !IsServer ) return;
 
-		// TODO - Remove me
-		if ( IsServer )
+		if ( Input.VR.LeftHand.ButtonB.WasPressed )
 		{
-			if ( Input.VR.LeftHand.ButtonB.WasPressed )
-			{
-				ResetGame();
-			}
+			ResetGame();
 		}
 
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
 		if ( !pawn.Paddle.IsValid() ) return;
 
-		if ( IsServer && DebugSpawnBallAlways )
+		if ( DebugSpawnBallAlways )
 		{
 			var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
 			if ( spawnButtonPressed )
@@ -91,8 +93,19 @@ public partial class TableTennisGame : Game
 		if ( !ActiveBall.IsValid() )
 			return;
 
-		// TODO: Accept based on what side of the table we're on... Middle of the table is server?
-		if ( ActiveBall.Created > 0.1f && IsServer )
+		//
+		// Figure out who the AuthoritativeClient is simply by looking at the side of the table
+		// (Blue) -x +x (Red)
+		//
+		if ( !DebugBallPhysics )
+		{
+			AuthoritativeClient = (ActiveBall.Position.x < 0) ? BlueTeam.Client : RedTeam.Client;
+		}
+
+		//
+		// Set the ball position to wherever the AuthoritativeClient wants it
+		//
+		if ( AuthoritativeClient == cl && ActiveBall.IsValid() && ActiveBall.Created > 0.1f )
 		{
 			ActiveBall.Position = Input.Position;
 		}
@@ -120,6 +133,14 @@ public partial class TableTennisGame : Game
 		var newPaddleTransform = pawn.Paddle.ClientTransform;
 
 		if ( !ActiveBall.IsValid() ) return;
+
+		//
+		// If we have no authority don't bother simulating, listen to whatever the server says
+		//
+		if ( AuthoritativeClient != cl )
+		{
+			return;
+		}
 
 		//
 		// Simulate our physics with substeps

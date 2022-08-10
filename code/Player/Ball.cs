@@ -9,7 +9,8 @@ public partial class Ball : ModelEntity
 	{
 		get
 		{
-			return true;
+			if ( Host.IsServer ) return true;
+			return Local.Client == TableTennisGame.Current.AuthoritativeClient;
 		}
 	}
 
@@ -65,8 +66,6 @@ public partial class Ball : ModelEntity
 		Tags.Add( "ball" );
 
 		EnableTraceAndQueries = true;
-		PhysicsBody.Mass = BallPhysics.BallMass;
-		Predictable = true;
 
 		Created = 0;
 	}

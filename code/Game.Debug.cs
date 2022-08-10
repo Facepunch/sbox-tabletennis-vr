@@ -47,6 +47,7 @@ public partial class TableTennisGame
 		SpawnBall();
 		ActiveBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
 		ActiveBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
+		AuthoritativeClient = Client.All.First();
 
 		LastSpawn = 0;
 	}
