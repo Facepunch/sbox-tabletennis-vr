@@ -21,7 +21,7 @@
     "RankType": "Elo",
     "MapSelect": "Hidden",
     "GameNetworkType": "Multiplayer",
-    "MaxPlayers": 2,
+    "MaxPlayers": 8,
     "MinPlayers": 1,
     "GameCategory": "Sports",
     "ControlModes": {
