@@ -99,7 +99,11 @@ public partial class TableTennisGame : Game
 		//
 		if ( !DebugBallPhysics )
 		{
-			AuthoritativeClient = (ActiveBall.Position.x < 0) ? BlueTeam.Client : RedTeam.Client;
+			var blueCl = BlueTeam.Client;
+			var redCl = RedTeam.Client;
+			if ( !redCl.IsValid() ) redCl = blueCl;
+
+			AuthoritativeClient = (ActiveBall.Position.x < 0) ? blueCl : redCl;
 		}
 
 		//
@@ -138,9 +142,11 @@ public partial class TableTennisGame : Game
 		// If we have no authority don't bother simulating, listen to whatever the server says
 		//
 		if ( AuthoritativeClient != cl )
-		{
 			return;
-		}
+		
+		// If the ball is being held by something, don't simulate it.
+		if ( ActiveBall.Parent.IsValid() )
+			return;
 
 		//
 		// Simulate our physics with substeps

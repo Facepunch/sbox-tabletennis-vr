@@ -94,6 +94,11 @@ public partial class ServeHand : AnimatedEntity
 		base.FrameSimulate( cl );
 
 		Animate();
+
+		if ( Ball.IsValid() && Ball.Parent.IsValid() && Ball.IsAuthority )
+		{
+			Ball.Position = HoldPosition;
+		}
 	}
 
 	protected void OkSign()
@@ -109,8 +114,9 @@ public partial class ServeHand : AnimatedEntity
 	{
 		Ball = ball;
 		ball.Parent = this;
-		ball.Position = Position + Rotation.Forward * 1.35f + Rotation.Right * 1f + Rotation.Up * 1f;
 	}
+	
+	public Vector3 HoldPosition => Position + Rotation.Forward * 1.35f + Rotation.Right * 1f + Rotation.Up * 1f;
 
 	const float throwPower = 100f;
 	public void DropBall()
@@ -119,7 +125,7 @@ public partial class ServeHand : AnimatedEntity
 
 		ball.Parent = null;
 		Ball = null;
-
+		
 		if ( IsServer )
 			ball.Velocity = VelocityDelta * throwPower;
 	}
