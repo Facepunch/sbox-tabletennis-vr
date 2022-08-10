@@ -58,12 +58,15 @@ public partial class Team : Entity
 
 	public bool IsOccupied() => Client.IsValid();
 
-	protected void SetClient( Client cl )
+	public void SetClient( Client cl = null )
 	{
 		Client = cl;
 		Reset();
 
-		Log.Info( $"Added {cl.Name} to {Name}" );
+		if ( Client.IsValid() )
+		{
+			Log.Info( $"Added {cl.Name} to {Name}" );
+		}
 	}
 
 	public bool TryAdd( Client cl )

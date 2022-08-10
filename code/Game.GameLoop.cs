@@ -72,8 +72,22 @@ public partial class TableTennisGame
 		HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"info" );
 	}
 
+	[ConCmd.Server( "tt_togglespectator" )]
+	public static void ToggleSpectator()
+	{
+		var cl = ConsoleSystem.Caller;
+
+		if ( cl.Pawn is PlayerPawn )
+			Current.MakeSpectator( cl );
+		else
+			Current.CreatePawn( cl );
+	}
+
 	protected void CreatePawn( Client cl )
 	{
+		cl.Pawn?.Delete();
+		cl.Pawn = null;
+
 		cl.Pawn = new PlayerPawn();
 
 		if ( !BlueTeam.TryAdd( cl ) )
@@ -94,6 +108,9 @@ public partial class TableTennisGame
 
 	protected void MakeSpectator( Client cl )
 	{
+		var team = cl.GetTeam();
+		team?.SetClient( null );
+
 		cl.Pawn?.Delete();
 		cl.Pawn = null;
 
