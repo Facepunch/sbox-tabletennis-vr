@@ -53,11 +53,12 @@ public partial class Paddle : ModelEntity
 
 		if ( Game.Current is not TableTennisGame game ) return;
 		if ( !game.ActiveBall.IsValid() ) return;
-	
-		Position = game.ActiveBall.Position.WithX( 62.0f ).WithZ( 35 );
-		Position += Vector3.Left * 4.5f;
-		
+
+		if ( TableTennisGame.DebugBallPhysics )
 		{
+			Position = game.ActiveBall.Position.WithX( 62.0f ).WithZ( 35 );
+			Position += Vector3.Left * 4.5f;
+
 			var pitch = MathF.Sin( -20 + TableTennisGame.Current.LastSpawn * 10 ) * 70;
 			
 			Rotation = Rotation.FromRoll( 80 ) * Rotation.FromYaw( -10 ) * Rotation.FromPitch( pitch );
@@ -65,7 +66,7 @@ public partial class Paddle : ModelEntity
 		}
 
 		ClientTransform = Transform;
-		
+
 		// BallPhysics.PaddleBall( this, oldTransform, LocalTransform, game.ActiveBall );
 	}
 }
