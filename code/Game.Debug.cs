@@ -26,12 +26,20 @@ public partial class TableTennisGame
 	[ConVar.Server( "tt_debug_gamestate" )]
 	public static bool DebugGameState { get; set; } = false;
 
+	[ConVar.Server( "tt_debug_slowmo" )]
+	public static bool DebugSlowMo { get; set; } = false;
+
 	[Event.Tick.Server]
 	public void BallTimer()
 	{
 		if ( !DebugBallPhysics ) return;
 
 		// Don't worry about this code getting ugly as shit
+
+		if ( DebugSlowMo )
+		{
+			Global.TimeScale = (LastSpawn > 0.95f && LastSpawn < 1.1f) ? 0.05f : 1.0f;
+		}
 
 		if ( LastSpawn < BallSpawnTime ) return;
 
