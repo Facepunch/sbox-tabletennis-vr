@@ -170,7 +170,7 @@ public partial class TableTennisGame
 	}
 
 	[Net] public Team LastHitter { get; set; }
-	[Net] public TimeSince SinceLastHit { get; set; }
+	[Net, Predicted] public TimeSince SinceLastHit { get; set; }
 	
 	public void OnPaddleHit( Paddle paddle, Ball ball )
 	{
