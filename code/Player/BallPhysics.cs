@@ -102,8 +102,6 @@ public static partial class BallPhysics
 					Sound.FromWorld( "tabletennis.bounce", hitPos );
 					Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf", hitPos );
 
-					TableTennisGame.Current?.OnBallBounce( ball, hitPos, pm.Surface );
-					// Network the ball bounce to the server
 					TableTennisGame.ServerBallBounce( ball.NetworkIdent, hitPos );
 				}
 

@@ -156,11 +156,17 @@ public partial class TableTennisGame
 
 		// wooeewwweee anti-cheat!!! :o
 		if ( Current.AuthoritativeClient != cl ) return;
-		
-		Current.OnBallBounce( To.Everyone, ball, hitPos );
+
+		Current.OnBallBounce( ball, hitPos );
+		Current.RpcBallBounce( To.Everyone, ball, hitPos );
 	}
 
 	[ClientRpc]
+	public void RpcBallBounce( Ball ball, Vector3 hitPos )
+	{
+		OnBallBounce( ball, hitPos );
+	}
+
 	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface = null )
 	{
 		if ( !IsServer ) return;
@@ -200,21 +206,30 @@ public partial class TableTennisGame
 	/// </summary>
 	/// <param name="paddle"></param>
 	/// <param name="ball"></param>
-	[ClientRpc]
 	public void OnPaddleHit( Paddle paddle, Ball ball = null )
 	{
 		SinceLastHit = 0;
 
-		if ( !IsServer ) return;
-
-		var pawn = paddle.Owner as PlayerPawn;
-		LastHitter = pawn.GetTeam();
-
-		// TODO - Second hit of the paddle needs to have bounced at least once, otherwise it's illegal
-		if ( State == GameState.Serving )
+		if ( IsServer )
 		{
-			State = GameState.Playing;
+			var pawn = paddle.Owner as PlayerPawn;
+			LastHitter = pawn.GetTeam();
+
+			// TODO - Second hit of the paddle needs to have bounced at least once, otherwise it's illegal
+			if ( State == GameState.Serving )
+			{
+				State = GameState.Playing;
+			}
+
 		}
+
+		RpcPaddleHit( To.Everyone, paddle, ball );
+	}
+
+	[ClientRpc]
+	public void RpcPaddleHit( Paddle paddle, Ball ball = null )
+	{
+		OnPaddleHit( paddle, ball );
 	}
 
 	[ConCmd.Server]
@@ -227,8 +242,9 @@ public partial class TableTennisGame
 
 		// wooeewwweee anti-cheat!!! :o
 		if ( Current.AuthoritativeClient != cl ) return;
-
-		Current.OnPaddleHit( To.Everyone, paddle );
+		
+		Current.OnPaddleHit( paddle );
+		Current.RpcPaddleHit( To.Everyone, paddle );
 	}
 
 	public Team GetBounceWinner( Ball ball, Vector3 hitPos )
