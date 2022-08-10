@@ -11,7 +11,7 @@ public partial class TableTennisGame
 	/// </summary>
 	public static bool DebugNoFlow => false;
 
-	[ConVar.Server( "tt_debug_physics_test" )]
+	[ConVar.Replicated( "tt_debug_physics_test" )]
 	public static bool DebugBallPhysics { get; set; } = false;
 
 	[ConVar.Server( "tt_debug_spawn_ball" )]
