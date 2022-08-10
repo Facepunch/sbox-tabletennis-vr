@@ -103,6 +103,8 @@ public static partial class BallPhysics
 					Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf", hitPos );
 
 					TableTennisGame.Current?.OnBallBounce( ball, hitPos, pm.Surface );
+					// Network the ball bounce to the server
+					TableTennisGame.ServerBallBounce( ball.NetworkIdent, hitPos );
 				}
 
 				timeLeft -= timeLeft * pm.Fraction;
@@ -164,6 +166,7 @@ public static partial class BallPhysics
 		Sound.FromWorld( TableTennisGame.Current?.GetPaddleSound(), sweep.HitPosition ).SetVolume( ball.Velocity.Length / 50f );
 
 		TableTennisGame.Current?.OnPaddleHit( paddle, ball );
+		TableTennisGame.ServerPaddleHit( paddle.NetworkIdent );
 
 		return true;
 	}

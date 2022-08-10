@@ -146,8 +146,25 @@ public partial class TableTennisGame
 		}
 	}
 
-	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface )
+	[ConCmd.Server]
+	public static void ServerBallBounce( int ballIdent, Vector3 hitPos )
 	{
+		var cl = ConsoleSystem.Caller;
+
+		var ball = Entity.FindByIndex( ballIdent ) as Ball;
+		if ( !ball.IsValid() ) return;
+
+		// wooeewwweee anti-cheat!!! :o
+		if ( Current.AuthoritativeClient != cl ) return;
+		
+		Current.OnBallBounce( To.Everyone, ball, hitPos );
+	}
+
+	[ClientRpc]
+	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface = null )
+	{
+		if ( !IsServer ) return;
+
 		// If the ball bounces while we're serving, the player threw the ball and didn't hit it
 		if ( State == GameState.Serving )
 		{
@@ -177,9 +194,17 @@ public partial class TableTennisGame
 
 	[Net] public Team LastHitter { get; set; }
 	[Net, Predicted] public TimeSince SinceLastHit { get; set; }
-	
-	public void OnPaddleHit( Paddle paddle, Ball ball )
+
+	/// <summary>
+	/// Called clientside by the person hitting the paddle.
+	/// </summary>
+	/// <param name="paddle"></param>
+	/// <param name="ball"></param>
+	[ClientRpc]
+	public void OnPaddleHit( Paddle paddle, Ball ball = null )
 	{
+		if ( !IsServer ) return;
+
 		var pawn = paddle.Owner as PlayerPawn;
 		LastHitter = pawn.GetTeam();
 		SinceLastHit = 0;
@@ -189,6 +214,20 @@ public partial class TableTennisGame
 		{
 			State = GameState.Playing;
 		}
+	}
+
+	[ConCmd.Server]
+	public static void ServerPaddleHit( int paddleIdent )
+	{
+		var cl = ConsoleSystem.Caller;
+
+		var paddle = Entity.FindByIndex( paddleIdent ) as Paddle;
+		if ( !paddle.IsValid() ) return;
+
+		// wooeewwweee anti-cheat!!! :o
+		if ( Current.AuthoritativeClient != cl ) return;
+
+		Current.OnPaddleHit( To.Everyone, paddle );
 	}
 
 	public Team GetBounceWinner( Ball ball, Vector3 hitPos )
