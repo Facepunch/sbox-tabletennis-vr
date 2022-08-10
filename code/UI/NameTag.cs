@@ -23,7 +23,12 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 	{
 		var tx = new Transform().WithPosition( Entity.EyePosition );
 		tx.Position += Vector3.Up * 10.0f;
-		tx.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+		
+		if ( Input.VR.IsActive )
+			tx.Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
+		else
+			tx.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+		
 		tx.Scale = 1f;
 		
 		NameTag.Transform = tx;
