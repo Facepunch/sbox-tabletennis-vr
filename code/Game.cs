@@ -112,6 +112,7 @@ public partial class TableTennisGame : Game
 		if ( AuthoritativeClient == cl && ActiveBall.IsValid() && ActiveBall.Created > 0.1f )
 		{
 			ActiveBall.Position = Input.Position;
+			ActiveBall.Velocity = Input.Cursor.Direction;
 		}
 	}
 
@@ -123,6 +124,7 @@ public partial class TableTennisGame : Game
 		{
 			// Tell the server where I think the ball should be
 			inputBuilder.Position = ActiveBall.Position;
+			inputBuilder.Cursor.Direction = ActiveBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
 		}
 	}
 
