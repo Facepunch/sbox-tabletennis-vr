@@ -18,11 +18,21 @@ public partial class Ball : ModelEntity
 		}
 	}
 
+	[Net]
+	private Vector3 _netVelocity { get; set; }
 	private Vector3 _velocity { get; set; }
 	public override Vector3 Velocity
 	{
-		get => _velocity;
-		set => _velocity = value;
+		get
+		{
+			if ( IsClientOnly ) return _velocity;
+			return _netVelocity;
+		}
+		set
+		{
+			if ( IsClientOnly ) _velocity = value;
+			else _netVelocity = value;
+		}
 	}
 
 	public override void Spawn()

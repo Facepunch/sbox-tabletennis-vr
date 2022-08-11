@@ -29,7 +29,7 @@ public partial class TableTennisGame : Game
 
 		Audio.ReverbScale = 3f;
 		Audio.ReverbVolume = 3f;
-		Global.TickRate = 128; // I doubt this is needed this high now that everything is clientside :o
+		Global.TickRate = 10; // I doubt this is needed this high now that everything is clientside :o
 	}
 
 	public override void ClientJoined( Client cl )
@@ -92,6 +92,16 @@ public partial class TableTennisGame : Game
 	{
 		base.Simulate( cl );
 
+		if ( ClientBall.IsValid() && ServerBall.IsValid() )
+		{
+			if ( !ClientBall.IsOnSide( Local.Client ) && !ServerBall.IsOnSide( Local.Client ) )
+			{
+				ClientBall.Position = ServerBall.Position;
+				ClientBall.Velocity = ServerBall.Velocity;
+			}
+
+		}
+
 		// Everything here is server only
 		if ( !IsServer ) return;
 
@@ -113,8 +123,14 @@ public partial class TableTennisGame : Game
 		// Just fully trust the client who gives a fuck
 		if ( Input.Down( InputButton.Slot9 ) )
 		{
+			DebugOverlay.Text( $"Ball controlled by: { cl.Name }", Vector3.Up * 64.0f );
+
 			ServerBall.Position = Input.Position;
 			ServerBall.Velocity = Input.Cursor.Direction;
+		}
+		else
+		{
+			// DebugOverlay.Text( $"Nobody wants to control the ball... :(", Vector3.Up * 64.0f, Color.Red );
 		}
 	}
 
@@ -153,16 +169,6 @@ public partial class TableTennisGame : Game
 		// If we are serving the ball, don't simulate physics.
 		if ( pawn.ServeHand.Ball == ClientBall )
 			return;
-
-		// DebugOverlay.Text( "ServerBall", ServerBall.Position );
-		// DebugOverlay.Text( "ClientBall", ClientBall.Position );
-
-		// If the ball isnt on our side of the table make sure we sync up with the server.. This should be in Simulate!!!
-		if ( !ClientBall.IsOnSide( Local.Client ) && !ServerBall.IsOnSide( Local.Client ) )
-		{
-			ClientBall.Position = ServerBall.Position;
-			ClientBall.Velocity = ServerBall.Velocity;
-		}
 
 		//
 		// Simulate our physics with substeps
