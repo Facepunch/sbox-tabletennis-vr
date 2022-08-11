@@ -6,7 +6,11 @@ public partial class Ball : ModelEntity
 	private Vector3 _position { get; set; }
 	public override Vector3 Position
 	{
-		get => _position;
+		get
+		{
+			if ( IsClientOnly ) return _position;
+			return base.Position;
+		}
 		set
 		{
 			_position = value;
@@ -36,6 +40,8 @@ public partial class Ball : ModelEntity
 		else
 		{
 			EnableDrawing = false;
+			EnableTraceAndQueries = false;
+			PhysicsEnabled = false;
 		}
 	}
 

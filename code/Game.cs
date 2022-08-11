@@ -61,13 +61,27 @@ public partial class TableTennisGame : Game
 	/// </summary>
 	public Ball ClientBall { get; set; }
 
+	public void GiveServingBall( Client cl )
+	{
+		if ( cl.Pawn is not PlayerPawn pawn ) return;
+
+		if ( Host.IsServer )
+		{
+			if ( ServerBall.IsValid() ) ServerBall.Delete();
+			ServerBall = new Ball() { Position = pawn.ServeHand.Position };
+		}
+
+		ServingBall( To.Single( cl ) );
+	}
+
 	/// <summary>
 	/// Gives a client's pawn the ability to serve the active ball.
 	/// </summary>
 	[ClientRpc]
-	public void GiveServingBall()
+	public void ServingBall()
 	{
-		SpawnBall();
+		if ( ClientBall.IsValid() ) ClientBall.Delete();
+		ClientBall = new Ball();
 
 		var twat = Local.Pawn as PlayerPawn;
 		twat.ServeHand.SetBall( ClientBall );
@@ -86,12 +100,18 @@ public partial class TableTennisGame : Game
 			ResetGame();
 		}
 
+		// if ( DebugSpawnBallAlways )
+		// {
+		var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
+		if ( spawnButtonPressed )
+			GiveServingBall( cl );
+		// }
+
 		if ( cl.Pawn is not PlayerPawn pawn || !pawn.Paddle.IsValid() ) return;
 		if ( !ServerBall.IsValid() ) return;
 
-		//
-		// Set the ball position to wherever the AuthoritativeClient wants it
-		//
+		// Just fully trust the client who gives a fuck
+		if ( Input.Down( InputButton.Slot9 ) )
 		{
 			ServerBall.Position = Input.Position;
 			ServerBall.Velocity = Input.Cursor.Direction;
@@ -101,12 +121,21 @@ public partial class TableTennisGame : Game
 	public override void BuildInput( InputBuilder inputBuilder )
 	{
 		base.BuildInput( inputBuilder );
-
+		
 		if ( !ClientBall.IsValid() ) return;
 
-		// Tell the server where I think the ball should be
-		inputBuilder.Position = ClientBall.Position;
-		inputBuilder.Cursor.Direction = ClientBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
+		// Only tell the server where I think the ball should be on my side
+		if ( ClientBall.IsOnSide( Local.Client ) )
+		{
+			inputBuilder.Position = ClientBall.Position;
+			inputBuilder.Cursor.Direction = ClientBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
+			inputBuilder.SetButton( InputButton.Slot9, true ); // lol fucking hell
+		}
+		else
+		{
+			inputBuilder.SetButton( InputButton.Slot9, false );
+		}
+
 	}
 
 	public override void FrameSimulate( Client cl )
@@ -119,26 +148,20 @@ public partial class TableTennisGame : Game
 		pawn.FrameSimulate( cl );
 		var newPaddleTransform = pawn.Paddle.Transform;
 
-		// if ( DebugSpawnBallAlways )
-		// {
-			var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
-			if ( spawnButtonPressed )
-				GiveServingBall();
-		// }
-
 		if ( !ClientBall.IsValid() ) return;
 
 		// If we are serving the ball, don't simulate physics.
 		if ( pawn.ServeHand.Ball == ClientBall )
 			return;
 
-		// If the ball isnt on our side of the table, don't simulate just replicate the servers ball...
-		// Actually maybe we can anyway, move this to Simulate?		
-		if ( !ClientBall.IsOnSide( Local.Client ) )
+		// DebugOverlay.Text( "ServerBall", ServerBall.Position );
+		// DebugOverlay.Text( "ClientBall", ClientBall.Position );
+
+		// If the ball isnt on our side of the table make sure we sync up with the server.. This should be in Simulate!!!
+		if ( !ClientBall.IsOnSide( Local.Client ) && !ServerBall.IsOnSide( Local.Client ) )
 		{
 			ClientBall.Position = ServerBall.Position;
 			ClientBall.Velocity = ServerBall.Velocity;
-			return;
 		}
 
 		//
@@ -155,15 +178,6 @@ public partial class TableTennisGame : Game
 			// Do whatever we have left
 			BallPhysics.Move( ClientBall, MathF.Min( timeStep, timeLeft ) );
 		}
-
-		// DebugOverlay.Text( "Ball", ActiveBall.Position );
-		DebugOverlay.Text( "ClientBall", ClientBall.Position );
-	}
-
-	public void SpawnBall()
-	{
-		if ( ClientBall.IsValid() ) ClientBall.Delete();
-		ClientBall = new Ball();
 	}
 	
 	public override CameraSetup BuildCamera( CameraSetup camSetup )
