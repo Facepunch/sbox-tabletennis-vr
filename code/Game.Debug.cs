@@ -42,8 +42,8 @@ public partial class TableTennisGame
 
 		LastHitter = null;
 		// SpawnBall();
-		ServerBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		ServerBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
+		// ServerBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		// ServerBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
 
 		LastSpawn = 0;
 	}

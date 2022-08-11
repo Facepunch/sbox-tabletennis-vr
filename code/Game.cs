@@ -24,12 +24,11 @@ public partial class TableTennisGame : Game
 			BlueTeam = new Team.Blue();
 			RedTeam = new Team.Red();
 
-			ServerBall = new Ball();
+			// ServerBall = new Ball();
 		}
 
 		Audio.ReverbScale = 3f;
 		Audio.ReverbVolume = 3f;
-		Global.TickRate = 10; // I doubt this is needed this high now that everything is clientside :o
 	}
 
 	public override void ClientJoined( Client cl )
@@ -54,7 +53,7 @@ public partial class TableTennisGame : Game
 	/// <summary>
 	/// Used to replicate the clients ball positions to each other and spectators.
 	/// </summary>
-	[Net] public Ball ServerBall { get; set; }
+	// [Net] public Ball ServerBall { get; set; }
 
 	/// <summary>
 	/// Each client has their own ball, depending on where it is it's simulated themselves or replicates ServerBall.
@@ -65,11 +64,11 @@ public partial class TableTennisGame : Game
 	{
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
 
-		if ( Host.IsServer )
+		/*if ( Host.IsServer )
 		{
 			if ( ServerBall.IsValid() ) ServerBall.Delete();
 			ServerBall = new Ball() { Position = pawn.ServeHand.Position };
-		}
+		}*/
 
 		ServingBall( To.Single( cl ) );
 	}
@@ -92,15 +91,14 @@ public partial class TableTennisGame : Game
 	{
 		base.Simulate( cl );
 
-		if ( ClientBall.IsValid() && ServerBall.IsValid() )
+		/*if ( ClientBall.IsValid() && ServerBall.IsValid() )
 		{
 			if ( !ClientBall.IsOnSide( Local.Client ) && !ServerBall.IsOnSide( Local.Client ) )
 			{
-				ClientBall.Position = ServerBall.Position;
-				ClientBall.Velocity = ServerBall.Velocity;
+				// ClientBall.Position = ServerBall.Position;
+				// ClientBall.Velocity = ServerBall.Velocity;
 			}
-
-		}
+		}*/
 
 		// Everything here is server only
 		if ( !IsServer ) return;
@@ -118,15 +116,15 @@ public partial class TableTennisGame : Game
 		// }
 
 		if ( cl.Pawn is not PlayerPawn pawn || !pawn.Paddle.IsValid() ) return;
-		if ( !ServerBall.IsValid() ) return;
+		// if ( !ServerBall.IsValid() ) return;
 
 		// Just fully trust the client who gives a fuck
 		if ( Input.Down( InputButton.Slot9 ) )
 		{
-			DebugOverlay.Text( $"Ball controlled by: { cl.Name }", Vector3.Up * 64.0f );
-
-			ServerBall.Position = Input.Position;
-			ServerBall.Velocity = Input.Cursor.Direction;
+			// DebugOverlay.Text( $"Ball controlled by: { cl.Name }", Vector3.Up * 64.0f );
+			
+			// ServerBall.Position = Input.Position;
+			// ServerBall.Velocity = Input.Cursor.Direction;
 		}
 		else
 		{
@@ -143,15 +141,29 @@ public partial class TableTennisGame : Game
 		// Only tell the server where I think the ball should be on my side
 		if ( ClientBall.IsOnSide( Local.Client ) )
 		{
-			inputBuilder.Position = ClientBall.Position;
-			inputBuilder.Cursor.Direction = ClientBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
-			inputBuilder.SetButton( InputButton.Slot9, true ); // lol fucking hell
+			// inputBuilder.Position = ClientBall.Position;
+			// inputBuilder.Cursor.Direction = ClientBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
+			// inputBuilder.SetButton( InputButton.Slot9, true ); // lol fucking hell
 		}
 		else
 		{
-			inputBuilder.SetButton( InputButton.Slot9, false );
+			// inputBuilder.SetButton( InputButton.Slot9, false );
 		}
+	}
 
+	[ConCmd.Server]
+	public static void IHitTheBallCunt( Vector3 position, Vector3 velocity, float time )
+	{
+		Current.SetBall( To.Multiple( Client.All.Where( c => c != ConsoleSystem.Caller ) ), position, velocity, time );
+	}
+
+	[ClientRpc]
+	public void SetBall( Vector3 position, Vector3 velocity, float time )
+	{
+		var delta = Time.Now - time;
+		ClientBall.Position = position;
+		ClientBall.Velocity = velocity;
+		// BallPhysics.Move( ClientBall, delta );
 	}
 
 	public override void FrameSimulate( Client cl )
@@ -183,6 +195,11 @@ public partial class TableTennisGame : Game
 			
 			// Do whatever we have left
 			BallPhysics.Move( ClientBall, MathF.Min( timeStep, timeLeft ) );
+		}
+
+		if ( hit )
+		{
+			IHitTheBallCunt( ClientBall.Position, ClientBall.Velocity, Time.Now );
 		}
 	}
 	

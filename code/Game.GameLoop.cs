@@ -141,7 +141,7 @@ public partial class TableTennisGame
 	[Event.Tick.Server]
 	protected void TickGameLoop()
 	{
-		var ball = ServerBall;
+		/*var ball = ServerBall;
 		if ( !ball.IsValid() )
 			return;
 
@@ -160,7 +160,7 @@ public partial class TableTennisGame
 
 				State = GameState.Serving;
 			}
-		}
+		}*/
 	}
 
 	[ConCmd.Server]
@@ -283,7 +283,7 @@ public partial class TableTennisGame
 		{
 			if ( newState == GameState.WaitingForPlayers )
 			{
-				ServerBall?.Delete();
+				// ServerBall?.Delete();
 				
 				if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 				{
