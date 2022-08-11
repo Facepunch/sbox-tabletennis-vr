@@ -96,9 +96,16 @@ public static partial class BallPhysics
 					hitPos = pm.EndPosition;
 					hitSurface = pm.Surface;
 
-					// TODO: Different shit depending on surface
-					Sound.FromWorld( "tabletennis.bounce", hitPos );
-					Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf", hitPos );
+					// TODO: Different surfaces
+					if ( hitSurface.ResourceName == "wood" )
+					{
+						if ( Math.Abs( velocity.z ) > 10.0f )
+						{
+							var sound = Sound.FromWorld( "tabletennis.bounce", hitPos );
+							sound.SetVolume( velocity.Length / 150.0f );
+							Particles.Create( "particles/ball_table_hit/ball_table_hit.vpcf", hitPos );
+						}
+					}
 
 					TableTennisGame.ServerBallBounce( ball.NetworkIdent, hitPos );
 				}
@@ -107,7 +114,12 @@ public static partial class BallPhysics
 
 				// Surface restitution "absorbs" kinetic energy of the ball
 				// var bounce = 0.90f - pm.Surface.Elasticity;
+				
 				var bounce = BallCOR - TableCOR;
+				if ( pm.Surface.ResourceName == "carpet" )
+				{
+					bounce = 0.5f;
+				}
 
 				if ( !moveplanes.TryAdd( pm.Normal, ref velocity, bounce ) )
 					break;
