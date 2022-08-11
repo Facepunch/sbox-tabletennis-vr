@@ -141,7 +141,7 @@ public partial class TableTennisGame
 	[Event.Tick.Server]
 	protected void TickGameLoop()
 	{
-		var ball = ActiveBall;
+		var ball = ServerBall;
 		if ( !ball.IsValid() )
 			return;
 
@@ -171,9 +171,6 @@ public partial class TableTennisGame
 		var ball = Entity.FindByIndex( ballIdent ) as Ball;
 		if ( !ball.IsValid() ) return;
 
-		// wooeewwweee anti-cheat!!! :o
-		if ( Current.AuthoritativeClient != cl ) return;
-
 		Current.OnBallBounce( ball, hitPos );
 		Current.RpcBallBounce( To.Everyone, ball, hitPos );
 	}
@@ -191,7 +188,7 @@ public partial class TableTennisGame
 		// If the ball bounces while we're serving, the player threw the ball and didn't hit it
 		if ( State == GameState.Serving )
 		{
-			GiveServingBall( ServingTeam.Client );
+			// GiveServingBall( ServingTeam.Client );
 			return;
 		}
 
@@ -216,7 +213,7 @@ public partial class TableTennisGame
 	}
 
 	[Net] public Team LastHitter { get; set; }
-	[Net, Predicted] public TimeSince SinceLastHit { get; set; }
+	public TimeSince SinceLastHit { get; set; }
 
 	/// <summary>
 	/// Called clientside by the person hitting the paddle.
@@ -257,9 +254,6 @@ public partial class TableTennisGame
 		var paddle = Entity.FindByIndex( paddleIdent ) as Paddle;
 		if ( !paddle.IsValid() ) return;
 
-		// wooeewwweee anti-cheat!!! :o
-		if ( Current.AuthoritativeClient != cl ) return;
-		
 		Current.OnPaddleHit( paddle );
 		Current.RpcPaddleHit( To.Everyone, paddle );
 	}
@@ -289,7 +283,7 @@ public partial class TableTennisGame
 		{
 			if ( newState == GameState.WaitingForPlayers )
 			{
-				ActiveBall?.Delete();
+				ServerBall?.Delete();
 				
 				if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 				{
@@ -325,7 +319,7 @@ public partial class TableTennisGame
 		if ( State != GameState.Serving ) return;
 
 		ServingTeam = team;
-		GiveServingBall( team.Client );
+		// GiveServingBall( team.Client );
 	}
 
 	[Event.Tick.Server]

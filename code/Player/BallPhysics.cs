@@ -40,8 +40,6 @@ public static partial class BallPhysics
 
 	public static void Move( Ball ball, float delta )
 	{
-		if ( ball.Parent.IsValid() ) return;
-
 		var velocity = ball.Velocity;
 		var position = ball.Position;
 
@@ -123,28 +121,38 @@ public static partial class BallPhysics
 		ball.Velocity = velocity;
 	}
 
+	static TimeSince LastHit = 0;
+
+	[ConVar.Client( "tt_debug_paddle_linearvelocity" )]
+	public static bool DebugPaddleLinearVelocity { get; set; } = false;
+
 	/// <summary>
 	/// Check if the paddle is hitting the ball
 	/// </summary>
 	public static bool PaddleBall( Paddle paddle, Transform from, Transform to, Ball ball )
 	{
-		// Debug linear velocity at points
-		/* for ( float x = 0.0f; x < 8.0f; x++ )
+		if ( DebugPaddleLinearVelocity )
 		{
-			var pos = paddle.Position + (Vector3.Up * x) * paddle.Rotation;
-			DebugOverlay.Sphere( pos, 0.25f, Color.Blue );
-			var v = x * MathX.DegreeToRadian( paddle.AngularVelocity.pitch );
-			DebugOverlay.Line( pos, pos + paddle.Rotation.Forward * v );
-		} */
-		
+			// Debug linear velocity at points
+			for ( float x = 0.0f; x < 8.0f; x++ )
+			{
+				var pos = paddle.Position + (Vector3.Up * x) * paddle.Rotation;
+				DebugOverlay.Sphere( pos, 0.25f, Color.Blue );
+				var v = x * MathX.DegreeToRadian( paddle.AngularVelocity.pitch );
+				DebugOverlay.Line( pos, pos + paddle.Rotation.Forward * v );
+			}
+		}
+
 		//
 		// This shouldn't be needed if we do some math
 		//
-		if ( TableTennisGame.Current.SinceLastHit < 0.2f ) return false;
+		if ( LastHit < 0.2f ) return false;
 
-		var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).EntitiesOnly().Ignore( paddle ).Run();
+		var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).WithTag( "ball" ).IncludeClientside().Run();
+		// var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).WorldAndEntities().Ignore( paddle ).IncludeClientside().Run();
 
 		if ( !sweep.Hit ) return false;
+
 		if ( sweep.Entity is not Ball ) return false;
 
 		// get hit position local to the paddle
@@ -159,9 +167,11 @@ public static partial class BallPhysics
 		// Probably some shit we can do with the ball mass / paddle mass blah blah, this feels about right for now though
 		ball.Velocity += Math.Abs(paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
 
-		// DebugOverlay.Line( ball.Position, ball.Position + ball.Velocity, Color.Orange, 2 );
+		// DebugOverlay.Line( ball.Position, ball.Position + ball.Velocity, Color.Orange, 5 );
 
 		Sound.FromWorld( TableTennisGame.Current?.GetPaddleSound(), sweep.HitPosition ).SetVolume( ball.Velocity.Length / 50f );
+
+		LastHit = 0;
 
 		TableTennisGame.Current?.OnPaddleHit( paddle, ball );
 		TableTennisGame.ServerPaddleHit( paddle.NetworkIdent );

@@ -15,8 +15,6 @@ public partial class TableTennisGame : Game
 {
 	public static new TableTennisGame Current => Game.Current as TableTennisGame;
 
-	[Net, Change] public Client AuthoritativeClient { get; set; }
-
 	public TableTennisGame()
 	{
 		if ( IsServer )
@@ -25,14 +23,14 @@ public partial class TableTennisGame : Game
 
 			BlueTeam = new Team.Blue();
 			RedTeam = new Team.Red();
+
+			ServerBall = new Ball();
 		}
 
 		Audio.ReverbScale = 3f;
 		Audio.ReverbVolume = 3f;
-		Global.TickRate = 128;
+		Global.TickRate = 128; // I doubt this is needed this high now that everything is clientside :o
 	}
-
-	[Net] public Ball ActiveBall { get; set; }
 
 	public override void ClientJoined( Client cl )
 	{
@@ -54,24 +52,32 @@ public partial class TableTennisGame : Game
 	}
 
 	/// <summary>
+	/// Used to replicate the clients ball positions to each other and spectators.
+	/// </summary>
+	[Net] public Ball ServerBall { get; set; }
+
+	/// <summary>
+	/// Each client has their own ball, depending on where it is it's simulated themselves or replicates ServerBall.
+	/// </summary>
+	public Ball ClientBall { get; set; }
+
+	/// <summary>
 	/// Gives a client's pawn the ability to serve the active ball.
 	/// </summary>
-	/// <param name="cl"></param>
-	public void GiveServingBall( Client cl )
+	[ClientRpc]
+	public void GiveServingBall()
 	{
-		if ( cl.Pawn is not PlayerPawn pawn ) 
-			return;
-		
 		SpawnBall();
 
-		AuthoritativeClient = cl;
-		pawn.ServeHand.SetBall( ActiveBall );
+		var twat = Local.Pawn as PlayerPawn;
+		twat.ServeHand.SetBall( ClientBall );
 	}
 
+	TimeSince lastChange = 1f;
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
-		
+
 		// Everything here is server only
 		if ( !IsServer ) return;
 
@@ -80,39 +86,15 @@ public partial class TableTennisGame : Game
 			ResetGame();
 		}
 
-		if ( cl.Pawn is not PlayerPawn pawn ) return;
-		if ( !pawn.Paddle.IsValid() ) return;
-
-		if ( DebugSpawnBallAlways )
-		{
-			var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
-			if ( spawnButtonPressed )
-				GiveServingBall( cl );
-		}
-
-		if ( !ActiveBall.IsValid() )
-			return;
-
-		//
-		// Figure out who the AuthoritativeClient is simply by looking at the side of the table
-		// (Blue) -x +x (Red)
-		//
-		if ( !DebugBallPhysics )
-		{
-			var blueCl = BlueTeam.Client;
-			var redCl = RedTeam.Client;
-			if ( !redCl.IsValid() ) redCl = blueCl;
-
-			AuthoritativeClient = (ActiveBall.Position.x < 0) ? blueCl : redCl;
-		}
+		if ( cl.Pawn is not PlayerPawn pawn || !pawn.Paddle.IsValid() ) return;
+		if ( !ServerBall.IsValid() ) return;
 
 		//
 		// Set the ball position to wherever the AuthoritativeClient wants it
 		//
-		if ( AuthoritativeClient == cl && ActiveBall.IsValid() && ActiveBall.Created > 0.1f )
 		{
-			ActiveBall.Position = Input.Position;
-			ActiveBall.Velocity = Input.Cursor.Direction;
+			ServerBall.Position = Input.Position;
+			ServerBall.Velocity = Input.Cursor.Direction;
 		}
 	}
 
@@ -120,12 +102,11 @@ public partial class TableTennisGame : Game
 	{
 		base.BuildInput( inputBuilder );
 
-		if ( ActiveBall.IsValid() )
-		{
-			// Tell the server where I think the ball should be
-			inputBuilder.Position = ActiveBall.Position;
-			inputBuilder.Cursor.Direction = ActiveBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
-		}
+		if ( !ClientBall.IsValid() ) return;
+
+		// Tell the server where I think the ball should be
+		inputBuilder.Position = ClientBall.Position;
+		inputBuilder.Cursor.Direction = ClientBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
 	}
 
 	public override void FrameSimulate( Client cl )
@@ -134,21 +115,31 @@ public partial class TableTennisGame : Game
 		if ( !pawn.Paddle.IsValid() ) return;
 
 		// Get where our paddle was last frame and where it is this frame, sweep along that path!
-		var oldPaddleTransform = pawn.Paddle.ClientTransform;
+		var oldPaddleTransform = pawn.Paddle.Transform;
 		pawn.FrameSimulate( cl );
-		var newPaddleTransform = pawn.Paddle.ClientTransform;
+		var newPaddleTransform = pawn.Paddle.Transform;
 
-		if ( !ActiveBall.IsValid() ) return;
+		// if ( DebugSpawnBallAlways )
+		// {
+			var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
+			if ( spawnButtonPressed )
+				GiveServingBall();
+		// }
 
-		//
-		// If we have no authority don't bother simulating, listen to whatever the server says
-		//
-		if ( AuthoritativeClient != cl )
+		if ( !ClientBall.IsValid() ) return;
+
+		// If we are serving the ball, don't simulate physics.
+		if ( pawn.ServeHand.Ball == ClientBall )
 			return;
-		
-		// If the ball is being held by something, don't simulate it.
-		if ( ActiveBall.Parent.IsValid() )
+
+		// If the ball isnt on our side of the table, don't simulate just replicate the servers ball...
+		// Actually maybe we can anyway, move this to Simulate?		
+		if ( !ClientBall.IsOnSide( Local.Client ) )
+		{
+			ClientBall.Position = ServerBall.Position;
+			ClientBall.Velocity = ServerBall.Velocity;
 			return;
+		}
 
 		//
 		// Simulate our physics with substeps
@@ -159,29 +150,22 @@ public partial class TableTennisGame : Game
 		for ( float timeLeft = Time.Delta; timeLeft > 0.0f; timeLeft -= timeStep )
 		{
 			// Paddle every substep... But if we hit fuckin stop
-			if ( !hit ) hit = BallPhysics.PaddleBall( pawn.Paddle, oldPaddleTransform, newPaddleTransform, ActiveBall );
+			if ( !hit ) hit = BallPhysics.PaddleBall( pawn.Paddle, oldPaddleTransform, newPaddleTransform, ClientBall );
 			
 			// Do whatever we have left
-			BallPhysics.Move( ActiveBall, MathF.Min( timeStep, timeLeft ) );
+			BallPhysics.Move( ClientBall, MathF.Min( timeStep, timeLeft ) );
 		}
+
+		// DebugOverlay.Text( "Ball", ActiveBall.Position );
+		DebugOverlay.Text( "ClientBall", ClientBall.Position );
 	}
 
 	public void SpawnBall()
 	{
-		if ( ActiveBall.IsValid() ) ActiveBall.Delete();
-		ActiveBall = new Ball();
+		if ( ClientBall.IsValid() ) ClientBall.Delete();
+		ClientBall = new Ball();
 	}
-
-	public void OnAuthoritativeClientChanged( Client old, Client client )
-	{
-		// If authority is being transferred to us, make sure our clientside vars are up to date
-		if ( client == Local.Client && ActiveBall.IsValid() )
-		{
-			ActiveBall.SetFromServer();
-		}
-	}
-
-
+	
 	public override CameraSetup BuildCamera( CameraSetup camSetup )
 	{
 		var cam = FindActiveCamera();

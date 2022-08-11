@@ -14,7 +14,7 @@ public partial class TableTennisGame
 	[ConVar.Replicated( "tt_debug_physics_test" )]
 	public static bool DebugBallPhysics { get; set; } = false;
 
-	[ConVar.Server( "tt_debug_spawn_ball" )]
+	[ConVar.Replicated( "tt_debug_spawn_ball" )]
 	public static bool DebugSpawnBallAlways { get; set; } = false;
 
 	[ConVar.Server( "tt_debug_ballspawntime" )]
@@ -42,9 +42,8 @@ public partial class TableTennisGame
 
 		LastHitter = null;
 		SpawnBall();
-		ActiveBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		ActiveBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
-		AuthoritativeClient = Client.All.First();
+		ServerBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		ServerBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
 
 		LastSpawn = 0;
 	}

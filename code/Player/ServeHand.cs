@@ -35,7 +35,7 @@ public partial class ServeHand : AnimatedEntity
 
 	[Net] public FingerData FingerData { get; set; }
 	[Net] protected bool UsePresets { get; set; } = true;
-	[Net] public Ball Ball { get; set; }
+	public Ball Ball { get; set; }
 
 	public ServeHand()
 	{
@@ -68,23 +68,11 @@ public partial class ServeHand : AnimatedEntity
 	{
 		base.Simulate( cl );
 
-		var cachedPos = LastPosition;
-		LastPosition = Position;
-		VelocityDelta = Position - cachedPos;
-
 		//FingerData.DebugLog();
 
 		// Parse finger data
 		FingerData.Parse( Input.VR.LeftHand );
 		UsePresets = !Input.VR.IsKnuckles;
-
-		if ( Ball.IsValid() )
-		{
-			if ( Input.VR.LeftHand.Grip >= 0.9f )
-			{
-				DropBall();
-			}
-		}
 
 		Animate();
 	}
@@ -93,11 +81,20 @@ public partial class ServeHand : AnimatedEntity
 	{
 		base.FrameSimulate( cl );
 
+		var cachedPos = LastPosition;
+		LastPosition = Position;
+		VelocityDelta = Position - cachedPos;
+
 		Animate();
 
-		if ( Ball.IsValid() && Ball.Parent.IsValid() && Ball.IsAuthority )
+		if ( Ball.IsValid() )
 		{
 			Ball.Position = HoldPosition;
+			
+			if ( Input.VR.LeftHand.Grip >= 0.9f )
+			{
+				DropBall();
+			}
 		}
 	}
 
@@ -113,7 +110,6 @@ public partial class ServeHand : AnimatedEntity
 	internal void SetBall( Ball ball )
 	{
 		Ball = ball;
-		ball.Parent = this;
 	}
 	
 	public Vector3 HoldPosition => Position + Rotation.Forward * 1.35f + Rotation.Right * 1f + Rotation.Up * 1f;
@@ -122,12 +118,8 @@ public partial class ServeHand : AnimatedEntity
 	public void DropBall()
 	{
 		var ball = Ball;
-
-		ball.Parent = null;
 		Ball = null;
-		
-		if ( IsServer )
-			ball.Velocity = VelocityDelta * throwPower;
+		ball.Velocity = VelocityDelta * throwPower;
 	}
 
 	protected void FlipOff()
