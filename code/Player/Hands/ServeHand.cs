@@ -37,7 +37,6 @@ public partial class ServeHand : VrPlayerHand
 	
 	public Vector3 HoldPosition => Position + Rotation.Forward * 1.35f + Rotation.Right * 1f + Rotation.Up * 1f;
 
-	const float throwPower = 100f;
 	public void ThrowBall()
 	{
 		var ball = Ball;

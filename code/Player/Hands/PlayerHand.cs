@@ -8,19 +8,16 @@ public partial class VrPlayerHand : AnimatedEntity
 	protected static Model LeftHandModel = Model.Load( "models/hands/alyx_hand_left.vmdl" );
 	protected static Model RightHandModel = Model.Load( "models/hands/alyx_hand_right.vmdl" );
 
-	[Net] private VrHandType handType { get; set; }
+	[Net, Change( "OnHandChanged" )] private VrHandType handType { get; set; }
 	
 	public VrHandType HandType
 	{
 		get => handType;
 		set
 		{
+			var old = handType;
 			handType = value;
-
-			// Set the model based on the hand type
-			Model = handType == VrHandType.Left ? LeftHandModel : RightHandModel;
-
-			if ( !VisibleHand ) Model = null;
+			OnHandChanged( old, handType );
 		}
 	}
 	
@@ -38,9 +35,21 @@ public partial class VrPlayerHand : AnimatedEntity
 		set
 		{
 			visibleHand = value;
-
 			if ( !visibleHand ) Model = null;
 		}
+	}
+	
+	protected virtual void OnHandChanged( VrHandType before, VrHandType after )
+	{
+		if ( IsServer ) Model = after == VrHandType.Left ? LeftHandModel : RightHandModel;
+
+		if ( IsClient )
+		{
+			var team = Client.GetTeam();
+			SetMaterialOverride( team is Team.Red ? RedMaterialOverride : BlueMaterialOverride );
+		}
+
+		EnableDrawing = VisibleHand;
 	}
 
 	protected virtual void SimulateFingers( Client cl )
@@ -105,17 +114,6 @@ public partial class VrPlayerHand : AnimatedEntity
 		Transform = HandInput.Transform.WithScale( VR.Scale );
 	
 		SimulateInput( cl );
-	}
-
-	public override void OnNewModel( Model model )
-	{
-		base.OnNewModel( model );
-
-		if ( IsClient )
-		{
-			var team = Client.GetTeam();
-			SetMaterialOverride( team is Team.Red ? RedMaterialOverride : BlueMaterialOverride );
-		}
 	}
 
 	[Event.Tick]

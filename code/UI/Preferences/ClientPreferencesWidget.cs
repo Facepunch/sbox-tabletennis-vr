@@ -20,7 +20,6 @@ public partial class PreferenceRow : Panel
 			{
 				button.SetClass( "active", !button.HasClass( "active" ) );
 				property.SetValue( target, button.HasClass( "active" ) );
-				Update();
 			} );
 		}
 		else if ( property.PropertyType == typeof( string ) )
@@ -30,7 +29,6 @@ public partial class PreferenceRow : Panel
 			textentry.AddEventListener( "value.changed", () =>
 			{
 				property.SetValue( target, textentry.Text );
-				Update();
 			} );
 		}
 		else if ( property.PropertyType.IsEnum )
@@ -42,7 +40,6 @@ public partial class PreferenceRow : Panel
 			{
 				Enum.TryParse( property.PropertyType, dropdown.Value, out var newval );
 				property.SetValue( target, newval );
-				Update();
 			} );
 		}
 		else if ( property.PropertyType == typeof( float ) )
@@ -54,13 +51,7 @@ public partial class PreferenceRow : Panel
 			var step = property.GetCustomAttribute<StepAttribute>()?.Value ?? .1f;
 			var slider = ValueArea.Add.SliderWithEntry( min, max, step );
 			slider.Bind( "value", target, property.Name );
-			slider.AddEventListener( "value.changed", Update );
 		}
-	}
-
-	public void Update()
-	{
-		ClientPreferences.Save();
 	}
 
 	public PreferenceRow()
@@ -89,10 +80,12 @@ public partial class ClientPreferencesWidget : WorldPanel
 		Canvas.Add.Label( "Preferences", "title" );
 	}
 
-	Vector2 Size => new( 800, 450f );
+	Vector2 Size => new( 800, 530f );
 	protected override void PostTemplateApplied()
 	{
 		base.PostTemplateApplied();
+
+		var btn = Add.Button( "Save", () => { SetVisible( false ); ClientPreferences.Save(); } );
 
 		Initialize();
 	}
@@ -105,6 +98,12 @@ public partial class ClientPreferencesWidget : WorldPanel
 		AddProperties( ClientPreferences.LocalSettings );
 	}
 
+	public void SetVisible( bool vis )
+	{
+		Visible = vis;
+		SetClass( "visible", vis );
+	}
+
 	public override void Tick()
 	{
 		base.Tick();
@@ -115,13 +114,12 @@ public partial class ClientPreferencesWidget : WorldPanel
 		Position = hand.Position + Vector3.Up * 2f;
 		Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
 		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
-		WorldScale = 0.2f;
+		WorldScale = 0.4f;
 		Scale = 2.0f;
 
 		if ( hand.InMenu )
 		{
-			Visible ^= true;
-			SetClass( "visible", Visible );
+			SetVisible( !Visible );
 		}
 	}
 

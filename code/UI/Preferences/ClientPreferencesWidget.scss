@@ -5,29 +5,52 @@ $switch-padding: 6px !default;
 $form-control-height: 24px !default;
 
 ClientPreferencesWidget {
-    transition: all 0.1s ease;
+    flex-direction: column;
+    background-image: linear-gradient( to bottom, rgba( 10, 10, 10, 0.8 ), rgba( black, 0 ) );
+    border-radius: 16px;
 
     .canvas {
         width: 100%;
         height: 100%;
         flex-direction: column-reverse;
-        background-image: linear-gradient( to bottom, rgba( 10, 10, 10, 0.8 ), rgba( black, 0 ) );
         padding: 8px;
+        padding-bottom: 0;
         border-radius: 16px;
     }
 
-    .title {
-        width: 100%;
-        text-align: center;
-        padding-bottom: 16px;
+    > button {
+        margin: 8px;
+        background-color: rgba( 50, 50, 50, 1 );
+        height: 50px;
+        border-radius: 16px;
+        font-size: 16px;
+
+        > label {
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+        }
+    }
+
+    label {
         color: white;
-        font-size: 24px;
         font-family: Poppins;
     }
 
-    opacity: 0;
+    .title {
+        font-size: 16px;
+        width: 100%;
+        text-align: center;
+        padding-bottom: 4px;
+    }
 
+    opacity: 0;
     pointer-events: none;
+
+    &:intro {
+        transition: all 0.1s ease;
+    }
 
     &.visible {
         pointer-events: all;
