@@ -2,21 +2,25 @@
 
 public partial class PlayerPawn : Entity
 {
-	[Net] public Paddle Paddle { get; set; }
-
 	protected ModelEntity HeadModel { get; set; }
 	
 	[Net, Predicted] public ServeHand ServeHand { get; set; }
+	[Net, Predicted] public PaddleHand PaddleHand { get; set; }
+
+	// Accessor for the paddle
+	public Paddle Paddle => PaddleHand.Paddle;
 
 	public override void Spawn()
 	{
-		Paddle = new();
-		Paddle.Owner = this;
-
 		Transmit = TransmitType.Always;
 		Predictable = true;
 
 		ServeHand = new()
+		{
+			Owner = this
+		};
+
+		PaddleHand = new()
 		{
 			Owner = this
 		};
@@ -42,14 +46,6 @@ public partial class PlayerPawn : Entity
 		}
 	}
 
-	protected Transform GetHandTransform( Client cl )
-	{
-		if ( cl.IsUsingVr )
-			return Input.VR.LeftHand.Transform;
-		else
-			return Transform.WithPosition( EyePosition + EyeRotation.Down * 8f + EyeRotation.Forward * 10f + EyeRotation.Left * 12.5f );
-	}
-
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
@@ -62,24 +58,16 @@ public partial class PlayerPawn : Entity
 		else
 			EyePosition = Position + Vector3.Up * 50f;
 
-		if ( ServeHand.IsValid() )
-		{
-			ServeHand.Transform = GetHandTransform( cl );
-			ServeHand.Simulate( cl );
-		}
-
-		Paddle?.Simulate( cl );
+		ServeHand?.Simulate( cl );
+		PaddleHand?.Simulate( cl );
 	}
 
 	public override void FrameSimulate( Client cl )
 	{
 		base.FrameSimulate( cl );
-		Paddle?.FrameSimulate( cl );
 
-		if ( ServeHand.IsValid() )
-		{
-			ServeHand.FrameSimulate( cl );
-		}
+		ServeHand?.FrameSimulate( cl );
+		PaddleHand?.FrameSimulate( cl );
 	}
 
 	[Event.Frame]
