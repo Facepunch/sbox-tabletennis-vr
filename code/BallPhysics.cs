@@ -1,22 +1,13 @@
 ﻿namespace TableTennis;
 
 /// <summary>
-/// Provides deterministic predicted physics for Table Tennis
+/// Deterministic physics for Table Tennis
 /// </summary>
-/// <remarks>
-/// Client should be authoritative on their paddle hitting the ball.
-/// </remarks>
 public static partial class BallPhysics
 {
-	//
-	// Global tuning constants based on meter-kilogram-seconds (MKS) units. Here adjusted 
-	// to inches for Source2  (1 inch ~ 2.5 cm <=> 1 cm ~ 0.4 inch <=> 1 m ~ 40 inch)
-	//
-
-	// Gravity ( 9.81m/s2 in MKS )
-	public static readonly Vector3 Gravity = Vector3.Down * 386.1f;
-	public static readonly float BallMass = 0.0027f; // 2.7g
-	public static readonly float BallRadius = 0.785f; // inches
+	public static readonly Vector3 Gravity = Vector3.Down * 9.81f.MeterToInch();
+	public static readonly float BallMass = 0.0027f;
+	public static readonly float BallRadius = 0.02f.MeterToInch();
 
 	//
 	// Our desired COR ( coefficient of restitution ) of a ball bouncing on the table should be at least 0.76.
@@ -38,7 +29,23 @@ public static partial class BallPhysics
 	public static readonly float PaddleRubberCOR = 0.05f;
 	public static readonly float TableCOR = 0.1f;
 
-	public static void Move( Ball ball, float delta )
+	public static bool Step( Ball ball, float dt, Paddle paddle, Transform paddleStart, Transform paddleEnd )
+	{
+		const float timeStep = 0.005f;
+		bool hit = false;
+		for ( float timeLeft = dt; timeLeft > 0.0f; timeLeft -= timeStep )
+		{
+			// Paddle every substep... But if we hit fuckin stop
+			if ( !hit ) hit = PaddleBall( paddle, paddleStart, paddleEnd, ball );
+
+			// Do whatever we have left
+			Move( ball, MathF.Min( timeStep, timeLeft ) );
+		}
+
+		return hit;
+	}
+
+	public static void Move( Ball ball, float timeStep )
 	{
 		var velocity = ball.Velocity;
 		var position = ball.Position;
@@ -50,16 +57,16 @@ public static partial class BallPhysics
 			.Ignore( ball )
 			.WithoutTags( "paddle" );
 
-		velocity += Gravity * delta;
+		velocity += Gravity * timeStep;
 
 		var drag = -velocity * velocity.Length * 0.0004f / (BallMass * 40); // MKS
-		velocity += drag * delta;
+		velocity += drag * timeStep;
 
 		// TODO: Magnus factor if we're feeling fancy?
 
 		// move and collide with shit
 		{
-			var timeLeft = delta;
+			var timeLeft = timeStep;
 			float travelFraction = 0;
 			var hit = false;
 			var hitPos = Vector3.Zero;

@@ -23,8 +23,6 @@ public partial class TableTennisGame : Game
 
 			BlueTeam = new Team.Blue();
 			RedTeam = new Team.Red();
-
-			// ServerBall = new Ball();
 		}
 
 		Audio.ReverbScale = 3f;
@@ -51,54 +49,29 @@ public partial class TableTennisGame : Game
 	}
 
 	/// <summary>
-	/// Used to replicate the clients ball positions to each other and spectators.
+	/// Client only
 	/// </summary>
-	// [Net] public Ball ServerBall { get; set; }
-
-	/// <summary>
-	/// Each client has their own ball, depending on where it is it's simulated themselves or replicates ServerBall.
-	/// </summary>
-	public Ball ClientBall { get; set; }
-
-	public void GiveServingBall( Client cl )
-	{
-		if ( cl.Pawn is not PlayerPawn pawn ) return;
-
-		/*if ( Host.IsServer )
-		{
-			if ( ServerBall.IsValid() ) ServerBall.Delete();
-			ServerBall = new Ball() { Position = pawn.ServeHand.Position };
-		}*/
-
-		ServingBall( To.Single( cl ) );
-	}
+	public Ball Ball { get; set; }
 
 	/// <summary>
 	/// Gives a client's pawn the ability to serve the active ball.
 	/// </summary>
 	[ClientRpc]
-	public void ServingBall()
+	public void ClientServingBall( Client client )
 	{
-		if ( ClientBall.IsValid() ) ClientBall.Delete();
-		ClientBall = new Ball();
+		// Passing client here cause we could do something for the other players
+		if ( Local.Client != client ) return;
+
+		if ( Ball.IsValid() ) Ball.Delete();
+		Ball = new Ball();
 
 		var twat = Local.Pawn as PlayerPawn;
-		twat.ServeHand.SetBall( ClientBall );
+		twat.ServeHand.SetBall( Ball );
 	}
 
-	TimeSince lastChange = 1f;
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
-
-		/*if ( ClientBall.IsValid() && ServerBall.IsValid() )
-		{
-			if ( !ClientBall.IsOnSide( Local.Client ) && !ServerBall.IsOnSide( Local.Client ) )
-			{
-				// ClientBall.Position = ServerBall.Position;
-				// ClientBall.Velocity = ServerBall.Velocity;
-			}
-		}*/
 
 		// Everything here is server only
 		if ( !IsServer ) return;
@@ -108,46 +81,11 @@ public partial class TableTennisGame : Game
 			ResetGame();
 		}
 
-		// if ( DebugSpawnBallAlways )
-		// {
-		var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
-		if ( spawnButtonPressed )
-			GiveServingBall( cl );
-		// }
-
-		if ( cl.Pawn is not PlayerPawn pawn || !pawn.Paddle.IsValid() ) return;
-		// if ( !ServerBall.IsValid() ) return;
-
-		// Just fully trust the client who gives a fuck
-		if ( Input.Down( InputButton.Slot9 ) )
+		if ( DebugSpawnBallAlways )
 		{
-			// DebugOverlay.Text( $"Ball controlled by: { cl.Name }", Vector3.Up * 64.0f );
-			
-			// ServerBall.Position = Input.Position;
-			// ServerBall.Velocity = Input.Cursor.Direction;
-		}
-		else
-		{
-			// DebugOverlay.Text( $"Nobody wants to control the ball... :(", Vector3.Up * 64.0f, Color.Red );
-		}
-	}
-
-	public override void BuildInput( InputBuilder inputBuilder )
-	{
-		base.BuildInput( inputBuilder );
-		
-		if ( !ClientBall.IsValid() ) return;
-
-		// Only tell the server where I think the ball should be on my side
-		if ( ClientBall.IsOnSide( Local.Client ) )
-		{
-			// inputBuilder.Position = ClientBall.Position;
-			// inputBuilder.Cursor.Direction = ClientBall.Velocity; // This is just abusive, we need a way to do userdata in usercmd
-			// inputBuilder.SetButton( InputButton.Slot9, true ); // lol fucking hell
-		}
-		else
-		{
-			// inputBuilder.SetButton( InputButton.Slot9, false );
+			var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
+			if ( spawnButtonPressed )
+				ClientServingBall( To.Everyone, cl );
 		}
 	}
 
@@ -160,10 +98,9 @@ public partial class TableTennisGame : Game
 	[ClientRpc]
 	public void SetBall( Vector3 position, Vector3 velocity, float time )
 	{
-		var delta = Time.Now - time;
-		ClientBall.Position = position;
-		ClientBall.Velocity = velocity;
-		// BallPhysics.Move( ClientBall, delta );
+		Ball.Position = position;
+		Ball.Velocity = velocity;
+		// BallPhysics.Move( ClientBall, Time.Now - time ); // lag compensation, but it sucks - do it a different way.
 	}
 
 	public override void FrameSimulate( Client cl )
@@ -172,34 +109,20 @@ public partial class TableTennisGame : Game
 		if ( !pawn.Paddle.IsValid() ) return;
 
 		// Get where our paddle was last frame and where it is this frame, sweep along that path!
-		var oldPaddleTransform = pawn.Paddle.Transform;
+		var startPaddleTransform = pawn.Paddle.Transform;
 		pawn.FrameSimulate( cl );
-		var newPaddleTransform = pawn.Paddle.Transform;
+		var endPaddleTransform = pawn.Paddle.Transform;
 
-		if ( !ClientBall.IsValid() ) return;
+		if ( !Ball.IsValid() ) return;
 
 		// If we are serving the ball, don't simulate physics.
-		if ( pawn.ServeHand.Ball == ClientBall )
+		if ( pawn.ServeHand.Ball == Ball )
 			return;
 
-		//
-		// Simulate our physics with substeps
-		// without substeps a headset locked at 90hz would frequently miss the ball with semi-fast movements
-		//
-		const float timeStep = 0.005f;
-		bool hit = false;
-		for ( float timeLeft = Time.Delta; timeLeft > 0.0f; timeLeft -= timeStep )
-		{
-			// Paddle every substep... But if we hit fuckin stop
-			if ( !hit ) hit = BallPhysics.PaddleBall( pawn.Paddle, oldPaddleTransform, newPaddleTransform, ClientBall );
-			
-			// Do whatever we have left
-			BallPhysics.Move( ClientBall, MathF.Min( timeStep, timeLeft ) );
-		}
-
+		var hit = BallPhysics.Step( Ball, Time.Delta, pawn.Paddle, startPaddleTransform, endPaddleTransform );
 		if ( hit )
 		{
-			IHitTheBallCunt( ClientBall.Position, ClientBall.Velocity, Time.Now );
+			IHitTheBallCunt( Ball.Position, Ball.Velocity, Time.Now );
 		}
 	}
 	

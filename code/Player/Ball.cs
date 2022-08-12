@@ -6,53 +6,28 @@ public partial class Ball : ModelEntity
 	private Vector3 _position { get; set; }
 	public override Vector3 Position
 	{
-		get
-		{
-			if ( IsClientOnly ) return _position;
-			return base.Position;
-		}
-		set
-		{
-			_position = value;
-			base.Position = value;
-		}
+		get => _position;
+		set => _position = value;
 	}
 
-	[Net]
-	private Vector3 _netVelocity { get; set; }
+	// Keyframed PhysicsBody return no velocity, set our own
 	private Vector3 _velocity { get; set; }
 	public override Vector3 Velocity
 	{
-		get
-		{
-			if ( IsClientOnly ) return _velocity;
-			return _netVelocity;
-		}
-		set
-		{
-			if ( IsClientOnly ) _velocity = value;
-			else _netVelocity = value;
-		}
+		get => _velocity;
+		set => _velocity = value;
 	}
 
 	public override void Spawn()
 	{
+		Host.AssertClient();
+
 		SetModel( "models/tabletennis.ball.vmdl" );
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );
 		Tags.Add( "ball" );
 
 		EnableTraceAndQueries = true;
-
-		if ( IsClientOnly )
-		{
-			Particles.Create( "particles/ball_trail/ball_trail.vpcf", this );
-		}
-		else
-		{
-			EnableDrawing = false;
-			EnableTraceAndQueries = false;
-			PhysicsEnabled = false;
-		}
+		Particles.Create( "particles/ball_trail/ball_trail.vpcf", this );
 	}
 
 	public bool IsOnSide( Client cl )
