@@ -2,7 +2,7 @@ namespace TableTennis;
 
 public partial class ServeHand : VrPlayerHand
 {
-	public Ball Ball { get; set; }
+	public Ball Ball { get; protected set; }
 
 	public ServeHand()
 	{
@@ -20,14 +20,6 @@ public partial class ServeHand : VrPlayerHand
 
 	Vector3 LastPosition;
 	Vector3 VelocityDelta;
-
-	public override void Simulate( Client cl )
-	{
-		base.Simulate( cl );
-
-		Animate();
-	}
-
 	public override void FrameSimulate( Client cl )
 	{
 		base.FrameSimulate( cl );
@@ -36,16 +28,10 @@ public partial class ServeHand : VrPlayerHand
 		LastPosition = Position;
 		VelocityDelta = Position - cachedPos;
 
-		Animate();
-
 		if ( Ball.IsValid() )
 		{
 			Ball.Position = HoldPosition;
-			
-			if ( Input.VR.LeftHand.Grip >= 0.9f )
-			{
-				ThrowBall();
-			}
+			if ( InGrip ) ThrowBall();
 		}
 	}
 
@@ -64,5 +50,20 @@ public partial class ServeHand : VrPlayerHand
 		ball.Velocity = VelocityDelta * throwPower;
 
 		TableTennisGame.IThrewTheBallCunt( ball.Position, ball.Velocity, Time.Now );
+	}
+	
+	protected override void Animate()
+	{
+		base.Animate();
+
+		if ( Ball.IsValid() )
+		{
+			var a = 0.5f;
+			SetAnimParameter( "FingerCurl_Middle", a );
+			SetAnimParameter( "FingerCurl_Ring", a );
+			SetAnimParameter( "FingerCurl_Pinky", a );
+			SetAnimParameter( "FingerCurl_Index", a );
+			SetAnimParameter( "FingerCurl_Thumb", a );
+		}
 	}
 }

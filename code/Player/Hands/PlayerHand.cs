@@ -66,8 +66,8 @@ public partial class VrPlayerHand : AnimatedEntity
 		}
 	}
 
-	public bool InGrip => HandInput.Grip.Active;
-	public bool InTrigger => HandInput.Trigger.Active;
+	public bool InGrip => HandInput.Grip.Value.AlmostEqual( 1, 0.1f );
+	public bool InTrigger => HandInput.Trigger.Value.AlmostEqual( 1, 0.1f );
 
 	public override void Spawn()
 	{
@@ -80,11 +80,7 @@ public partial class VrPlayerHand : AnimatedEntity
 
 	protected virtual void SimulateInput( Client cl )
 	{
-		// default behavior - if grip gets held, drop the entity
-		if ( InGrip )
-		{
-			DropHeldEntity();
-		}
+		// empty as default
 	}
 
 	public override void Simulate( Client cl )
@@ -93,7 +89,6 @@ public partial class VrPlayerHand : AnimatedEntity
 		
 		Transform = HandInput.Transform.WithScale( VR.Scale );
 
-		SimulateHeldEntity( cl );
 		SimulateInput( cl );
 		SimulateFingers( cl );
 	}
@@ -104,7 +99,6 @@ public partial class VrPlayerHand : AnimatedEntity
 
 		Transform = HandInput.Transform.WithScale( VR.Scale );
 	
-		SimulateHeldEntity( cl );
 		SimulateInput( cl );
 	}
 
@@ -120,7 +114,7 @@ public partial class VrPlayerHand : AnimatedEntity
 	}
 
 	[Event.Tick]
-	protected void Animate()
+	protected virtual void Animate()
 	{
 		// Weird requirements, but I'll allow it.
 		SetAnimParameter( "bGrab", true );
