@@ -68,6 +68,7 @@ public partial class VrPlayerHand : AnimatedEntity
 
 	public bool InGrip => HandInput.Grip.Value.AlmostEqual( 1, 0.1f );
 	public bool InTrigger => HandInput.Trigger.Value.AlmostEqual( 1, 0.1f );
+	public bool InMenu => HandInput.JoystickPress.WasPressed;
 
 	public override void Spawn()
 	{

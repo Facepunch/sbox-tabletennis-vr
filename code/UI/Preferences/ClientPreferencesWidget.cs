@@ -77,6 +77,8 @@ public partial class ClientPreferencesWidget : WorldPanel
 	// @ref
 	public Panel Canvas { get; set; }
 
+	public bool Visible { get; set; } = false;
+
 	public void AddProperties( object obj )
 	{
 		var properties = obj.GetType().GetProperties( BindingFlags.Public | BindingFlags.Instance );
@@ -87,13 +89,11 @@ public partial class ClientPreferencesWidget : WorldPanel
 		Canvas.Add.Label( "Preferences", "title" );
 	}
 
-	Vector2 Size => new( 500, 500f );
+	Vector2 Size => new( 800, 450f );
 	protected override void PostTemplateApplied()
 	{
 		base.PostTemplateApplied();
 
-		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
-		
 		Initialize();
 	}
 
@@ -102,6 +102,10 @@ public partial class ClientPreferencesWidget : WorldPanel
 	{
 		Canvas.DeleteChildren( true );
 
+		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
+		WorldScale = 0.2f;
+		Scale = 2.0f;
+
 		AddProperties( ClientPreferences.LocalSettings );
 	}
 
@@ -109,7 +113,16 @@ public partial class ClientPreferencesWidget : WorldPanel
 	{
 		base.Tick();
 	
-		// TODO - This is just to debug
-		Position = Vector3.Up * 100f;
+		var pawn = Local.Pawn as PlayerPawn;
+		var hand = pawn.ServeHand;
+
+		Position = hand.Position + Vector3.Up * 2f;
+		Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
+
+		if ( hand.InMenu )
+		{
+			Visible ^= true;
+			SetClass( "visible", Visible );
+		}
 	}
 }
