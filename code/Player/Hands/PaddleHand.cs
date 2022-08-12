@@ -8,11 +8,13 @@ public partial class PaddleHand : VrPlayerHand
 	{
 		Paddle = new();
 		Paddle.Owner = Owner;
-
+		
 		base.Spawn();
 
 		HandType = VrHandType.Right;
 		VisibleHand = false;
+		Paddle.Hand = this;
+		Transmit = TransmitType.Always;
 	}
 
 	public override void Simulate( Client cl )

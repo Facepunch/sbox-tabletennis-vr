@@ -8,4 +8,23 @@ public partial class ClientPreferencesComponent : EntityComponent, ISingletonCom
 	{
 		Settings = new();
 	}
+
+	public void Update( ClientPreferences.Settings newSettings )
+	{
+		Settings = newSettings;
+
+		var cl = Entity as Client;
+		var pawn = cl.Pawn as PlayerPawn;
+
+		if ( Settings.FlipHands )
+		{
+			pawn.ServeHand.HandType = VrPlayerHand.VrHandType.Right;
+			pawn.PaddleHand.HandType = VrPlayerHand.VrHandType.Left;
+		}
+		else
+		{
+			pawn.ServeHand.HandType = VrPlayerHand.VrHandType.Left;
+			pawn.PaddleHand.HandType = VrPlayerHand.VrHandType.Right;
+		}
+	}
 }

@@ -3,6 +3,7 @@
 public partial class Paddle : ModelEntity
 {
 	public Transform ClientTransform { get; set; }
+	[Net] public PaddleHand Hand { get; set; }
 
 	public override void Spawn()
 	{
@@ -27,9 +28,9 @@ public partial class Paddle : ModelEntity
 		// This is solely just to sync with other players
 		if ( cl.IsUsingVr )
 		{
-			Transform = Input.VR.RightHand.Transform;
-			Velocity = Input.VR.RightHand.Velocity;
-			AngularVelocity = Input.VR.RightHand.AngularVelocity;
+			Transform = Hand.Transform;
+			Velocity = Hand.Velocity;
+			AngularVelocity = Hand.AngularVelocity;
 
 			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) * Rotation.FromYaw( 180 ) );
 			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
@@ -44,9 +45,9 @@ public partial class Paddle : ModelEntity
 
 		if ( cl.IsUsingVr )
 		{
-			Transform = Input.VR.RightHand.Transform;
-			Velocity = Input.VR.RightHand.Velocity;
-			AngularVelocity = Input.VR.RightHand.AngularVelocity;
+			Transform = Hand.Transform;
+			Velocity = Hand.Velocity;
+			AngularVelocity = Hand.AngularVelocity;
 
 			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) * Rotation.FromYaw( 180 ) );
 			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );

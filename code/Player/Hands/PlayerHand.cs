@@ -19,6 +19,8 @@ public partial class VrPlayerHand : AnimatedEntity
 
 			// Set the model based on the hand type
 			Model = handType == VrHandType.Left ? LeftHandModel : RightHandModel;
+
+			if ( !VisibleHand ) Model = null;
 		}
 	}
 	
@@ -89,6 +91,8 @@ public partial class VrPlayerHand : AnimatedEntity
 		base.Simulate( cl );
 		
 		Transform = HandInput.Transform.WithScale( VR.Scale );
+		Velocity = HandInput.Velocity;
+		AngularVelocity = HandInput.AngularVelocity;
 
 		SimulateInput( cl );
 		SimulateFingers( cl );
