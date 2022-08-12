@@ -47,4 +47,14 @@ public partial class TableTennisGame
 
 		LastSpawn = 0;
 	}
+
+	private void DebugSimulate( Client cl )
+	{
+		if ( DebugSpawnBallAlways )
+		{
+			var spawnButtonPressed = Input.VR.LeftHand.ButtonA.WasPressed || Input.Pressed( InputButton.Jump );
+			if ( spawnButtonPressed )
+				ClientServingBall( To.Everyone, cl );
+		}
+	}
 }

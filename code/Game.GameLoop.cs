@@ -118,7 +118,7 @@ public partial class TableTennisGame
 		cl.Pawn = new SpectatorPawn();
 	}
 
-	protected void SetupPlayer( Client cl )
+	public override void ClientJoined( Client cl )
 	{
 		if ( DebugNoFlow )
 		{
@@ -136,6 +136,20 @@ public partial class TableTennisGame
 		}
 
 		CreatePawn( cl );
+	}
+
+	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	{
+		if ( cl.Pawn.IsValid() )
+		{
+			cl.Pawn.Delete();
+			cl.Pawn = null;
+
+			// Clear the player's team data
+			cl.GetTeam()?.Reset();
+		}
+
+		HintWidget.AddMessage( To.Everyone, $"{cl.Name} left", $"avatar:{cl.PlayerId}" );
 	}
 
 	[Event.Tick.Server]

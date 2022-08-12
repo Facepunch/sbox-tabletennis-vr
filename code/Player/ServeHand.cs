@@ -93,7 +93,7 @@ public partial class ServeHand : AnimatedEntity
 			
 			if ( Input.VR.LeftHand.Grip >= 0.9f )
 			{
-				DropBall();
+				ThrowBall();
 			}
 		}
 	}
@@ -115,11 +115,13 @@ public partial class ServeHand : AnimatedEntity
 	public Vector3 HoldPosition => Position + Rotation.Forward * 1.35f + Rotation.Right * 1f + Rotation.Up * 1f;
 
 	const float throwPower = 100f;
-	public void DropBall()
+	public void ThrowBall()
 	{
 		var ball = Ball;
 		Ball = null;
 		ball.Velocity = VelocityDelta * throwPower;
+
+		TableTennisGame.IThrewTheBallCunt( ball.Position, ball.Velocity, Time.Now );
 	}
 
 	protected void FlipOff()

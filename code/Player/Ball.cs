@@ -7,7 +7,11 @@ public partial class Ball : ModelEntity
 	public override Vector3 Position
 	{
 		get => _position;
-		set => _position = value;
+		set
+		{
+			_position = value;
+			base.Position = value;
+		}
 	}
 
 	// Keyframed PhysicsBody return no velocity, set our own
