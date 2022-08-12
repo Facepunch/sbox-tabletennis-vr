@@ -5,9 +5,16 @@
 /// </summary>
 public static partial class BallPhysics
 {
-	public static readonly Vector3 Gravity = Vector3.Down * 9.81f.MeterToInch();
-	public static readonly float BallMass = 0.0027f;
-	public static readonly float BallRadius = 0.02f.MeterToInch();
+	// Main thing to these consts, mass is kg, distances are in
+
+	public static readonly Vector3 Gravity = Vector3.Down * 9.81f.MeterToInch(); 
+	public static readonly float BallMass = 0.0027f; // kg
+	public static readonly float BallRadius = 0.02f.MeterToInch(); // in²
+	public static readonly float BallCrossArea = MathF.PI * BallRadius * BallRadius; // in²
+
+	public static readonly float KGM3ToKGI3 = 0.0164f; // kg/m³ -> kg/in³
+	public static readonly float AirDensity = 1.204f * KGM3ToKGI3; // kg/in³
+	public static readonly float DragCoefficient = 0.5f;
 
 	//
 	// Our desired COR ( coefficient of restitution ) of a ball bouncing on the table should be at least 0.76.
@@ -45,6 +52,17 @@ public static partial class BallPhysics
 		return hit;
 	}
 
+	private static Vector3 BallDrag( Vector3 velocity )
+	{
+		// Standard drag equation, just make sure we give it the proper units
+		//
+		// Fd         = 1/2  * ρ          * u²                     * A             * Cd
+		//                     kg/m³        m/s²                     m²2
+		//                     kg/in³       in/s²                    in²2
+		var dragForce = 0.5f * AirDensity * velocity.LengthSquared * BallCrossArea * DragCoefficient;
+		return -dragForce * velocity.Normal;
+	}
+
 	public static void Move( Ball ball, float timeStep )
 	{
 		var velocity = ball.Velocity;
@@ -57,10 +75,8 @@ public static partial class BallPhysics
 			.Ignore( ball )
 			.WithoutTags( "paddle" );
 
-		velocity += Gravity * timeStep;
-
-		var drag = -velocity * velocity.Length * 0.0004f / (BallMass * 40); // MKS
-		velocity += drag * timeStep;
+		var drag = BallDrag( velocity );
+		velocity += (drag + Gravity) * timeStep;
 
 		// TODO: Magnus factor if we're feeling fancy?
 
