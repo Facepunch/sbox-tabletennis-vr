@@ -20,7 +20,7 @@ public partial class PreferenceRow : Panel
 			{
 				button.SetClass( "active", !button.HasClass( "active" ) );
 				property.SetValue( target, button.HasClass( "active" ) );
-				CreateEvent( "save" );
+				Update();
 			} );
 		}
 		else if ( property.PropertyType == typeof( string ) )
@@ -60,7 +60,7 @@ public partial class PreferenceRow : Panel
 
 	public void Update()
 	{
-		// TODO - update the prop
+		ClientPreferences.Save();
 	}
 
 	public PreferenceRow()

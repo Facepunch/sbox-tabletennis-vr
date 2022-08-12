@@ -28,7 +28,7 @@ public partial class ClientPreferences
 		var component = cl.Components.GetOrCreate<ClientPreferencesComponent>();
 		if ( component is null ) return;
 
-		component.Settings = settings;
+		component.Update( settings );
 	}
 
 	[ConCmd.Server( "tt_prefs_debug" )]
