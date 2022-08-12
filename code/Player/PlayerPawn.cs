@@ -101,4 +101,15 @@ public partial class PlayerPawn : Entity
 	}
 
 	public Team GetTeam() => Client.GetTeam();
+
+	WorldInput WorldInput = new();
+	public override void BuildInput( InputBuilder input )
+	{
+		base.BuildInput( input );
+
+		if ( !Input.VR.IsActive ) return;
+
+		WorldInput.Ray = new Ray( ServeHand.Position, ServeHand.Rotation.Forward );
+		WorldInput.MouseLeftPressed = ServeHand.InTrigger;
+	}
 }
