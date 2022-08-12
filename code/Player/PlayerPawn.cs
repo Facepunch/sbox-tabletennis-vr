@@ -24,6 +24,8 @@ public partial class PlayerPawn : Entity
 		{
 			Owner = this
 		};
+		
+		PaddleHand.Paddle.Owner = this;
 	}
 
 	public override void ClientSpawn()

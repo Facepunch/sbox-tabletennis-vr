@@ -7,7 +7,7 @@ public partial class PaddleHand : VrPlayerHand
 	public override void Spawn()
 	{
 		Paddle = new();
-		Paddle.Owner = this;
+		Paddle.Owner = Owner;
 
 		base.Spawn();
 
