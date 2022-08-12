@@ -120,6 +120,9 @@ public partial class TableTennisGame
 
 	public override void ClientJoined( Client cl )
 	{
+		// Set up client prefrences
+		cl.Components.GetOrCreate<ClientPreferencesComponent>();
+
 		if ( DebugNoFlow )
 		{
 			CreatePawn( cl );

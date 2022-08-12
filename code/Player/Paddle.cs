@@ -14,6 +14,7 @@ public partial class Paddle : ModelEntity
 		Predictable = true;
 
 		Tags.Add( "paddle" );
+
 	}
 
 	public override void Simulate( Client cl )

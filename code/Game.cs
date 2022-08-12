@@ -24,6 +24,11 @@ public partial class TableTennisGame : Game
 			BlueTeam = new Team.Blue();
 			RedTeam = new Team.Red();
 		}
+		else
+		{
+			// Send the client preferences to the server.
+			ClientPreferences.Load();
+		}
 
 		Audio.ReverbScale = 3f;
 		Audio.ReverbVolume = 3f;
