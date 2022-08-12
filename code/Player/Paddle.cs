@@ -5,6 +5,8 @@ public partial class Paddle : ModelEntity
 	public Transform ClientTransform { get; set; }
 	[Net] public PaddleHand Hand { get; set; }
 
+	[Net] public float PaddleAngle { get; set; } = 0f;
+
 	public override void Spawn()
 	{
 		SetModel( "models/tabletennis.paddle.vmdl" );
@@ -32,7 +34,7 @@ public partial class Paddle : ModelEntity
 			Velocity = Hand.Velocity;
 			AngularVelocity = Hand.AngularVelocity;
 
-			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) * Rotation.FromYaw( 180 ) );
+			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90f ) * Rotation.FromYaw( 180 + PaddleAngle ) );
 			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
 		}
 	}
@@ -49,7 +51,7 @@ public partial class Paddle : ModelEntity
 			Velocity = Hand.Velocity;
 			AngularVelocity = Hand.AngularVelocity;
 
-			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90 ) * Rotation.FromYaw( 180 ) );
+			Transform = Transform.WithRotation( Transform.Rotation * Rotation.FromPitch( 90f ) * Rotation.FromYaw( 180 + PaddleAngle ) );
 			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
 		}
 

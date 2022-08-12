@@ -26,5 +26,7 @@ public partial class ClientPreferencesComponent : EntityComponent, ISingletonCom
 			pawn.ServeHand.HandType = VrPlayerHand.VrHandType.Left;
 			pawn.PaddleHand.HandType = VrPlayerHand.VrHandType.Right;
 		}
+
+		pawn.Paddle.PaddleAngle = Settings.PaddleAngle;
 	}
 }
