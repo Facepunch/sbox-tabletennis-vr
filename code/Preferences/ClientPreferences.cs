@@ -51,13 +51,13 @@ public partial class ClientPreferences
 	//
 	public class Settings
 	{
-		[Title( "Flip Hands" ), Description( "Flips the ball and paddle between the player's hands." )]
+		[Title( "Left-Handed" ), Description( "Flips the ball and paddle between the player's hands." )]
 		public bool FlipHands { get; set; } = false;
 
 		[Title( "Anchor" ), Description( "An offset applied on top of your original playspace position." )]
 		public Vector3 AnchorOffset { get; set; } = Vector3.Zero;
 
-		[Title( "Paddle Angle" ), Description( "The paddle's angle." ), Unit( "°" )]
+		[Title( "Paddle Angle" ), Description( "The paddle's angle." ), MinMax( 0, 90f ), Step( 1f )]
 		public float PaddleAngle { get; set; } = 90f;
 
 		public string ToJson()
