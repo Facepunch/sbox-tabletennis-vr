@@ -43,11 +43,16 @@ public partial class VrPlayerHand : AnimatedEntity
 	{
 		if ( IsServer ) Model = after == VrHandType.Left ? LeftHandModel : RightHandModel;
 
+		UpdateHandMaterials();
+	}
+
+	protected void UpdateHandMaterials()
+	{
+		var team = Client.GetTeam();
+		if ( team == null ) return;
+
 		if ( IsClient )
-		{
-			var team = Client.GetTeam();
 			SetMaterialOverride( team is Team.Red ? RedMaterialOverride : BlueMaterialOverride );
-		}
 
 		EnableDrawing = VisibleHand;
 	}
@@ -95,6 +100,13 @@ public partial class VrPlayerHand : AnimatedEntity
 		// empty as default
 	}
 
+	public override void OnNewModel( Model model )
+	{
+		base.OnNewModel( model );
+
+		UpdateHandMaterials();
+	}
+
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
@@ -105,6 +117,9 @@ public partial class VrPlayerHand : AnimatedEntity
 
 		SimulateInput( cl );
 		SimulateFingers( cl );
+
+		Animate();
+		
 	}
 
 	public override void FrameSimulate( Client cl )
@@ -116,7 +131,6 @@ public partial class VrPlayerHand : AnimatedEntity
 		SimulateInput( cl );
 	}
 
-	[Event.Tick]
 	protected virtual void Animate()
 	{
 		// Weird requirements, but I'll allow it.
