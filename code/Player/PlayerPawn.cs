@@ -99,7 +99,7 @@ public partial class PlayerPawn : Entity
 
 		if ( !Input.VR.IsActive ) return;
 
-		WorldInput.Ray = new Ray( ServeHand.Position, ServeHand.Rotation.Forward );
-		WorldInput.MouseLeftPressed = ServeHand.InTrigger;
+		WorldInput.Ray = new Ray( PaddleHand.Position, PaddleHand.Rotation.Forward );
+		WorldInput.MouseLeftPressed = PaddleHand.InTrigger;
 	}
 }

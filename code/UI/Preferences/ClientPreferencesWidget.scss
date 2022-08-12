@@ -27,7 +27,10 @@ ClientPreferencesWidget {
 
     opacity: 0;
 
+    pointer-events: none;
+
     &.visible {
+        pointer-events: all;
         opacity: 1;
     }
 }

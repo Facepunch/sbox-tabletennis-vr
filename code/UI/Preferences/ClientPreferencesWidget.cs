@@ -102,10 +102,6 @@ public partial class ClientPreferencesWidget : WorldPanel
 	{
 		Canvas.DeleteChildren( true );
 
-		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
-		WorldScale = 0.2f;
-		Scale = 2.0f;
-
 		AddProperties( ClientPreferences.LocalSettings );
 	}
 
@@ -118,11 +114,27 @@ public partial class ClientPreferencesWidget : WorldPanel
 
 		Position = hand.Position + Vector3.Up * 2f;
 		Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
+		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
+		WorldScale = 0.2f;
+		Scale = 2.0f;
 
 		if ( hand.InMenu )
 		{
 			Visible ^= true;
 			SetClass( "visible", Visible );
 		}
+	}
+
+	public override bool RayToLocalPosition( Ray ray, out Vector2 position, out float distance )
+	{
+		var ret = base.RayToLocalPosition( ray, out position, out distance );
+
+		// TODO - sexy particle
+		if ( Visible )
+		{
+			DebugOverlay.Line( ray.Origin, ray.Origin + ray.Direction * distance, Color.Red, 0, true );
+		}
+
+		return ret;
 	}
 }
