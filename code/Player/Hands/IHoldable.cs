@@ -23,6 +23,13 @@ public interface IHoldable : IValid
 	/// </summary>
 	/// <param name="hand"></param>
 	public void OnPickedUp( VrPlayerHand hand );
+	
+	/// <summary>
+	/// Called just before the hand drops something, specifies whether or not something can be dropped.
+	/// </summary>
+	/// <param name="vrPlayerHand"></param>
+	/// <returns></returns>
+	public bool CanDrop( VrPlayerHand hand );
 
 	/// <summary>
 	/// Called just before the hand picks up something, specifies whether or not something can be picked up.

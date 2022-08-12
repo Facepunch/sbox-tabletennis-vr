@@ -20,16 +20,18 @@ public partial class VrPlayerHand
 		}
 
 		// Only set the held entity if we can pick this up. Or if we're forcing it, ignore this.
-		if ( !holdable.CanPickup( this ) && !force ) 
-			return;
+		if ( !holdable.CanPickup( this ) && !force ) return;
 
 		HeldEntity = holdable;
 		HeldEntity.OnPickedUp( this );
 	}
 
-	public void DropHeldEntity()
+	public void DropHeldEntity( bool force = false )
 	{
-		HeldEntity?.OnDropped( this );
+		if ( !HeldEntity.IsValid() ) return;
+		if ( !HeldEntity.CanDrop( this ) && !force ) return;
+
+		HeldEntity.OnDropped( this );
 		HeldEntity = null;
 	}
 

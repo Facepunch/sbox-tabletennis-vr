@@ -40,8 +40,8 @@ public partial class VrPlayerHand : AnimatedEntity
 		}
 	}
 
-	public bool InGrip => HandInput.Grip.Value.AlmostEqual( 1f, 0.1f );
-	public bool InTrigger => HandInput.Trigger.Value.AlmostEqual( 1f, 0.1f );
+	public bool InGrip => HandInput.Grip.Active;
+	public bool InTrigger => HandInput.Trigger.Active;
 
 	public override void Spawn()
 	{
@@ -53,12 +53,22 @@ public partial class VrPlayerHand : AnimatedEntity
 		Tags.Add( "hand" );
 	}
 
+	protected virtual void SimulateInput( Client cl )
+	{
+		// default behavior - if grip gets held, drop the entity
+		if ( InGrip )
+		{
+			DropHeldEntity();
+		}
+	}
+
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
 
 		SimulateFingers( cl );
 		SimulateHeldEntity( cl );
+		SimulateInput( cl );
 	}
 
 	public override void FrameSimulate( Client cl )
@@ -67,6 +77,7 @@ public partial class VrPlayerHand : AnimatedEntity
 
 		SimulateFingers( cl );
 		SimulateHeldEntity( cl );
+		SimulateInput( cl );
 	}
 
 	[Event.Frame]
