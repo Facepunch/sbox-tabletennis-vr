@@ -323,15 +323,6 @@ public partial class TableTennisGame
 		}
 	}
 
-	internal string GetPaddleSound()
-	{
-		return "tabletennis.serve"; // matt: i love this sound, the other one hurts my ears
-
-		// if ( LastHitter == null )
-			// return "tabletennis.serve";
-		// return "tabletennis.paddle";
-	}
-
 	protected void SetServingTeam( Team team )
 	{
 		if ( State != GameState.Serving ) return;

@@ -208,7 +208,7 @@ public static partial class BallPhysics
 		// This feels good on Oculus, but Oculus haptics are kinda crap
 		Input.VR.RightHand.TriggerHapticVibration( 0f, 200.0f, Math.Clamp( 0.4f + ball.Velocity.Length / 500f, 0.4f, 0.8f ) );
 
-		Sound.FromWorld( TableTennisGame.Current?.GetPaddleSound(), sweep.HitPosition ).SetVolume( ball.Velocity.Length / 50f );
+		Sound.FromWorld( "tabletennis.serve", sweep.HitPosition ).SetVolume( ball.Velocity.Length / 50f );
 
 		LastHit = 0;
 
