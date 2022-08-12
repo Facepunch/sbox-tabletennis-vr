@@ -58,7 +58,7 @@ public partial class ClientPreferences
 		public Vector3 AnchorOffset { get; set; } = Vector3.Zero;
 
 		[Title( "Paddle Angle" ), Description( "The paddle's angle." ), MinMax( 0, 90f ), Step( 1f )]
-		public float PaddleAngle { get; set; } = 90f;
+		public float PaddleAngle { get; set; } = 0f;
 
 		public string ToJson()
 		{
