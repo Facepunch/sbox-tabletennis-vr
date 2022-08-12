@@ -18,15 +18,10 @@ public partial class ServeHand : VrPlayerHand
 		HandType = VrHandType.Left;
 	}
 
-	Vector3 LastPosition;
-	Vector3 VelocityDelta;
+
 	public override void FrameSimulate( Client cl )
 	{
 		base.FrameSimulate( cl );
-
-		var cachedPos = LastPosition;
-		LastPosition = Position;
-		VelocityDelta = Position - cachedPos;
 
 		if ( Ball.IsValid() )
 		{
@@ -47,7 +42,8 @@ public partial class ServeHand : VrPlayerHand
 	{
 		var ball = Ball;
 		Ball = null;
-		ball.Velocity = VelocityDelta * throwPower;
+		ball.Velocity = Velocity;
+		ball.AngularVelocity = AngularVelocity;
 
 		TableTennisGame.IThrewTheBallCunt( ball.Position, ball.Velocity, Time.Now );
 	}
