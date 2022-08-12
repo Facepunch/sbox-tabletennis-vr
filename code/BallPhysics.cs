@@ -137,8 +137,9 @@ public static partial class BallPhysics
 
 				// Surface restitution "absorbs" kinetic energy of the ball
 				// var bounce = 0.90f - pm.Surface.Elasticity;
-				
-				var bounce = BallCOR - TableCOR;
+
+				// var bounce = BallCOR - TableCOR;
+				var bounce = 0.89f; // there's not much sense to this value other then it feels good
 				if ( pm.Surface.ResourceName == "carpet" )
 				{
 					bounce = 0.5f;
