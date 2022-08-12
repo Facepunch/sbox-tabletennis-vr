@@ -54,8 +54,6 @@ public partial class ServeHand : VrPlayerHand
 	
 	protected override void Animate()
 	{
-		base.Animate();
-
 		if ( Ball.IsValid() )
 		{
 			var a = 0.5f;
@@ -64,6 +62,10 @@ public partial class ServeHand : VrPlayerHand
 			SetAnimParameter( "FingerCurl_Pinky", a );
 			SetAnimParameter( "FingerCurl_Index", a );
 			SetAnimParameter( "FingerCurl_Thumb", a );
+		}
+		else
+		{
+			base.Animate();
 		}
 	}
 }
