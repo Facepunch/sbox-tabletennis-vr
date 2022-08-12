@@ -1,40 +1,10 @@
 namespace TableTennis;
 
-public partial class FingerData : BaseNetworkable
-{
-	[Net] public float Index { get; set; }
-	[Net] public float Middle { get; set; }
-	[Net] public float Ring { get; set; }
-	[Net] public float Pinky { get; set; }
-	[Net] public float Thumb { get; set; }
-
-	public bool IsTriggerDown()
-	{
-		return Index.AlmostEqual( 1f, 0.1f );
-	}
-
-	public void Parse( Input.VrHand input )
-	{
-		Thumb = input.GetFingerCurl( 0 );
-		Index = input.GetFingerCurl( 1 );
-		Middle = input.GetFingerCurl( 2 );
-		Ring = input.GetFingerCurl( 3 );
-		Pinky = input.GetFingerCurl( 4 );
-	}
-
-	public void DebugLog()
-	{
-		Log.Info( $"{Host.Name}: {Thumb}, {Index}, {Middle}, {Ring}, {Pinky}" );
-	}
-}
-
-public partial class ServeHand : AnimatedEntity
+public partial class ServeHand : VrPlayerHand
 {
 	protected static Material RedMaterialOverride = Material.Load( "materials/hands/vr_hand.vmat" );
 	protected static Material BlueMaterialOverride = Material.Load( "materials/hands/vr_hand_blue.vmat" );
 
-	[Net] public FingerData FingerData { get; set; }
-	[Net] protected bool UsePresets { get; set; } = true;
 	public Ball Ball { get; set; }
 
 	public ServeHand()
@@ -46,8 +16,6 @@ public partial class ServeHand : AnimatedEntity
 	{
 		SetModel( "models/hands/alyx_hand_left.vmdl" );
 		Tags.Add( "serve_hand" );
-
-		FingerData = new();
 	}
 
 	public override void OnNewModel( Model model )
@@ -67,12 +35,6 @@ public partial class ServeHand : AnimatedEntity
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
-
-		//FingerData.DebugLog();
-
-		// Parse finger data
-		FingerData.Parse( Input.VR.LeftHand );
-		UsePresets = !Input.VR.IsKnuckles;
 
 		Animate();
 	}
@@ -149,35 +111,6 @@ public partial class ServeHand : AnimatedEntity
 			SetAnimParameter( "FingerCurl_Thumb", a );
 
 			return;
-		}
-
-
-		if ( !UsePresets )
-		{
-			SetAnimParameter( "FingerCurl_Middle", FingerData.Middle );
-			SetAnimParameter( "FingerCurl_Ring", FingerData.Ring );
-			SetAnimParameter( "FingerCurl_Pinky", FingerData.Pinky );
-			SetAnimParameter( "FingerCurl_Index", FingerData.Index );
-			SetAnimParameter( "FingerCurl_Thumb", FingerData.Thumb );
-		}
-		else
-		{
-			if ( FingerData.Index > 0.8f )
-			{
-				OkSign();
-			}
-			else if ( FingerData.Ring > 0.8f )
-			{
-				FlipOff();
-			}
-			else
-			{
-				SetAnimParameter( "FingerCurl_Middle", 1f );
-				SetAnimParameter( "FingerCurl_Ring", 1f );
-				SetAnimParameter( "FingerCurl_Pinky", 1f );
-				SetAnimParameter( "FingerCurl_Index", 1f );
-				SetAnimParameter( "FingerCurl_Thumb", 1f );
-			}
 		}
 	}
 }
