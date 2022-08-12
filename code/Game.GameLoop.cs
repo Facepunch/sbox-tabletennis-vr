@@ -325,10 +325,11 @@ public partial class TableTennisGame
 
 	internal string GetPaddleSound()
 	{
-		if ( LastHitter == null )
-			return "tabletennis.serve";
+		return "tabletennis.serve"; // matt: i love this sound, the other one hurts my ears
 
-		return "tabletennis.paddle";
+		// if ( LastHitter == null )
+			// return "tabletennis.serve";
+		// return "tabletennis.paddle";
 	}
 
 	protected void SetServingTeam( Team team )
