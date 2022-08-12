@@ -54,8 +54,8 @@ public partial class ClientPreferences
 		[Title( "Left-Handed" ), Description( "Flips the ball and paddle between the player's hands." )]
 		public bool FlipHands { get; set; } = false;
 
-		[Title( "Anchor" ), Description( "An offset applied on top of your original playspace position." )]
-		public Vector3 AnchorOffset { get; set; } = Vector3.Zero;
+		//[Title( "Anchor" ), Description( "An offset applied on top of your original playspace position." )]
+		//public Vector3 AnchorOffset { get; set; } = Vector3.Zero;
 
 		[Title( "Paddle Angle" ), Description( "The paddle's angle." ), MinMax( 0, 90f ), Step( 1f )]
 		public float PaddleAngle { get; set; } = 0f;
@@ -73,7 +73,7 @@ public partial class ClientPreferences
 		public void DebugLog()
 		{
 			Log.Info( $"Flip Hands: {FlipHands}" );
-			Log.Info( $"Anchor Offset: {AnchorOffset}" );
+			//Log.Info( $"Anchor Offset: {AnchorOffset}" );
 			Log.Info( $"Paddle Angle: {PaddleAngle}" );
 		}
 	}
