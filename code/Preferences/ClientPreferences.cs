@@ -3,7 +3,7 @@ namespace TableTennis;
 public partial class ClientPreferences
 {
 	public static Settings LocalSettings { get; protected set; }
-	public static string PrefsCookie => "tt.prefs";
+	public static string PrefsCookie => "tt.clientprefs";
 	
 	public static void Load()
 	{
@@ -61,7 +61,7 @@ public partial class ClientPreferences
 		public VrAnchor Anchor { get; set; } = new();
 
 		[Title( "Paddle Angle" ), Description( "The paddle's angle." ), MinMax( 0, 90f ), Step( 1f )]
-		public float PaddleAngle { get; set; } = 0f;
+		public float PaddleAngle { get; set; } = 90f;
 
 		public string ToJson()
 		{

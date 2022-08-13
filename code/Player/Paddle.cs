@@ -5,7 +5,7 @@ public partial class Paddle : ModelEntity
 	public Transform ClientTransform { get; set; }
 	[Net] public PaddleHand Hand { get; set; }
 
-	[Net] public float PaddleAngle { get; set; } = 0f;
+	[Net] public float PaddleAngle { get; set; } = 90f;
 
 	public override void Spawn()
 	{

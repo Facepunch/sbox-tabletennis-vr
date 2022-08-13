@@ -55,7 +55,7 @@ public partial class PreferenceRow : Panel
 		else if ( property.PropertyType == typeof( VrAnchor ) )
 		{
 			var value = (VrAnchor)property.GetValue( target );
-			var editButton = ValueArea.Add.Button( "Edit", "toggle", ClientPreferencesWidget.Current.StartEditingVrAnchor );
+			var editButton = ValueArea.Add.Button( "Edit", "press", () => ClientPreferencesWidget.Current.StartEditingVrAnchor() );
 		}
 	}
 
@@ -106,7 +106,7 @@ public partial class ClientPreferencesWidget : WorldPanel
 		Canvas.Add.Label( "Preferences", "title" );
 	}
 
-	Vector2 Size => new( 800, 530f );
+	Vector2 Size => new( 800, 650f );
 	protected override void PostTemplateApplied()
 	{
 		base.PostTemplateApplied();
