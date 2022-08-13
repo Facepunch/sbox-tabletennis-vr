@@ -205,6 +205,7 @@ public partial class TableTennisGame
 			// If the ball bounces while we're serving, the player threw the ball and didn't hit it
 			if ( State == GameState.Serving )
 			{
+				HintWidget.AddMessage( To.Single( ServingTeam.Client ), "Hit the ball to serve, it must not bounce.", "sports_tennis" );
 				ClientServingBall( To.Everyone, ServingTeam.Client );
 				return;
 			}
