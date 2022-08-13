@@ -73,7 +73,7 @@ public partial class ClientPreferences
 		public void DebugLog()
 		{
 			Log.Info( $"Flip Hands: {FlipHands}" );
-			Log.Info( $"Anchor Offset: {AnchorOffset}" );
+			Log.Info( $"Anchor Offset: {Anchor}" );
 			Log.Info( $"Paddle Angle: {PaddleAngle}" );
 		}
 	}
