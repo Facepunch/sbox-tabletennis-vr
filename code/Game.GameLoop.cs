@@ -200,31 +200,34 @@ public partial class TableTennisGame
 
 	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface = null )
 	{
-		if ( !IsServer ) return;
-
-		// If the ball bounces while we're serving, the player threw the ball and didn't hit it
-		if ( State == GameState.Serving )
+		if ( IsServer )
 		{
-			ClientServingBall( To.Everyone, ServingTeam.Client );
-			return;
-		}
-
-		// We only care about ball bounce events when we're in play.
-		if ( State != GameState.Playing )
-			return;
-
-		CurrentBounce++;
-
-		if ( CurrentBounce == 2f )
-		{
-			var winner = GetBounceWinner( ball, hitPos );
-
-			State = GameState.Serving;
-			
-			if ( winner != null )
+			// If the ball bounces while we're serving, the player threw the ball and didn't hit it
+			if ( State == GameState.Serving )
 			{
-				winner.ScorePoint();
+				ClientServingBall( To.Everyone, ServingTeam.Client );
+				return;
+			}
+		}
+		else
+		{
+			// We only care about ball bounce events when we're in play.
+			if ( State != GameState.Playing )
+				return;
+
+			CurrentBounce++;
+
+			if ( CurrentBounce == 2f )
+			{
+				var winner = GetBounceWinner( ball, hitPos );
+
 				State = GameState.Serving;
+
+				if ( winner != null )
+				{
+					winner.ScorePoint();
+					State = GameState.Serving;
+				}
 			}
 		}
 	}
