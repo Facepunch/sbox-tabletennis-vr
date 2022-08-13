@@ -240,8 +240,8 @@ public partial class TableTennisGame
 	/// Called clientside by the person hitting the paddle.
 	/// </summary>
 	/// <param name="paddle"></param>
-	/// <param name="ball"></param>
-	public void OnPaddleHit( Paddle paddle, Ball ball = null )
+	/// <param name="hitPosition"></param>
+	public void OnPaddleHit( Paddle paddle, Vector3 hitPosition )
 	{
 		SinceLastHit = 0;
 
@@ -256,27 +256,30 @@ public partial class TableTennisGame
 				State = GameState.Playing;
 			}
 
+			RpcPaddleHit( To.Everyone, paddle, hitPosition );
 		}
-
-		RpcPaddleHit( To.Everyone, paddle, ball );
+		else
+		{
+			Sound.FromWorld( "tabletennis.serve", hitPosition ).SetVolume( Ball.Velocity.Length / 50f );
+		}
 	}
 
 	[ClientRpc]
-	public void RpcPaddleHit( Paddle paddle, Ball ball = null )
+	public void RpcPaddleHit( Paddle paddle, Vector3 hitPosition )
 	{
-		OnPaddleHit( paddle, ball );
+		OnPaddleHit( paddle, hitPosition );
 	}
 
 	[ConCmd.Server]
-	public static void ServerPaddleHit( int paddleIdent )
+	public static void ServerPaddleHit( int paddleIdent, Vector3 hitPosition )
 	{
 		var cl = ConsoleSystem.Caller;
 
 		var paddle = Entity.FindByIndex( paddleIdent ) as Paddle;
 		if ( !paddle.IsValid() ) return;
 
-		Current.OnPaddleHit( paddle );
-		Current.RpcPaddleHit( To.Everyone, paddle );
+		Current.OnPaddleHit( paddle, hitPosition );
+		Current.RpcPaddleHit( To.Everyone, paddle, hitPosition );
 	}
 
 	public Team GetBounceWinner( Ball ball, Vector3 hitPos )
