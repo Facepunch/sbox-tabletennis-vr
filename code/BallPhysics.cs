@@ -209,7 +209,7 @@ public static partial class BallPhysics
 		Input.VR.RightHand.TriggerHapticVibration( 0f, 200.0f, Math.Clamp( 0.4f + ball.Velocity.Length / 500f, 0.4f, 0.8f ) );
 		LastHit = 0;
 
-		TableTennisGame.Current?.OnPaddleHit( paddle, sweep.HitPosition );
+		TableTennisGame.Current?.OnPaddleHit( paddle, sweep.HitPosition, true );
 		TableTennisGame.ServerPaddleHit( paddle.NetworkIdent, sweep.HitPosition );
 
 		return true;

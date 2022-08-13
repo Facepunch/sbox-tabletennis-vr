@@ -241,7 +241,7 @@ public partial class TableTennisGame
 	/// </summary>
 	/// <param name="paddle"></param>
 	/// <param name="hitPosition"></param>
-	public void OnPaddleHit( Paddle paddle, Vector3 hitPosition )
+	public void OnPaddleHit( Paddle paddle, Vector3 hitPosition, bool isLocal = false )
 	{
 		SinceLastHit = 0;
 
@@ -260,6 +260,7 @@ public partial class TableTennisGame
 		}
 		else
 		{
+			if ( isLocal ) return;
 			Sound.FromWorld( "tabletennis.serve", hitPosition ).SetVolume( Ball.Velocity.Length / 50f );
 		}
 	}
