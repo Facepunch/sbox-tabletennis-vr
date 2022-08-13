@@ -38,7 +38,26 @@ public partial class TableTennisGame
 	/// <summary>
 	/// The current serve. In table tennis, the person who serves gets alternated evey 2 serves.
 	/// </summary>
-	[Net] public int CurrentServe { get; set; } = 0;
+	[Net] private int currentServe { get; set; } = 0;
+	
+	/// <summary>
+	/// The amount of serves that have happened in the current rotation.
+	/// </summary>
+	[Net] private int serveRotation { get; set; }
+
+	public int CurrentServe => currentServe;
+
+	public void AddServe()
+	{
+		currentServe++;
+		serveRotation++;
+
+		if ( serveRotation == 2 )
+		{
+			serveRotation = 0;
+			ServingTeam = ServingTeam == BlueTeam ? RedTeam : BlueTeam;
+		}
+	}
 
 	/// <summary>
 	/// The current bounce. When this hits two, we can assume a point will be awarded.
@@ -58,18 +77,21 @@ public partial class TableTennisGame
 		return BlueTeam;
 	}
 
-	public Team ServingTeam { get; set; }
+	[Net] public Team ServingTeam { get; set; }
 
-	public void ResetGame()
+	public void ResetGame( bool force = false )
 	{
-		ServingTeam = null;
-		CurrentServe = 0;
+		currentServe = 0;
+		serveRotation = 0;
+		ServingTeam = BlueTeam;
 		CurrentBounce = 0;
 		State = GameState.WaitingForPlayers;
 		BlueTeam?.Reset();
 		RedTeam?.Reset();
 
-		HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"info" );
+
+		if ( force )
+			HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"info" );
 	}
 
 	[ConCmd.Server( "tt_togglespectator" )]
@@ -100,7 +122,7 @@ public partial class TableTennisGame
 
 		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.PlayerId}" );
 
-		if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
+		if ( State == GameState.WaitingForPlayers && BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 		{
 			State = GameState.Serving;
 		}
@@ -185,20 +207,17 @@ public partial class TableTennisGame
 	{
 		var cl = ConsoleSystem.Caller;
 
-		var ball = Entity.FindByIndex( ballIdent ) as Ball;
-		if ( !ball.IsValid() ) return;
-
-		Current.OnBallBounce( ball, hitPos );
-		Current.RpcBallBounce( To.Everyone, ball, hitPos );
+		Current.OnBallBounce( hitPos );
+		Current.RpcBallBounce( To.Everyone, hitPos );
 	}
 
 	[ClientRpc]
-	public void RpcBallBounce( Ball ball, Vector3 hitPos )
+	public void RpcBallBounce( Vector3 hitPos )
 	{
-		OnBallBounce( ball, hitPos );
+		OnBallBounce( hitPos );
 	}
 
-	public void OnBallBounce( Ball ball, Vector3 hitPos, Surface surface = null )
+	public void OnBallBounce( Vector3 hitPos )
 	{
 		if ( IsServer )
 		{
@@ -209,26 +228,24 @@ public partial class TableTennisGame
 				ClientServingBall( To.Everyone, ServingTeam.Client );
 				return;
 			}
-		}
-		else
-		{
+
 			// We only care about ball bounce events when we're in play.
 			if ( State != GameState.Playing )
 				return;
+
+			Log.Info( "bounce" );
 
 			CurrentBounce++;
 
 			if ( CurrentBounce == 2f )
 			{
-				var winner = GetBounceWinner( ball, hitPos );
-
-				State = GameState.Serving;
-
+				var winner = GetBounceWinner( hitPos );
 				if ( winner != null )
 				{
 					winner.ScorePoint();
-					State = GameState.Serving;
 				}
+
+				State = GameState.Serving;
 			}
 		}
 	}
@@ -241,6 +258,7 @@ public partial class TableTennisGame
 	/// </summary>
 	/// <param name="paddle"></param>
 	/// <param name="hitPosition"></param>
+	/// <param name="isLocal"></param>
 	public void OnPaddleHit( Paddle paddle, Vector3 hitPosition, bool isLocal = false )
 	{
 		SinceLastHit = 0;
@@ -283,7 +301,7 @@ public partial class TableTennisGame
 		Current.RpcPaddleHit( To.Everyone, paddle, hitPosition );
 	}
 
-	public Team GetBounceWinner( Ball ball, Vector3 hitPos )
+	public Team GetBounceWinner( Vector3 hitPos )
 	{
 		// TODO - Do this better, support multiple tables in the future?
 		var tableX = 0f;
@@ -321,22 +339,10 @@ public partial class TableTennisGame
 				CurrentBounce = 0;
 				LastHitter = null;
 
-				if ( CurrentServe % 2 == 0 )
-				{
-					SetServingTeam( ServingTeam == BlueTeam ? RedTeam : BlueTeam );
-				}
-
-				CurrentServe++;
+				Log.Info( $"giving serving ball to {ServingTeam}" );
+				ClientServingBall( To.Everyone, ServingTeam.Client );
 			}
 		}
-	}
-
-	protected void SetServingTeam( Team team )
-	{
-		if ( State != GameState.Serving ) return;
-
-		ServingTeam = team;
-		ClientServingBall( To.Everyone, team.Client );
 	}
 
 	[Event.Tick.Server]

@@ -40,13 +40,10 @@ public partial class TableTennisGame
 	[ClientRpc]
 	public void ClientServingBall( Client client )
 	{
-		// Passing client here cause we could do something for the other players
-		if ( Local.Client != client ) return;
-
 		if ( Ball.IsValid() ) Ball.Delete();
 		Ball = new Ball();
 
-		var twat = Local.Pawn as PlayerPawn;
+		var twat = client.Pawn as PlayerPawn;
 		twat.ServeHand.SetBall( Ball );
 	}
 }

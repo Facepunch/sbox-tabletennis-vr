@@ -48,7 +48,7 @@ public partial class TableTennisGame : Game
 
 		if ( Input.VR.LeftHand.ButtonB.WasPressed )
 		{
-			ResetGame();
+			ResetGame( true );
 		}
 
 		DebugSimulate( cl );

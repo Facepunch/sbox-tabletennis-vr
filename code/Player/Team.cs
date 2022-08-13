@@ -15,6 +15,7 @@ public partial class Team : Entity
 	{
 		CurrentScore++;
 		HintWidget.AddMessage( To.Everyone, $"{Name} scored", $"sports_score" );
+		TableTennisGame.Current.AddServe();
 	}
 
 	/// <summary>

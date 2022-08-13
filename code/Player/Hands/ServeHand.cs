@@ -35,7 +35,6 @@ public partial class ServeHand : VrPlayerHand
 		Ball = ball;
 	}
 	
-
 	private Vector3 LeftHandHold => Position + Rotation.Forward * 1.35f + Rotation.Right * 1f + Rotation.Up * 1f;
 	private Vector3 RightHandHold => Position + Rotation.Forward * 1.35f + Rotation.Left * 1f + Rotation.Up * 1f;
 	public Vector3 HoldPosition => HandType == VrHandType.Left ? LeftHandHold : RightHandHold;
