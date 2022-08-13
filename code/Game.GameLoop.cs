@@ -12,11 +12,13 @@ public partial class TableTennisGame
 	/// A game must be won by two points.
 	/// </summary>
 	public static int MaxPoints => 11;
-	
+
 	/// <summary>
 	/// The game's state. <see cref="GameState"/> for all available states of play.
 	/// </summary>
 	[Net, Change( "OnStateChanged" )] private GameState _state { get; set; }
+
+	[Net] TimeSince GameStateChanged { get; set; } = 1f;
 
 	public GameState State
 	{
@@ -68,7 +70,16 @@ public partial class TableTennisGame
 	// Teams
 	[Net] public Team BlueTeam { get; set; }
 	[Net] public Team RedTeam { get; set; }
+	[Net] public Team ServingTeam { get; set; }
 
+	public void OnScored( Team team )
+	{
+		if ( team.CurrentScore >= MaxPoints )
+		{
+			HintWidget.AddMessage( To.Everyone, $"{team.Name} won the match!", "emoji_events", 20 );
+			State = GameState.GameOver;
+		}
+	}
 	public Team GetOppositeTeam( Team team )
 	{
 		if ( team == BlueTeam )
@@ -76,8 +87,6 @@ public partial class TableTennisGame
 
 		return BlueTeam;
 	}
-
-	[Net] public Team ServingTeam { get; set; }
 
 	public void ResetGame( bool force = false )
 	{
@@ -180,26 +189,20 @@ public partial class TableTennisGame
 	[Event.Tick.Server]
 	protected void TickGameLoop()
 	{
-		/*var ball = ServerBall;
-		if ( !ball.IsValid() )
-			return;
-
-		if ( State == GameState.Playing )
+		if ( State == GameState.PointAwarded )
 		{
-			if ( ball.Position.z <= OutOfBoundsZ )
+			if ( GameStateChanged >= 3f )
 			{
-				if ( CurrentBounce == 1f && LastHitter != null )
-				{
-					LastHitter.ScorePoint();
-				}
-				else
-				{
-					GetOppositeTeam( LastHitter ).ScorePoint();
-				}
-
 				State = GameState.Serving;
 			}
-		}*/
+		}
+		else if ( State == GameState.GameOver )
+		{
+			if ( GameStateChanged >= 30f )
+			{
+				State = GameState.WaitingForPlayers;
+			}
+		}
 	}
 
 	[ConCmd.Server]
@@ -242,10 +245,13 @@ public partial class TableTennisGame
 				var winner = GetBounceWinner( hitPos );
 				if ( winner != null )
 				{
+					State = GameState.PointAwarded;
 					winner.ScorePoint();
 				}
-
-				State = GameState.Serving;
+				else
+				{
+					State = GameState.Serving;
+				}
 			}
 		}
 	}
@@ -324,10 +330,10 @@ public partial class TableTennisGame
 	{
 		if ( IsServer )
 		{
+			GameStateChanged = 0;
+
 			if ( newState == GameState.WaitingForPlayers )
 			{
-				// ServerBall?.Delete();
-				
 				if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 				{
 					State = GameState.Serving;
