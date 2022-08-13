@@ -3,11 +3,6 @@ namespace TableTennis;
 public partial class TableTennisGame
 {
 	/// <summary>
-	/// Z position that dictates that the ball is below the table, and thus out of bounds.
-	/// </summary>
-	public static float OutOfBoundsZ => 20f;
-
-	/// <summary>
 	/// A game of table tennis has a total of 11 points.
 	/// A game must be won by two points.
 	/// </summary>
@@ -236,8 +231,6 @@ public partial class TableTennisGame
 			if ( State != GameState.Playing )
 				return;
 
-			Log.Info( "bounce" );
-
 			CurrentBounce++;
 
 			if ( CurrentBounce == 2f )
@@ -345,7 +338,6 @@ public partial class TableTennisGame
 				CurrentBounce = 0;
 				LastHitter = null;
 
-				Log.Info( $"giving serving ball to {ServingTeam}" );
 				ClientServingBall( To.Everyone, ServingTeam.Client );
 			}
 		}
