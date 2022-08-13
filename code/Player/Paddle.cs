@@ -20,6 +20,15 @@ public partial class Paddle : ModelEntity
 
 	}
 
+	public Transform GetTransform()
+	{
+		var tr = Hand.Transform;
+		tr.Rotation *= Rotation.FromAxis( Vector3.Right, 90f );
+		tr.Position += tr.Rotation.Forward * 3f;
+
+		return tr;
+	}
+
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
@@ -30,7 +39,7 @@ public partial class Paddle : ModelEntity
 		// This is solely just to sync with other players
 		if ( cl.IsUsingVr )
 		{
-			Transform = Hand.Transform;
+			Transform = GetTransform();
 			Velocity = Hand.Velocity;
 			AngularVelocity = Hand.AngularVelocity;
 
@@ -47,7 +56,7 @@ public partial class Paddle : ModelEntity
 
 		if ( cl.IsUsingVr )
 		{
-			Transform = Hand.Transform;
+			Transform = GetTransform();
 			Velocity = Hand.Velocity;
 			AngularVelocity = Hand.AngularVelocity;
 

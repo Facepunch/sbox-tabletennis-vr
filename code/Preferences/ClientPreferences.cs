@@ -54,6 +54,9 @@ public partial class ClientPreferences
 		[Title( "Left-Handed" ), Description( "Flips the ball and paddle between the player's hands." )]
 		public bool FlipHands { get; set; } = false;
 
+		[Title( "Show Paddle Hand" ), Description( "Decide whether you can see your paddle hand or not." )]
+		public bool ShowPaddleHand { get; set; } = true;
+
 		[Title( "Anchor" ), Description( "An offset applied on top of your original playspace position." )]
 		public VrAnchor Anchor { get; set; } = new();
 

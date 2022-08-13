@@ -28,5 +28,6 @@ public partial class ClientPreferencesComponent : EntityComponent, ISingletonCom
 		}
 
 		pawn.Paddle.PaddleAngle = Settings.PaddleAngle;
+		pawn.PaddleHand.VisibleHand = Settings.ShowPaddleHand;
 	}
 }

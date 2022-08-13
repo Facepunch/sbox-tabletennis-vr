@@ -12,20 +12,42 @@ public partial class PaddleHand : VrPlayerHand
 		base.Spawn();
 
 		HandType = VrHandType.Right;
-		VisibleHand = false;
+		VisibleHand = true;
 		Paddle.Hand = this;
 		Transmit = TransmitType.Always;
+	}
+
+	public override Transform GetTransform()
+	{
+		var tr = base.GetTransform();
+		tr.Rotation *= Rotation.FromAxis( Vector3.Right, -90f );
+		tr.Position -= tr.Rotation.Up * 5f;
+
+		return tr;
 	}
 
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
-		Paddle?.Simulate( cl );
+		Paddle?.Simulate( cl );	
 	}
 
 	public override void FrameSimulate( Client cl )
 	{
 		base.FrameSimulate( cl );
 		Paddle?.FrameSimulate( cl );
+	}
+
+	protected override void Animate()
+	{
+		SetAnimParameter( "bGrab", true );
+		SetAnimParameter( "BasePose", 1 );
+		SetAnimParameter( "GrabMode", 1 );
+
+		SetAnimParameter( "FingerCurl_Middle", MiddleFinger.Clamp( 0.7f, 1f ) );
+		SetAnimParameter( "FingerCurl_Ring", RingFinger.Clamp( 0.7f, 1f ) );
+		SetAnimParameter( "FingerCurl_Pinky", PinkyFinger.Clamp( 0.7f, 1f ) );
+		SetAnimParameter( "FingerCurl_Index", IndexFinger.Clamp( 0.7f, 1f ) );
+		SetAnimParameter( "FingerCurl_Thumb", Thumb.Clamp( 0.7f, 1f ) );
 	}
 }

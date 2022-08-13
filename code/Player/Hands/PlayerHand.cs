@@ -28,15 +28,11 @@ public partial class VrPlayerHand : AnimatedEntity
 	[Net] public float PinkyFinger { get; set; }
 	[Net] public float Thumb { get; set; }
 
-	[Net] private bool visibleHand { get; set; }
-	public bool VisibleHand
+	[Net, Change( "OnVisibleHandChanged" )] public bool VisibleHand { get; set; }
+
+	protected virtual void OnVisibleHandChanged( bool before, bool after )
 	{
-		get => visibleHand;
-		set
-		{
-			visibleHand = value;
-			if ( !visibleHand ) Model = null;
-		}
+		UpdateHandMaterials();
 	}
 	
 	protected virtual void OnHandChanged( VrHandType before, VrHandType after )
@@ -48,7 +44,7 @@ public partial class VrPlayerHand : AnimatedEntity
 
 	protected void UpdateHandMaterials()
 	{
-		var team = Client.GetTeam();
+		var team = Client?.GetTeam();
 		if ( team == null ) return;
 
 		if ( IsClient )
@@ -107,11 +103,17 @@ public partial class VrPlayerHand : AnimatedEntity
 		UpdateHandMaterials();
 	}
 
+	public virtual Transform GetTransform()
+	{
+		var tr = HandInput.Transform;
+		return tr;
+	}
+
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
 		
-		Transform = HandInput.Transform.WithScale( VR.Scale );
+		Transform = GetTransform().WithScale( VR.Scale );
 		Velocity = HandInput.Velocity;
 		AngularVelocity = HandInput.AngularVelocity;
 
@@ -126,7 +128,7 @@ public partial class VrPlayerHand : AnimatedEntity
 	{
 		base.FrameSimulate( cl );
 
-		Transform = HandInput.Transform.WithScale( VR.Scale );
+		Transform = GetTransform().WithScale( VR.Scale );
 	
 		SimulateInput( cl );
 	}
