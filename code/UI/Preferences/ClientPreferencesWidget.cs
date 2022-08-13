@@ -55,7 +55,7 @@ public partial class PreferenceRow : Panel
 		else if ( property.PropertyType == typeof( VrAnchor ) )
 		{
 			var value = (VrAnchor)property.GetValue( target );
-			var editButton = ValueArea.Add.Button( "Edit", "press", () => ClientPreferencesWidget.Current.StartEditingVrAnchor() );
+			var editButton = ValueArea.Add.Button( "Edit", "press", () => ClientPreferencesWidget.Current.ToggleEditingAnchor() );
 		}
 	}
 
@@ -86,14 +86,14 @@ public partial class ClientPreferencesWidget : WorldPanel
 		Current = this;
 	}
 
-	public void StartEditingVrAnchor()
+	public void ToggleEditingAnchor()
 	{
-		//	
-	}
-
-	public void StopEditingVrAnchor()
-	{
-		//
+		VrAnchorEditor.IsEditing = !VrAnchorEditor.IsEditing;
+		
+		if ( !VrAnchorEditor.IsEditing )
+		{
+			VrAnchorEditor.Finish( false );
+		}
 	}
 
 	public void AddProperties( object obj )
@@ -111,7 +111,7 @@ public partial class ClientPreferencesWidget : WorldPanel
 	{
 		base.PostTemplateApplied();
 
-		var btn = Add.Button( "Save", () => { SetVisible( false ); ClientPreferences.Save(); } );
+		var btn = Add.Button( "Save", () => { SetVisible( false ); ClientPreferences.Save(); VrAnchorEditor.Finish( true ); } );
 
 		Initialize();
 	}
@@ -146,6 +146,15 @@ public partial class ClientPreferencesWidget : WorldPanel
 		if ( hand.InMenu )
 		{
 			SetVisible( !Visible );
+		}
+
+		if ( Visible )
+		{
+			VrAnchorEditor.Tick();
+		}
+		else
+		{
+			VrAnchorEditor.IsEditing = false;
 		}
 	}
 
