@@ -55,7 +55,7 @@ public partial class ClientPreferences
 		public bool FlipHands { get; set; } = false;
 
 		[Title( "Anchor" ), Description( "An offset applied on top of your original playspace position." )]
-		public VrAnchor Anchor { get; set; }
+		public VrAnchor Anchor { get; set; } = new();
 
 		[Title( "Paddle Angle" ), Description( "The paddle's angle." ), MinMax( 0, 90f ), Step( 1f )]
 		public float PaddleAngle { get; set; } = 0f;
