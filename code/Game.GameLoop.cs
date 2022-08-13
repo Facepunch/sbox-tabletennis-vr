@@ -205,7 +205,7 @@ public partial class TableTennisGame
 		// If the ball bounces while we're serving, the player threw the ball and didn't hit it
 		if ( State == GameState.Serving )
 		{
-			// GiveServingBall( ServingTeam.Client );
+			ClientServingBall( To.Everyone, ServingTeam.Client );
 			return;
 		}
 
@@ -328,7 +328,7 @@ public partial class TableTennisGame
 		if ( State != GameState.Serving ) return;
 
 		ServingTeam = team;
-		// GiveServingBall( team.Client );
+		ClientServingBall( To.Everyone, team.Client );
 	}
 
 	[Event.Tick.Server]
