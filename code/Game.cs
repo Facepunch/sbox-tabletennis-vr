@@ -76,4 +76,14 @@ public partial class TableTennisGame : Game
 			IHitTheBallCunt( Ball.Position, Ball.Velocity, Time.Now );
 		}
 	}
+
+	public override void PostCameraSetup( ref CameraSetup camSetup )
+	{
+		if ( Local.Pawn != null )
+		{
+			VR.Anchor = ClientPreferences.LocalSettings.Anchor.GetTransform();
+		
+			Local.Pawn.PostCameraSetup( ref camSetup );
+		}
+	}
 }

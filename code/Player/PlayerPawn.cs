@@ -97,7 +97,7 @@ public partial class PlayerPawn : Entity
 	{
 		base.BuildInput( input );
 
-		if ( !Input.VR.IsActive ) return;
+		if ( !Global.IsRunningInVR ) return;
 
 		WorldInput.Ray = new Ray( PaddleHand.Position, PaddleHand.Rotation.Forward );
 		WorldInput.MouseLeftPressed = PaddleHand.InTrigger;

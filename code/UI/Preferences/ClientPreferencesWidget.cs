@@ -50,7 +50,12 @@ public partial class PreferenceRow : Panel
 			var max = minmax?.MaxValue ?? 1000f;
 			var step = property.GetCustomAttribute<StepAttribute>()?.Value ?? .1f;
 			var slider = ValueArea.Add.SliderWithEntry( min, max, step );
-			slider.Bind( "value", target, property.Name );
+			slider.Bind( "value", target, property.Name );	
+		}
+		else if ( property.PropertyType == typeof( VrAnchor ) )
+		{
+			var value = (VrAnchor)property.GetValue( target );
+			var editButton = ValueArea.Add.Button( "Edit", "toggle", ClientPreferencesWidget.Current.StartEditingVrAnchor );
 		}
 	}
 
@@ -65,10 +70,31 @@ public partial class PreferenceRow : Panel
 [UseTemplate]
 public partial class ClientPreferencesWidget : WorldPanel
 {
+	// @singleton
+	public static ClientPreferencesWidget Current { get; set; }
+
 	// @ref
 	public Panel Canvas { get; set; }
 
+	/// <summary>
+	/// Controls visibility of the widget
+	/// </summary>
 	public bool Visible { get; set; } = false;
+
+	public ClientPreferencesWidget()
+	{
+		Current = this;
+	}
+
+	public void StartEditingVrAnchor()
+	{
+		//	
+	}
+
+	public void StopEditingVrAnchor()
+	{
+		//
+	}
 
 	public void AddProperties( object obj )
 	{
