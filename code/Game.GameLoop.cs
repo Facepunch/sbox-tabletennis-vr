@@ -350,6 +350,17 @@ public partial class TableTennisGame
 		return null;
 	}
 
+	public void StartGame()
+	{
+		foreach ( var cl in Client.All )
+		{
+			cl.Components.Get<RankComponent>()?.FetchStats();
+		}
+
+		State = GameState.Serving;
+		GameServices.StartGame();
+	}
+
 	/// <summary>
 	/// Called on server & client when the game state changes.
 	/// </summary>
@@ -365,9 +376,7 @@ public partial class TableTennisGame
 			{
 				if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 				{
-					State = GameState.Serving;
-					
-					GameServices.StartGame();
+					StartGame();
 				}
 			}
 

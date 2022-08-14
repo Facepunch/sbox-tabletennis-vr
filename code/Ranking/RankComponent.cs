@@ -66,7 +66,6 @@ public partial class RankComponent : EntityComponent
 	protected override void OnActivate()
 	{
 		if ( !Host.IsServer ) return;
-
 		FetchStats();
 	}
 }
