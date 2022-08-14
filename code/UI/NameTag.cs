@@ -41,6 +41,9 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 		}
 	}
 
+	[ConVar.Client( "tt_nametag_self" )]
+	public static bool ShowOwnNametag { get; set; } = false;
+
 	/// <summary>
 	/// Called once per frame to manage component creation/deletion
 	/// </summary>
@@ -49,12 +52,12 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 	{
 		foreach ( var player in Sandbox.Entity.All.OfType<PlayerPawn>() )
 		{
-			//if ( player.IsLocalPawn )
-			//{
-			//	var c = player.Components.Get<NameTagComponent>();
-			//	c?.Remove();
-			//	continue;
-			//}
+			if ( player.IsLocalPawn && !ShowOwnNametag )
+			{
+				var c = player.Components.Get<NameTagComponent>();
+				c?.Remove();
+				continue;
+			}
 
 			var shouldRemove = player.Position.Distance( CurrentView.Position ) > 500;
 			shouldRemove = shouldRemove || player.LifeState != LifeState.Alive;
