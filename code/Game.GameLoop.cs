@@ -295,10 +295,24 @@ public partial class TableTennisGame
 			// We only care about ball bounce events when we're in play.
 			if ( State != GameState.Playing )
 				return;
+			
+			// Trace down, see what we really hit
+			var tr = Trace.Ray( hitPos, hitPos + Vector3.Down * 10f )
+				.WorldOnly()
+				.Run();
 
 			CurrentBounce++;
 
-			if ( CurrentBounce == 2f )
+			if ( CurrentBounce < 2 && tr.Surface?.ResourceName != "wood" )
+			{
+				var winner = GetOppositeTeam( ServingTeam );
+				if ( winner != null )
+				{
+					State = GameState.PointAwarded;
+					winner.ScorePoint();
+				}
+			}
+			else if ( CurrentBounce == 2f )
 			{
 				var winner = GetBounceWinner( hitPos );
 				if ( winner != null )
