@@ -295,7 +295,7 @@ public partial class TableTennisGame
 			if ( State == GameState.Serving )
 			{
 				var pawn = ServingTeam.Client.Pawn as PlayerPawn;
-				Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", pawn.PaddleHand.NetworkIdent, 0, "sports_tennis" );
+				Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", pawn.PaddleHand.NetworkIdent, 5, "sports_tennis" );
 				State = GameState.FailedServe;
 				HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.PlayerId}", 2f );
 
