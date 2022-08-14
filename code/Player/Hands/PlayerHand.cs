@@ -83,25 +83,32 @@ public partial class VrPlayerHand : AnimatedEntity
 	{
 		get
 		{
-			var gripInput = HandInput.Grip.Value;
-			var isGrippingRightNow = gripInput.AlmostEqual( 1, 0.25f );
-
-			if ( !StartedGripLock && isGrippingRightNow )
+			if ( !ClientPreferences.LocalSettings.ReleaseGripToServe )
 			{
-				Helpers.TryDisplay( "griplockstart", "Release the grip to throw the ball.", this, 5, "front_hand" );
-				StartedGripLock = true;
+				return HandInput.Grip.Value.AlmostEqual( 1, 0.25f );
 			}
-
-			if ( StartedGripLock )
+			else
 			{
-				if ( !gripInput.AlmostEqual( 1, 0.25f ) )
+
+				var gripInput = HandInput.Grip.Value;
+				var isGrippingRightNow = gripInput.AlmostEqual( 1, 0.25f );
+
+				if ( !StartedGripLock && isGrippingRightNow )
 				{
-					StartedGripLock = false;
-					return true;
+					Helpers.TryDisplay( "griplockstart", "Release the grip to throw the ball.", this, 5, "front_hand" );
+					StartedGripLock = true;
 				}
-			}
 
-			return false;
+				if ( StartedGripLock )
+				{
+					if ( !gripInput.AlmostEqual( 1, 0.25f ) )
+					{
+						StartedGripLock = false;
+						return true;
+					}
+				}
+				return false;
+			}
 		}
 	}
 	public bool InTrigger => HandInput.Trigger.Value.AlmostEqual( 1, 0.1f );

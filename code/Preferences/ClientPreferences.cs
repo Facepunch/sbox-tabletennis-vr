@@ -54,6 +54,9 @@ public partial class ClientPreferences
 		[Title( "Left-Handed" ), Description( "Flips the ball and paddle between the player's hands." )]
 		public bool FlipHands { get; set; } = false;
 
+		[Title( "Release Grip To Serve" ), Description( "Release the grip to serve the ball." )]
+		public bool ReleaseGripToServe { get; set; } = true;
+
 		[Title( "Show Paddle Hand" ), Description( "Decide whether you can see your paddle hand or not." )]
 		public bool ShowPaddleHand { get; set; } = true;
 

@@ -106,7 +106,7 @@ public partial class ClientPreferencesWidget : WorldPanel
 		Canvas.Add.Label( "Preferences", "title" );
 	}
 
-	Vector2 Size => new( 800, 650f );
+	Vector2 Size => new( 800, 750f );
 	protected override void PostTemplateApplied()
 	{
 		base.PostTemplateApplied();
