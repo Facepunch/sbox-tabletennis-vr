@@ -346,10 +346,22 @@ public partial class TableTennisGame
 			var pawn = paddle.Owner as PlayerPawn;
 			LastHitter = pawn.GetTeam();
 
-			// TODO - Second hit of the paddle needs to have bounced at least once, otherwise it's illegal
 			if ( State == GameState.Serving )
 			{
 				State = GameState.Playing;
+			}
+			else if ( State == GameState.Playing )
+			{
+				// If the paddle is hit by a player, and the ball hasn't bounced yet - award the serving team a point.
+				if ( CurrentBounce == 0 )
+				{
+					var winner = ServingTeam;
+					if ( winner != null )
+					{
+						State = GameState.PointAwarded;
+						winner.ScorePoint();
+					}
+				}
 			}
 
 			RpcPaddleHit( To.Everyone, paddle, hitPosition );
