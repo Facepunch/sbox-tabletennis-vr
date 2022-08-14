@@ -6,7 +6,8 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 
 	protected override void OnActivate()
 	{
-		NameTag = new NameTag( Entity.Client?.Name ?? Entity.Name, Entity.Client?.PlayerId );
+		var rankComponent = Entity.Client?.Components.Get<RankComponent>();
+		NameTag = new NameTag( Entity.Client?.Name ?? Entity.Name, Entity.Client?.PlayerId, rankComponent?.RankImage );
 	}
 
 	protected override void OnDeactivate()
@@ -48,12 +49,12 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 	{
 		foreach ( var player in Sandbox.Entity.All.OfType<PlayerPawn>() )
 		{
-			if ( player.IsLocalPawn )
-			{
-				var c = player.Components.Get<NameTagComponent>();
-				c?.Remove();
-				continue;
-			}
+			//if ( player.IsLocalPawn )
+			//{
+			//	var c = player.Components.Get<NameTagComponent>();
+			//	c?.Remove();
+			//	continue;
+			//}
 
 			var shouldRemove = player.Position.Distance( CurrentView.Position ) > 500;
 			shouldRemove = shouldRemove || player.LifeState != LifeState.Alive;
@@ -79,8 +80,9 @@ public class NameTag : WorldPanel
 {
 	public Panel Avatar;
 	public Label NameLabel;
+	public Panel Rank;
 
-	public NameTag( string title, long? steamid )
+	public NameTag( string title, long? steamid, string rank = "rank_bronze" )
 	{
 		StyleSheet.Load( "UI/NameTag.scss" );
 
@@ -91,6 +93,9 @@ public class NameTag : WorldPanel
 		}
 
 		NameLabel = Add.Label( title, "title" );
+			
+		Avatar = Add.Panel( "rank" );
+		Avatar.Style.SetBackgroundImage( $"/ui/ranks/{rank}.png" );
 
 		// this is the actual size and shape of the world panel
 		PanelBounds = new Rect( -500, -100, 1000, 200 );
