@@ -23,6 +23,7 @@ public partial class TableTennisGame : Game
 
 			BlueTeam = new Team.Blue();
 			RedTeam = new Team.Red();
+			ServingTeam = BlueTeam;
 		}
 		else
 		{
