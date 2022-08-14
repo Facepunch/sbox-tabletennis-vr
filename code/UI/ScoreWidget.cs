@@ -34,7 +34,7 @@ public partial class ScoreWidget : WorldPanel
 		if ( myTeam == null ) 
 			return;
 
-		//var anchor = new Transform( new Vector3( -30.2f, 0f, 30.5f ), Rotation.FromPitch( 90f ) * Rotation.FromYaw( 180f ) );
+		//var anchor = new Transform( new Vector3( 30.2f, 0f, 30.5f ), Rotation.FromPitch( 90f ) * Rotation.FromYaw( 180f ) * Rotation.FromRoll( 180f ) );
 		var anchor = myTeam.ScoreAnchor;
 
 		Position = anchor.Position;

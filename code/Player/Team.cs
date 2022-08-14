@@ -98,7 +98,7 @@ public partial class Team : Entity
 			Name = "Red Team";
 			Anchor = new( new Vector3( 76.0f, 0, 0 ), Rotation.FromYaw( 180 ) );
 			UIAnchor = new( new Vector3( 1.2f, 0f, 33f ), Rotation.FromYaw( 0f ) );
-			ScoreAnchor = new( new Vector3( 30.2f, 0f, 30.5f ), Rotation.FromPitch( 90f ) * Rotation.FromYaw( 0f ) );
+			ScoreAnchor = new( new Vector3( 30.2f, 0f, 30.5f ), Rotation.FromPitch( 90f ) * Rotation.FromYaw( 180f ) * Rotation.FromRoll( 180f ) );
 		}
 	}
 
