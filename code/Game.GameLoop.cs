@@ -187,8 +187,19 @@ public partial class TableTennisGame
 			cl.Pawn.Delete();
 			cl.Pawn = null;
 
-			// Clear the player's team data
-			cl.GetTeam()?.Reset();
+			var team = cl.GetTeam();
+			if ( team != null )
+			{
+				team.Reset();
+
+				if ( State != GameState.WaitingForPlayers )
+				{
+					GameServices.RecordEvent( cl, "Left the game too early." );
+					GameServices.AbandonGame( true );
+
+					ResetGame();
+				}
+			}
 		}
 
 		HintWidget.AddMessage( To.Everyone, $"{cl.Name} left", $"avatar:{cl.PlayerId}" );
