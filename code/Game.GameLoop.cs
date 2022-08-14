@@ -76,7 +76,17 @@ public partial class TableTennisGame
 			HintWidget.AddMessage( To.Everyone, $"{team.Name} won the match!", "emoji_events", 20 );
 			State = GameState.GameOver;
 
-			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, GetOppositeTeam( team )?.Client );
+			var otherTeam = GetOppositeTeam( team );
+
+			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, otherTeam.Client );
+			GameServices.RecordScore( team.Client.PlayerId, team.Client.IsBot, GameplayResult.Win, 1 );
+
+			if ( otherTeam.Client != null )
+			{
+				GameServices.RecordEvent( team.Client, $"Lost the game.", -1, otherTeam.Client );
+				GameServices.RecordScore( team.Client.PlayerId, team.Client.IsBot, GameplayResult.Lose, -1 );
+			}
+
 			GameServices.EndGame();
 		}
 		else
