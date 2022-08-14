@@ -78,7 +78,28 @@ public partial class VrPlayerHand : AnimatedEntity
 		}
 	}
 
-	public bool InGrip => HandInput.Grip.Value.AlmostEqual( 1, 0.1f );
+	public bool StartedGripLock { get; set; }
+	public bool InGrip
+	{
+		get
+		{
+			var gripInput = HandInput.Grip.Value;
+			var isGrippingRightNow = gripInput.AlmostEqual( 1, 0.25f );
+
+			if ( !StartedGripLock && isGrippingRightNow ) StartedGripLock = true;
+
+			if ( StartedGripLock )
+			{
+				if ( !gripInput.AlmostEqual( 1, 0.25f ) )
+				{
+					StartedGripLock = false;
+					return true;
+				}
+			}
+
+			return false;
+		}
+	}
 	public bool InTrigger => HandInput.Trigger.Value.AlmostEqual( 1, 0.1f );
 	public bool InMenu => HandInput.JoystickPress.WasPressed;
 
