@@ -20,7 +20,7 @@ public class VrAnchor
 	public Transform GetTransform()
 	{
 		var tr = GetOriginTransform();
-		return tr.WithPosition( tr.Position + (Vector3.Right * Right) + (Vector3.Forward * Forward) );
+		return tr.WithPosition( tr.Position + (tr.Rotation.Right * Right) + (tr.Rotation.Forward * Forward) );
 	}
 
 	public void Set( Vector2 range )
