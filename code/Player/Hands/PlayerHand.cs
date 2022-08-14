@@ -86,7 +86,11 @@ public partial class VrPlayerHand : AnimatedEntity
 			var gripInput = HandInput.Grip.Value;
 			var isGrippingRightNow = gripInput.AlmostEqual( 1, 0.25f );
 
-			if ( !StartedGripLock && isGrippingRightNow ) StartedGripLock = true;
+			if ( !StartedGripLock && isGrippingRightNow )
+			{
+				Helpers.TryDisplay( "griplockstart", "Release the grip to throw the ball.", this, 5, "front_hand" );
+				StartedGripLock = true;
+			}
 
 			if ( StartedGripLock )
 			{

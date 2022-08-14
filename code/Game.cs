@@ -29,6 +29,8 @@ public partial class TableTennisGame : Game
 		{
 			// Send the client preferences to the server.
 			ClientPreferences.Load();
+			// Grab the helpers
+			Helpers.Load();
 		}
 
 		Audio.ReverbScale = 3f;
