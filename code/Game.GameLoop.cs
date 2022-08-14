@@ -67,13 +67,24 @@ public partial class TableTennisGame
 	[Net] public Team RedTeam { get; set; }
 	[Net] public Team ServingTeam { get; set; }
 
+	[Net] public TimeSince TimeSinceScoredPoint { get; set; }
+
 	public void OnScored( Team team )
 	{
 		if ( team.CurrentScore >= MaxPoints )
 		{
 			HintWidget.AddMessage( To.Everyone, $"{team.Name} won the match!", "emoji_events", 20 );
 			State = GameState.GameOver;
+
+			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, GetOppositeTeam( team )?.Client );
+			GameServices.EndGame();
 		}
+		else
+		{
+			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, GetOppositeTeam( team )?.Client );
+		}
+
+		TimeSinceScoredPoint = 0;
 	}
 	public Team GetOppositeTeam( Team team )
 	{
@@ -85,6 +96,12 @@ public partial class TableTennisGame
 
 	public void ResetGame( bool force = false )
 	{
+		if ( force )
+		{
+			HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"info" );
+			GameServices.AbandonGame( false );
+		}
+
 		currentServe = 0;
 		serveRotation = 0;
 		ServingTeam = BlueTeam;
@@ -92,10 +109,6 @@ public partial class TableTennisGame
 		State = GameState.WaitingForPlayers;
 		BlueTeam?.Reset();
 		RedTeam?.Reset();
-
-
-		if ( force )
-			HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"info" );
 	}
 
 	[ConCmd.Server( "tt_togglespectator" )]
@@ -330,11 +343,14 @@ public partial class TableTennisGame
 				if ( BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 				{
 					State = GameState.Serving;
+					
+					GameServices.StartGame();
 				}
 			}
 
 			if ( newState == GameState.Serving )
 			{
+				TimeSinceScoredPoint = 0;
 				CurrentBounce = 0;
 				LastHitter = null;
 
