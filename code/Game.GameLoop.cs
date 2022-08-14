@@ -220,6 +220,13 @@ public partial class TableTennisGame
 	[Event.Tick.Server]
 	protected void TickGameLoop()
 	{
+		if ( State == GameState.FailedServe )
+		{
+			if ( GameStateChanged >= 1.5f )
+			{
+				State = GameState.Serving;
+			}
+		}
 		if ( State == GameState.PointAwarded )
 		{
 			if ( GameStateChanged >= 3f )
@@ -289,8 +296,9 @@ public partial class TableTennisGame
 			{
 				var pawn = ServingTeam.Client.Pawn as PlayerPawn;
 				Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", pawn.PaddleHand.NetworkIdent, 0, "sports_tennis" );
-				
-				ClientServingBall( To.Everyone, ServingTeam.Client );
+				State = GameState.FailedServe;
+				HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.PlayerId}", 2f );
+
 				return;
 			}
 
