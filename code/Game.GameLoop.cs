@@ -71,12 +71,12 @@ public partial class TableTennisGame
 
 	public void OnScored( Team team )
 	{
+		var otherTeam = GetOppositeTeam( team );
+		
 		if ( team.CurrentScore >= MaxPoints )
 		{
 			HintWidget.AddMessage( To.Everyone, $"{team.Name} won the match!", "emoji_events", 20 );
 			State = GameState.GameOver;
-
-			var otherTeam = GetOppositeTeam( team );
 
 			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, otherTeam.Client );
 			GameServices.RecordScore( team.Client.PlayerId, team.Client.IsBot, GameplayResult.Win, 1 );
@@ -91,7 +91,7 @@ public partial class TableTennisGame
 		}
 		else
 		{
-			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, GetOppositeTeam( team )?.Client );
+			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, otherTeam.Client );
 		}
 
 		TimeSinceScoredPoint = 0;
@@ -171,7 +171,9 @@ public partial class TableTennisGame
 	{
 		// Set up client prefrences
 		cl.Components.GetOrCreate<ClientPreferencesComponent>();
-
+		// Set up rank component
+		cl.Components.GetOrCreate<RankComponent>();
+		
 		if ( DebugNoFlow )
 		{
 			CreatePawn( cl );
