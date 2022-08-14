@@ -380,6 +380,8 @@ public partial class TableTennisGame
 				ClientServingBall( To.Everyone, ServingTeam.Client );
 			}
 		}
+
+		Event.Run( "tt.gamestatechanged", oldState, newState );
 	}
 
 	[Event.Tick.Server]

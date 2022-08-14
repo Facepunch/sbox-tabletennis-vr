@@ -27,7 +27,7 @@ public partial class Team : Entity
 	/// <summary>
 	/// A friendly name for the team.
 	/// </summary>
-	public string Name { get; set; }
+	public new string Name { get; set; }
 
 	/// <summary>
 	/// A static location relative to the active table, to dictate where 
@@ -37,9 +37,15 @@ public partial class Team : Entity
 
 	/// <summary>
 	/// A static location relative to the active table, to dictate where 
-	/// the Scores and Hint widgets will be placed.
+	/// the Hint widget will be placed.
 	/// </summary>
 	public Transform UIAnchor { get; set; }
+
+	/// <summary>
+	/// A static location relative to the active table, to dictate where 
+	/// the Scores widget will be placed.
+	/// </summary>
+	public Transform ScoreAnchor { get; set; }
 
 	/// <summary>
 	/// Resets the player's anchor position, and anything else we might want to reset.
@@ -92,6 +98,7 @@ public partial class Team : Entity
 			Name = "Red Team";
 			Anchor = new( new Vector3( 76.0f, 0, 0 ), Rotation.FromYaw( 180 ) );
 			UIAnchor = new( new Vector3( 1.2f, 0f, 33f ), Rotation.FromYaw( 0f ) );
+			ScoreAnchor = new( new Vector3( 30.2f, 0f, 30.5f ), Rotation.FromPitch( 90f ) * Rotation.FromYaw( 0f ) );
 		}
 	}
 
@@ -103,6 +110,7 @@ public partial class Team : Entity
 			Name = "Blue Team";
 			Anchor = new( new Vector3( -76.0f, 0, 0 ), Rotation.FromYaw( 0 ) );
 			UIAnchor = new( new Vector3( -1.2f, 0f, 33f ), Rotation.FromYaw( 180f ) );
+			ScoreAnchor = new( new Vector3( -30.2f, 0f, 30.5f ), Rotation.FromPitch( 90f ) * Rotation.FromYaw( 180f ) );
 		}
 	}
 }
