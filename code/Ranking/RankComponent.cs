@@ -1,8 +1,29 @@
 namespace TableTennis;
 
+public enum Rank
+{
+	Bronze,
+	Silver,
+	Gold,
+	Diamond,
+	Master
+}
+
 public partial class RankComponent : EntityComponent
 {
 	[Net] public float Elo { get; set; }
+
+	public Rank Rank
+	{
+		get
+		{
+			if ( Elo < 1200 ) return Rank.Bronze;
+			if ( Elo < 1400 ) return Rank.Silver;
+			if ( Elo < 1600 ) return Rank.Gold;
+			if ( Elo < 1800 ) return Rank.Diamond;
+			return Rank.Master;
+		}
+	}
 
 	public async void FetchStats()
 	{
