@@ -241,14 +241,43 @@ public partial class TableTennisGame
 	{
 		var cl = ConsoleSystem.Caller;
 
-		Current.OnBallBounce( hitPos );
-		Current.RpcBallBounce( To.Everyone, hitPos );
+		if ( Current.IsOnSide( cl, hitPos ) )
+		{
+			Current.OnBallBounce( hitPos );
+			Current.RpcBallBounce( To.Everyone, hitPos );
+		}
 	}
 
 	[ClientRpc]
 	public void RpcBallBounce( Vector3 hitPos )
 	{
 		OnBallBounce( hitPos );
+	}
+	
+	public bool HasBotTeam()
+	{
+		if ( !BlueTeam.Client.IsValid() || !RedTeam.Client.IsValid() ) return true;
+
+		return BlueTeam.Client.IsBot || RedTeam.Client.IsBot;
+	}
+
+	public bool IsOnSide( Client cl, Vector3 hitPos )
+	{
+		if ( HasBotTeam() ) return true;
+
+		// Blue -x Red +x
+
+		if ( BlueTeam.Client == cl )
+		{
+			return hitPos.x < 0;
+		}
+
+		if ( RedTeam.Client == cl )
+		{
+			return hitPos.x > 0;
+		}
+
+		return false;
 	}
 
 	public void OnBallBounce( Vector3 hitPos )

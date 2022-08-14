@@ -33,21 +33,4 @@ public partial class Ball : ModelEntity
 		EnableTraceAndQueries = true;
 		Particles.Create( "particles/ball_trail/ball_trail.vpcf", this );
 	}
-
-	public bool IsOnSide( Client cl )
-	{
-		// Blue -x Red +x
-
-		if ( TableTennisGame.Current.BlueTeam.Client == cl )
-		{
-			return Position.x < 0;
-		}
-
-		if ( TableTennisGame.Current.RedTeam.Client == cl )
-		{
-			return Position.x > 0;
-		}
-
-		return false;
-	}
 }
