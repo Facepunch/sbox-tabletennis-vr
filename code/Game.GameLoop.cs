@@ -231,7 +231,7 @@ public partial class TableTennisGame
 		{
 			if ( GameStateChanged >= 30f )
 			{
-				State = GameState.WaitingForPlayers;
+				ResetGame();
 			}
 		}
 	}
