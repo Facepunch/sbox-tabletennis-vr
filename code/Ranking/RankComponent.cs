@@ -6,7 +6,7 @@ public enum Rank
 	Silver,
 	Gold,
 	Diamond,
-	Master
+	Platinum
 }
 
 public partial class RankComponent : EntityComponent
@@ -21,8 +21,21 @@ public partial class RankComponent : EntityComponent
 			if ( Elo < 1400 ) return Rank.Silver;
 			if ( Elo < 1600 ) return Rank.Gold;
 			if ( Elo < 1800 ) return Rank.Diamond;
-			return Rank.Master;
+			return Rank.Platinum;
 		}
+	}
+
+	public string RankImage
+	{
+		get => Rank switch
+		{
+			Rank.Bronze => "rank_bronze",
+			Rank.Silver => "rank_silver",
+			Rank.Gold => "rank_gold",
+			Rank.Diamond => "rank_diamond",
+			Rank.Platinum => "rank_platinum",
+			_ => "rank_bronze"
+		};
 	}
 
 	public async void FetchStats()
