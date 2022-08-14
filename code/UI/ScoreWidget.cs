@@ -46,8 +46,8 @@ public partial class ScoreWidget : WorldPanel
 		var redTeam = game.RedTeam;
 		RedScore = redTeam.CurrentScore;
 
-		RedName = redTeam.Client?.Name ?? "N/A";
-		BlueName = blueTeam.Client?.Name ?? "N/A";
+		RedName = ( redTeam.Client?.Name ?? "N/A" ).Truncate( 14, ".." );
+		BlueName = ( blueTeam.Client?.Name ?? "N/A" ).Truncate( 14, ".." );
 	}
 
 	[Event( "tt.gamestatechanged")]
