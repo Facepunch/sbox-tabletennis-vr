@@ -40,8 +40,6 @@ public partial class ScoreWidget : WorldPanel
 		Position = anchor.Position;
 		Rotation = anchor.Rotation;
 
-		DebugOverlay.Sphere( Position, 1f, Color.White, 0, false );
-
 		var blueTeam = game.BlueTeam;
 		BlueScore = blueTeam.CurrentScore;
 		
