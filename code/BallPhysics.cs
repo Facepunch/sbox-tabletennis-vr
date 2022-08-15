@@ -184,26 +184,40 @@ public static partial class BallPhysics
 		//
 		if ( LastHit < 0.2f ) return false;
 
+		//
+		// Because our paddle can move a significant amount in a frame, we need to trace sweep from start to end
+		//
 		var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).WithTag( "ball" ).IncludeClientside().Run();
-		// var sweep = Trace.Sweep( paddle.PhysicsBody, from, to ).WorldAndEntities().Ignore( paddle ).IncludeClientside().Run();
 
-		if ( !sweep.Hit ) return false;
+		//
+		// Only interested in balls
+		//
+		if ( !sweep.Hit || sweep.Entity is not Ball ) return false;
 
-		if ( sweep.Entity is not Ball ) return false;
+		//
+		// Get the hit position in local space of the paddle
+		// And calculate our linear velocity at the hit point from the paddle angular velocity ( v = rw )
+		// This is only accounting for the velocity along z
+		//
+		var paddleLocalHitPos = ( sweep.HitPosition - paddle.Position ) * paddle.Rotation.Inverse;
+		var magnitudeFromAngular = Math.Abs( paddleLocalHitPos.z * MathX.DegreeToRadian( paddle.AngularVelocity.pitch ) );
+		// TODO: Perhaps the magnitude should be turned back into a vector, surely the direction is just paddle.forward or is it more?
 
-		// get hit position local to the paddle
-		var localHitpos = ( sweep.HitPosition - paddle.Position ) * paddle.Rotation.Inverse;
+		//
+		// TODO: Spin!!!
+		//
 
-		// get our velocity at the hit point from the paddle angular velocity ( v = rw )
-		var velocityFromAngular = localHitpos.z * MathX.DegreeToRadian( paddle.AngularVelocity.pitch );
+		//
+		// Relative velocity
+		//
+		var ballRelativeVelocity = ball.Velocity - (paddle.Velocity + paddle.Velocity.Normal * magnitudeFromAngular); // ?
 
 		// Our ball will bounce off this normal a tiny bit (cor is gonna be about 0.15 on rubber?)
-		ball.Velocity = Vector3.Reflect( ball.Velocity.Normal, sweep.Normal ) * ball.Velocity.Length * 0.15f; ;
+		ball.Velocity = Vector3.Reflect( ballRelativeVelocity.Normal, sweep.Normal ) * ballRelativeVelocity.Length * (1.0f - 0.18f);
 
 		// Probably some shit we can do with the ball mass / paddle mass blah blah, this feels about right for now though
-		ball.Velocity += Math.Abs(paddle.Velocity.Length + velocityFromAngular) * 2.0f * sweep.Normal;
-
-		// DebugOverlay.Line( ball.Position, ball.Position + ball.Velocity, Color.Orange, 5 );
+		// ball.Velocity += (paddle.Velocity.Length + magnitudeFromAngular) * 1.0f * sweep.Normal;
+		ball.Velocity += (paddle.Velocity + paddle.Velocity.Normal * magnitudeFromAngular);
 
 		// This feels good on Oculus, but Oculus haptics are kinda crap
 		Input.VR.RightHand.TriggerHapticVibration( 0f, 200.0f, Math.Clamp( 0.4f + ball.Velocity.Length / 500f, 0.4f, 0.8f ) );
