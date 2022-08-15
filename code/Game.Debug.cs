@@ -18,7 +18,7 @@ public partial class TableTennisGame
 	public static bool DebugSpawnBallAlways { get; set; } = false;
 
 	[ConVar.Server( "tt_debug_ballspawntime" )]
-	public static int BallSpawnTime { get; set; } = 3;
+	public static int BallSpawnTime { get; set; } = 5;
 
 	[ConVar.Server( "tt_debug_gamestate" )]
 	public static bool DebugGameState { get; set; } = false;
@@ -31,21 +31,25 @@ public partial class TableTennisGame
 	{
 		if ( !DebugBallPhysics ) return;
 
-		// Don't worry about this code getting ugly as shit
-
-		if ( DebugSlowMo )
-		{
-			Global.TimeScale = (LastSpawn > 0.95f && LastSpawn < 1.1f) ? 0.05f : 1.0f;
-		}
-
 		if ( LastSpawn < BallSpawnTime ) return;
-
+		
 		LastHitter = null;
-		// SpawnBall();
-		// ServerBall.Position = new Vector3( -72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		// ServerBall.Velocity = Vector3.Forward * Rand.Float( 160.0f, 180.0f );
+
+		var position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
+		var velocity = Vector3.Backward * Rand.Float( 360.0f, 380.0f );
+
+		LocalSetBall( To.Everyone, position, velocity );
 
 		LastSpawn = 0;
+	}
+
+	[ClientRpc]
+	public void LocalSetBall( Vector3 position, Vector3 velocity )
+	{
+		// if ( Ball.IsValid() ) Ball.Delete();
+		// Ball = new Ball();
+		Ball.Position = position;
+		Ball.Velocity = velocity;
 	}
 
 	private void DebugSimulate( Client cl )

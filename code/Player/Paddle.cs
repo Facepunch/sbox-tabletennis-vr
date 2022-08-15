@@ -67,7 +67,7 @@ public partial class Paddle : ModelEntity
 		if ( Game.Current is not TableTennisGame game ) return;
 		// if ( !game.ServerBall.IsValid() ) return;
 
-		if ( TableTennisGame.DebugBallPhysics )
+		/*if ( TableTennisGame.DebugBallPhysics )
 		{
 			// Position = game.ServerBall.Position.WithX( 62.0f ).WithZ( 35 );
 			Position += Vector3.Left * 4.5f;
@@ -76,7 +76,7 @@ public partial class Paddle : ModelEntity
 			
 			Rotation = Rotation.FromRoll( 80 ) * Rotation.FromYaw( -10 ) * Rotation.FromPitch( pitch );
 			AngularVelocity = new Angles( 1500, 0, 0 );
-		}
+		}*/
 
 		ClientTransform = Transform;
 	}
