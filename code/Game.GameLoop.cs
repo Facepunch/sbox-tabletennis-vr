@@ -69,30 +69,31 @@ public partial class TableTennisGame
 
 	[Net] public TimeSince TimeSinceScoredPoint { get; set; }
 
+	public void EndGame( Team winner )
+	{
+		var loser = GetOppositeTeam( winner );
+		
+		HintWidget.AddMessage( To.Everyone, $"{winner.Name} won the match!", "emoji_events", 20 );
+		State = GameState.GameOver;
+
+		GameServices.RecordEvent( winner.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, loser.Client );
+		winner.Client.SetGameResult( GameplayResult.Win, 1 );
+
+		if ( loser.Client != null )
+		{
+			GameServices.RecordEvent( loser.Client, $"Lost the game.", -1, winner.Client );
+			loser.Client.SetGameResult( GameplayResult.Lose, -1 );
+		}
+
+		GameServices.EndGame();
+	}
+
 	public void OnScored( Team team )
 	{
-		var otherTeam = GetOppositeTeam( team );
-		
 		if ( team.CurrentScore >= MaxPoints )
-		{
-			HintWidget.AddMessage( To.Everyone, $"{team.Name} won the match!", "emoji_events", 20 );
-			State = GameState.GameOver;
-
-			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, otherTeam.Client );
-			team.Client.SetGameResult( GameplayResult.Win, 1 );
-
-			if ( otherTeam.Client != null )
-			{
-				GameServices.RecordEvent( team.Client, $"Lost the game.", -1, otherTeam.Client );
-				otherTeam.Client.SetGameResult( GameplayResult.Lose, -1 );	
-			}
-
-			GameServices.EndGame();
-		}
+			EndGame( team );
 		else
-		{
-			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, otherTeam.Client );
-		}
+			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, GetOppositeTeam( team )?.Client );
 
 		TimeSinceScoredPoint = 0;
 	}
@@ -142,17 +143,13 @@ public partial class TableTennisGame
 		if ( !BlueTeam.TryAdd( cl ) )
 		{
 			if ( !RedTeam.TryAdd( cl ) )
-			{
 				MakeSpectator( cl );
-			}
 		}
 
 		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.PlayerId}" );
 
 		if ( State == GameState.WaitingForPlayers && BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
-		{
 			State = GameState.Serving;
-		}
 	}
 
 	protected void MakeSpectator( Client cl )
