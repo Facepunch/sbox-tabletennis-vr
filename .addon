@@ -18,7 +18,7 @@
       "facepunch.tt_arena"
     ],
     "PerMapRanking": false,
-    "LeaderboardType": "Ascending",
+    "LeaderboardType": "Descending",
     "RankType": "Elo",
     "MapSelect": "Hidden",
     "GameNetworkType": "Multiplayer",
