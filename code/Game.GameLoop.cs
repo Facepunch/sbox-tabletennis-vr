@@ -178,9 +178,8 @@ public partial class TableTennisGame
 		}
 
 		// Non-VR players can't play Table Tennis - only watch.
-		// Circumvented if Debug Mode is enabled
-		// Turn this back on when the game's ripe and ready to go.
-		if ( /* !cl.IsUsingVr */ false )
+		// Unless we're in tools mode.
+		if ( !Host.IsToolsEnabled && !cl.IsUsingVr )
 		{
 			MakeSpectator( cl );
 			return;
