@@ -17,10 +17,10 @@ public partial class RankComponent : EntityComponent
 	{
 		get
 		{
-			if ( Elo < 1200 ) return Rank.Bronze;
-			if ( Elo < 1400 ) return Rank.Silver;
-			if ( Elo < 1600 ) return Rank.Gold;
-			if ( Elo < 1800 ) return Rank.Diamond;
+			if ( Elo < 1010 ) return Rank.Bronze;
+			if ( Elo < 1020 ) return Rank.Silver;
+			if ( Elo < 1030 ) return Rank.Gold;
+			if ( Elo < 1040 ) return Rank.Diamond;
 			return Rank.Platinum;
 		}
 	}
