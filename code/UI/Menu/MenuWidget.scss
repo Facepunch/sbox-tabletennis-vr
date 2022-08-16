@@ -1,8 +1,8 @@
 
 MenuWidget {
     flex-direction: column;
-    background-image: linear-gradient( to bottom, rgba( 10, 10, 10, 0.8 ), rgba( black, 0 ) );
-    border-radius: 16px;
+    background-image: linear-gradient( to bottom, rgba( 10, 10, 10, 0.8 ), rgba( black, 0.4 ) );
+    border-radius: 8px;
     align-items: center;
     align-content: center;
 
@@ -23,9 +23,12 @@ MenuWidget {
         > button {
             width: 100%;
             height: 40px;
-            margin-top: 8px;
-            border-radius: 16px;
+            border-radius: 8px;
             background-color: #203a60;
+
+            &:not( :first-child ) {
+                margin-bottom: 8px;
+            }
 
             .icon {
                 width: 50px;
@@ -51,10 +54,13 @@ MenuWidget {
 }
 
 MenuTeamCard {
-    background-image: linear-gradient( to right, rgba( 10, 10, 10, 0.8 ), rgba( black, 0 ) );
-    border-radius: 16px;
+    background-image: linear-gradient( to right, rgba( 10, 10, 10, 0.8 ), rgba( 10, 10, 10, 0.5 ) );
+    border-radius: 8px;
     width: 100%;
     height: 70px;
+    backdrop-filter: blur( 5px );
+    align-items: center;
+    align-content: center;
 
     label {
         color: white;
@@ -63,40 +69,30 @@ MenuTeamCard {
         text-shadow: 0px 0px 5px rgba( black, 0.1 );
     }
 
-    .teamname {
-        font-size: 20px;
-        font-weight: bold;
-        position: absolute;
-        top: 3px;
-        left: 8px;
-    }
-
     .teamscore {
         font-weight: bold;
         font-size: 40px;
-        position: absolute;
-        right: 32px;
         height: 100%;
-        justify-content: center;
         align-items: center;
         align-content: center;
+        margin-right: 16px;
     }
 
     .playername {
-        position: absolute;
-        bottom: 8px;
-        left: 40px;
-        font-size: 14px;
+        font-size: 18px;
+    }
+
+    .stretch {
+        flex-grow: 1;
     }
 
     .playeravatar {
-        position: absolute;
         border-radius: 1000px;
-        bottom: 6px;
-        left: 8px;
-        width: 24px;
-        height: 24px;
+        width: 40px;
+        height: 40px;
+        margin-left: 16px;
+        margin-right: 16px;
     }
 
-    margin-top: 8px;
+    margin-bottom: 8px;
 }

@@ -3,8 +3,6 @@ namespace TableTennis;
 public class MenuTeamCard : Panel
 {
 	public Team Team { get; set; }
-
-	public Label TeamName { get; set; }
 	public Label TeamScore { get; set; }
 
 	public Label PlayerName { get; set; }
@@ -22,11 +20,11 @@ public class MenuTeamCard : Panel
 
 		Team = team;
 
-		TeamName = Add.Label( team.Name, "teamname" );
-		TeamScore = Add.Label( $"{team.CurrentScore}", "teamscore" );
-
-		PlayerName = Add.Label( team.Client?.Name ?? "N/A", "playername" );
 		AvatarImage = Add.Image( "/ui/facepunch.png", "playeravatar" );
+		PlayerName = Add.Label( team.Client?.Name ?? "N/A", "playername" );
+
+		Add.Panel( "stretch" );
+		TeamScore = Add.Label( $"{team.CurrentScore}", "teamscore" );
 	}
 
 	public override void SetProperty( string name, string value )
@@ -101,7 +99,7 @@ public class MenuWidget : WorldPanel
 		if ( !hand.IsValid() ) 
 			return;
 
-		Position = hand.Position + Vector3.Up * 2f;
+		Position = hand.Position + Vector3.Up * 3f;
 
 		if ( Global.IsRunningInVR )
 			Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
