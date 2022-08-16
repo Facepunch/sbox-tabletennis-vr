@@ -297,7 +297,7 @@ public partial class TableTennisGame
 				State = GameState.FailedServe;
 				HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.PlayerId}", 2f );
 
-				Sound.FromWorld( "tabletennis.failed_serve", hitPos );
+				//Sound.FromWorld( "tabletennis.failed_serve", hitPos );
 
 				return;
 			}
