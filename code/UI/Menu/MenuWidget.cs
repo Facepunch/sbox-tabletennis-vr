@@ -68,7 +68,7 @@ public class MenuWidget : WorldPanel
 {
 	public bool Enabled { get; set; } = false;
 	public MenuPageWidget Page { get; set; }
-	Vector2 Size => new( 500, 500f );
+	Vector2 Size => new( 500, 420f );
 
 	public MenuTeamCard BlueTeamCard { get; set; }
 	public MenuTeamCard RedTeamCard { get; set; }
@@ -80,9 +80,20 @@ public class MenuWidget : WorldPanel
 
 	public void SetPage( MenuPageWidget page )
 	{
+		if ( Page != null ) Page.Delete( true );
+
 		Page = page;
+
+		SetClass( "inpage", page != null );
 	}
-	
+
+	public void OpenPreferences()
+	{
+		SetPage( new ClientPreferencesWidget() );
+	}
+
+	public void Return() { SetPage( null ); }
+
 	public void SetEnabled( bool enabled )
 	{
 		Enabled = enabled;

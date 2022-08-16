@@ -3,17 +3,24 @@
 <div>
     <image class="logo" src="/ui/logo_transparent.png"/>
     <div class="canvas">
-        <button class="prefs">
+        <button class="prefs" onclick="OpenPreferences()">
             <text class="icon">tune</text>
             <text class="text">Preferences</text>
         </button>
 
-        <button class="practice">
+        <!--<button class="practice">
             <text class="icon">science</text>
             <text class="text">Practice Mode</text>
-        </button>
+        </button>-->
 
         <MenuTeamCard team="red"></MenuTeamCard>
         <MenuTeamCard team="blue"></MenuTeamCard>
+    </div>
+
+    <div class="actions">
+        <button class="goback" onclick="Return()">
+            <text class="icon">keyboard_return</text>
+            <text class="text">Return</text>
+        </button>
     </div>
 </div>
