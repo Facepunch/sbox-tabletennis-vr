@@ -100,6 +100,11 @@ public class MenuWidget : WorldPanel
 
 		Enabled = enabled;
 		SetClass( "enabled", enabled );
+
+		if ( !Enabled )
+		{
+			SetPage( null );
+		}
 	}
 
 	public override void Tick()
