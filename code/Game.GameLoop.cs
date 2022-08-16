@@ -138,7 +138,9 @@ public partial class TableTennisGame
 		cl.Pawn?.Delete();
 		cl.Pawn = null;
 
-		cl.Pawn = new PlayerPawn();
+		var pawn = new PlayerPawn();
+		cl.Pawn = pawn;
+		pawn.Setup( cl );
 
 		if ( !BlueTeam.TryAdd( cl ) )
 		{
