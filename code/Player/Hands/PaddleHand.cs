@@ -17,9 +17,9 @@ public partial class PaddleHand : VrPlayerHand
 		Transmit = TransmitType.Always;
 	}
 
-	public override Transform GetTransform()
+	public override Transform GetTransform( Client cl )
 	{
-		var tr = base.GetTransform();
+		var tr = base.GetTransform( cl );
 		tr.Rotation *= Rotation.FromAxis( Vector3.Right, -90f );
 		tr.Position -= tr.Rotation.Up * 5f;
 

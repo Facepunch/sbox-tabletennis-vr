@@ -30,6 +30,8 @@ public partial class VrPlayerHand : AnimatedEntity
 
 	[Net, Change( "OnVisibleHandChanged" )] public bool VisibleHand { get; set; }
 
+	public PlayerPawn Player => Owner as PlayerPawn;
+
 	protected virtual void OnVisibleHandChanged( bool before, bool after )
 	{
 		UpdateHandMaterials();
@@ -135,17 +137,25 @@ public partial class VrPlayerHand : AnimatedEntity
 		UpdateHandMaterials();
 	}
 
-	public virtual Transform GetTransform()
+	public virtual Transform GetTransform( Client cl )
 	{
-		var tr = HandInput.Transform;
+		var tr = HandInput.Transform.WithScale( VR.Scale );
+		
+		if ( !cl.IsUsingVr )
+		{
+			var leftHand = HandType == VrHandType.Left;
+			tr = new( Player.EyePosition + Player.EyeRotation.Forward * 10f + (leftHand ? Player.EyeRotation.Left : Player.EyeRotation.Right) * 10f + Player.EyeRotation.Down * 10f, Rotation.Identity, VR.Scale );
+		}
+
 		return tr;
 	}
 
 	public override void Simulate( Client cl )
 	{
 		base.Simulate( cl );
-		
-		Transform = GetTransform().WithScale( VR.Scale );
+
+		Transform = GetTransform( cl );
+
 		Velocity = HandInput.Velocity;
 		AngularVelocity = HandInput.AngularVelocity;
 
@@ -153,14 +163,13 @@ public partial class VrPlayerHand : AnimatedEntity
 		SimulateFingers( cl );
 
 		Animate();
-		
 	}
 
 	public override void FrameSimulate( Client cl )
 	{
 		base.FrameSimulate( cl );
 
-		Transform = GetTransform().WithScale( VR.Scale );
+		Transform = GetTransform( cl );
 	
 		SimulateInput( cl );
 	}
