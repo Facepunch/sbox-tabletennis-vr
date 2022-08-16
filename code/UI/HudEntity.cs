@@ -4,7 +4,7 @@ public class HudEntity : HudEntity<RootPanel>
 {
 	public ScoreWidget Scores { get; set; }
 	public HintWidget Hints { get; set; }
-	public ClientPreferencesWidget Preferences { get; set; }
+	public MenuWidget Menu { get; set; }
 
 	public HudEntity()
 	{
@@ -13,7 +13,6 @@ public class HudEntity : HudEntity<RootPanel>
 
 		Scores = new ScoreWidget();
 		Hints = new HintWidget();
-
-		Preferences = new ClientPreferencesWidget();
+		Menu = new MenuWidget();
 	}
 }

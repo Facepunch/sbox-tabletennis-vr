@@ -5,17 +5,15 @@ $switch-padding: 6px !default;
 $form-control-height: 24px !default;
 
 ClientPreferencesWidget {
-    flex-direction: column;
-    background-image: linear-gradient( to bottom, rgba( 10, 10, 10, 0.8 ), rgba( black, 0 ) );
+    flex-direction: column-reverse;
     border-radius: 16px;
 
     .canvas {
         width: 100%;
-        height: 100%;
         flex-direction: column-reverse;
         padding: 8px;
-        padding-bottom: 0;
         border-radius: 16px;
+        background-image: linear-gradient( to bottom, rgba( 10, 10, 10, 0.8 ), rgba( 10, 10, 10, 0.4 ) );
     }
 
     > button {
@@ -45,17 +43,14 @@ ClientPreferencesWidget {
         padding-bottom: 4px;
     }
 
-    opacity: 0;
     pointer-events: none;
 
     &:intro {
         transition: all 0.1s ease;
     }
 
-    &.visible {
-        pointer-events: all;
-        opacity: 1;
-    }
+    pointer-events: all;
+    opacity: 1;
 }
 
 PreferenceRow {
@@ -71,8 +66,8 @@ PreferenceRow {
         border-radius: 0px 0px 16px 16px;
     }
 
-    &:hover {
-        background-color: rgba(black .3);
+    &:last-child {
+        border-radius: 16px 16px 0px 0px;
     }
 
     > Label {
@@ -94,11 +89,11 @@ PreferenceRow {
         padding: 0;
 
         &:hover {
-            background-color: rgba( white, .5 );
+            background-color: rgba( 60, 60, 90, .5 );
         }
 
         &.active {
-            background-color: white;
+            background-color: rgba( 60, 60, 90, .9 );
         }
 
 
@@ -118,7 +113,7 @@ PreferenceRow {
         padding: 0;
 
         &:hover {
-            background-color: rgba( white, .5 );
+            background-color: rgba( 60, 60, 90, .5 );
         }
 
         &.active {

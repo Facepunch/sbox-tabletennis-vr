@@ -68,18 +68,13 @@ public partial class PreferenceRow : Panel
 }
 
 [UseTemplate]
-public partial class ClientPreferencesWidget : WorldPanel
+public partial class ClientPreferencesWidget : MenuPageWidget
 {
 	// @singleton
 	public static ClientPreferencesWidget Current { get; set; }
 
 	// @ref
 	public Panel Canvas { get; set; }
-
-	/// <summary>
-	/// Controls visibility of the widget
-	/// </summary>
-	public bool Visible { get; set; } = false;
 
 	public ClientPreferencesWidget()
 	{
@@ -102,18 +97,20 @@ public partial class ClientPreferencesWidget : WorldPanel
 
 		foreach ( var prop in properties )
 			Canvas.AddChild( new PreferenceRow( obj, prop ) );
-
-		Canvas.Add.Label( "Preferences", "title" );
 	}
 
 	Vector2 Size => new( 800, 750f );
 	protected override void PostTemplateApplied()
 	{
 		base.PostTemplateApplied();
-
-		var btn = Add.Button( "Save", () => { SetVisible( false ); ClientPreferences.Save(); VrAnchorEditor.Finish( true ); } );
-
 		Initialize();
+	}
+
+	public override void OnDeleted()
+	{
+		ClientPreferences.Save(); VrAnchorEditor.Finish( true );
+
+		base.OnDeleted();
 	}
 
 	[Event.Hotload]
@@ -124,11 +121,6 @@ public partial class ClientPreferencesWidget : WorldPanel
 		AddProperties( ClientPreferences.LocalSettings );
 	}
 
-	public void SetVisible( bool vis )
-	{
-		Visible = vis;
-		SetClass( "visible", vis );
-	}
 
 	public override void Tick()
 	{
@@ -137,36 +129,27 @@ public partial class ClientPreferencesWidget : WorldPanel
 		var pawn = Local.Pawn as PlayerPawn;
 		var hand = pawn.ServeHand;
 
-		Position = hand.Position + Vector3.Up * 2f;
-		Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
+		if ( Global.IsRunningInVR )
+			Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
+		else
+			Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+
+		Position = hand.Position + Vector3.Up * 5.6f;
 		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
 		WorldScale = 0.4f;
 		Scale = 2.0f;
 
-		if ( hand.InMenu )
-		{
-			SetVisible( !Visible );
-		}
+		//if ( hand.InMenu )
+		//{
+		//	SetVisible( !Visible );
+		//}
 
-		if ( Visible )
-		{
-			VrAnchorEditor.Tick();
-		}
-		else
-		{
-			VrAnchorEditor.IsEditing = false;
-		}
+		VrAnchorEditor.Tick();
 	}
 
 	public override bool RayToLocalPosition( Ray ray, out Vector2 position, out float distance )
 	{
 		var ret = base.RayToLocalPosition( ray, out position, out distance );
-
-		// TODO - sexy particle
-		if ( Visible )
-		{
-			DebugOverlay.Line( ray.Origin, ray.Origin + ray.Direction * distance, Color.Red, 0, true );
-		}
 
 		return ret;
 	}

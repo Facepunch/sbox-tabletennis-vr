@@ -28,6 +28,12 @@ public partial class PlayerPawn : Entity
 		PaddleHand.Paddle.Owner = this;
 	}
 
+	public void Setup( Client cl )
+	{
+		if ( !cl.IsUsingVr )
+			Components.Add( new PlayerCamera() );
+	}
+
 	public override void ClientSpawn()
 	{
 		base.ClientSpawn();
@@ -58,7 +64,9 @@ public partial class PlayerPawn : Entity
 			EyeRotation = Input.VR.Head.Rotation;
 		}
 		else
+		{
 			EyePosition = Position + Vector3.Up * 50f;
+		}
 
 		ServeHand?.Simulate( cl );
 		PaddleHand?.Simulate( cl );
@@ -97,9 +105,15 @@ public partial class PlayerPawn : Entity
 	{
 		base.BuildInput( input );
 
-		if ( !Global.IsRunningInVR ) return;
-
-		WorldInput.Ray = new Ray( PaddleHand.Position, PaddleHand.Rotation.Forward );
-		WorldInput.MouseLeftPressed = PaddleHand.InTrigger;
+		if ( !Global.IsRunningInVR )
+		{
+			WorldInput.Ray = new Ray( CurrentView.Position, CurrentView.Rotation.Forward );
+			WorldInput.MouseLeftPressed = input.Down( InputButton.PrimaryAttack );
+		}
+		else
+		{
+			WorldInput.Ray = new Ray( PaddleHand.Position, PaddleHand.Rotation.Forward );
+			WorldInput.MouseLeftPressed = PaddleHand.InTrigger;
+		}
 	}
 }
