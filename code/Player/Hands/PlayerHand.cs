@@ -114,7 +114,7 @@ public partial class VrPlayerHand : AnimatedEntity
 		}
 	}
 	public bool InTrigger => HandInput.Trigger.Value.AlmostEqual( 1, 0.1f );
-	public bool InMenu => HandInput.JoystickPress.WasPressed;
+	public bool InMenu => HandInput.JoystickPress.WasPressed || Input.Pressed( InputButton.Menu );
 
 	public override void Spawn()
 	{

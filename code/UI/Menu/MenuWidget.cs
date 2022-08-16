@@ -96,6 +96,8 @@ public class MenuWidget : WorldPanel
 
 	public void SetEnabled( bool enabled )
 	{
+		if ( Enabled == enabled ) return;
+
 		Enabled = enabled;
 		SetClass( "enabled", enabled );
 	}
@@ -109,6 +111,11 @@ public class MenuWidget : WorldPanel
 		var hand = pawn.ServeHand;
 		if ( !hand.IsValid() ) 
 			return;
+
+		if ( hand.InMenu )
+		{
+			SetEnabled( !Enabled );
+		}
 
 		Position = hand.Position + Vector3.Up * 3f;
 
