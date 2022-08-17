@@ -33,6 +33,7 @@ public partial class TableTennisGame : Game
 			Helpers.Load();
 		}
 
+		Global.TimeScale = 0.95f;
 		Audio.ReverbScale = 3f;
 		Audio.ReverbVolume = 3f;
 	}
