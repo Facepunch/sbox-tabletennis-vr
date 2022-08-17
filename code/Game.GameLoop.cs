@@ -322,7 +322,6 @@ public partial class TableTennisGame
 		
 		HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.PlayerId}", 2f );
 		Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", player.PaddleHand.NetworkIdent, 5, "sports_tennis" );
-		Sound.FromWorld( "tabletennis.failed_serve", tr.StartPosition );
 	}
 
 	public void WinRound( Team winner )
