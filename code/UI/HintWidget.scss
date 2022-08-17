@@ -70,4 +70,28 @@ HintWidgetEntry {
         transform: scaleY(0);
         opacity: 0;
     }
+
+    &.win, &.lose {
+        .icon {
+            font-size: 32px;
+            height: 32px;
+            width: 32px;
+        }
+
+        .message {
+            font-size: 24px;
+        }
+    }
+
+    &.win {
+        .icon, .message {
+            color: #63db77;
+        }
+    }
+
+    &.lose {
+        .icon, .message {
+            color: #f98372;
+        }
+    }
 }

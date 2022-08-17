@@ -2,7 +2,7 @@ namespace TableTennis;
 
 internal class HintWidgetEntry : Panel
 {
-	public HintWidgetEntry( string text, string icon = null, float lifetime = 5f )
+	public HintWidgetEntry( string text, string icon = null, float lifetime = 5f, string className = null )
 	{
 		if ( !string.IsNullOrEmpty( icon ) )
 		{
@@ -11,6 +11,9 @@ internal class HintWidgetEntry : Panel
 			else
 				Add.Label( icon, "icon" );
 		}
+
+		if ( !string.IsNullOrEmpty( className ) )
+			SetClass( className, true );
 
 		Add.Label( text, "message" );
 		_ = DeleteAsync( lifetime );
@@ -38,9 +41,9 @@ public partial class HintWidget : WorldPanel
 		PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
 	}
 
-	public void AddEntry( string text, string icon = null, float lifetime = 5f )
+	public void AddEntry( string text, string icon = null, float lifetime = 5f, string className = null )
 	{
-		Canvas.AddChild( new HintWidgetEntry( text, icon, lifetime ) );
+		Canvas.AddChild( new HintWidgetEntry( text, icon, lifetime, className ) );
 	}
 
 	public override void Tick()
@@ -60,9 +63,9 @@ public partial class HintWidget : WorldPanel
 	}
 
 	[ConCmd.Client( "tt_addmessage", CanBeCalledFromServer = true )]
-	public static void AddMessage( string message, string icon = null, float lifetime = 5f )
+	public static void AddMessage( string message, string icon = null, float lifetime = 5f, string className = null )
 	{
-		Current.AddEntry( message, icon, lifetime );
+		Current.AddEntry( message, icon, lifetime, className );
 
 		if ( !Global.IsListenServer )
 		{
@@ -73,15 +76,11 @@ public partial class HintWidget : WorldPanel
 	[ConCmd.Client( "tt_hinttest" )]
 	public static void HintTest()
 	{
-		Current.AddEntry( "DevulTj joined", "avatar:76561197973858781" );
-
 		var a = async () =>
 		{
+			HintWidget.AddMessage( $"You scored a point!", $"thumb_up", 3f, "win" );
 			await GameTask.DelaySeconds( 3f );
-			Current.AddEntry( "Blue scored 10 points", "recommend" );
-			await GameTask.DelaySeconds( 4f );
-			Current.AddEntry( "matt left", "avatar:76561197996859119" );
-			
+			HintWidget.AddMessage( $"You lost a point.", $"thumb_down", 3f, "lose" );
 		};
 		_ = a();
 	}

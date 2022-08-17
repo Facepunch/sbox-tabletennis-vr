@@ -62,11 +62,15 @@ public partial class TableTennisGame
 	/// </summary>
 	[Net] public int CurrentBounce { get; set; } = 0;
 
+	/// <summary>
+	/// Incremented every time the ball gets hit
+	/// </summary>
+	[Net] public int RallyCount { get; set; } = 0;
+
 	// Teams
 	[Net] public Team BlueTeam { get; set; }
 	[Net] public Team RedTeam { get; set; }
 	[Net] public Team ServingTeam { get; set; }
-
 	[Net] public TimeSince TimeSinceScoredPoint { get; set; }
 
 	public void EndGame( Team winner )
@@ -90,13 +94,29 @@ public partial class TableTennisGame
 
 	public void OnScored( Team team )
 	{
+		team.CurrentScore++;
+
 		if ( team.CurrentScore >= MaxPoints )
 			EndGame( team );
 		else
+		{
 			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, GetOppositeTeam( team )?.Client );
+			RpcScoredPoint( To.Everyone, team );
+		}
 
 		TimeSinceScoredPoint = 0;
 	}
+
+	[ClientRpc]
+	public void RpcScoredPoint( Team team )
+	{
+		bool isMine = team.IsMine;
+		if ( isMine )
+			HintWidget.AddMessage( $"Point scored!", $"sports_score", 5f, "win" );
+		else
+			HintWidget.AddMessage( $"Point lost.", $"sports_score", 5f, "lose" );
+	}
+
 	public Team GetOppositeTeam( Team team )
 	{
 		if ( team == BlueTeam )
@@ -117,6 +137,7 @@ public partial class TableTennisGame
 		serveRotation = 0;
 		ServingTeam = BlueTeam;
 		CurrentBounce = 0;
+		RallyCount = 0;
 		State = GameState.WaitingForPlayers;
 		BlueTeam?.Reset();
 		RedTeam?.Reset();
@@ -285,56 +306,98 @@ public partial class TableTennisGame
 		return false;
 	}
 
+	public bool IsFloor( Vector3 pos )
+	{
+		return pos.z < 40f;
+	}
+
+	public void OnServingBounce( PlayerPawn player, TraceResult tr )
+	{
+		if ( !IsServer ) return;
+
+		// If the ball bounces somewhere while we're serving, assume that the paddle was not hit once.
+		// The state gets set to Playing if the paddle is hit.
+
+		State = GameState.FailedServe;
+		
+		HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.PlayerId}", 2f );
+		Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", player.PaddleHand.NetworkIdent, 5, "sports_tennis" );
+		Sound.FromWorld( "tabletennis.failed_serve", tr.StartPosition );
+	}
+
+	public void WinRound( Team winner )
+	{
+		if ( winner != null )
+		{
+			State = GameState.PointAwarded;
+
+			AddServe();
+			OnScored( winner );
+		}
+		else
+		{
+			State = GameState.Serving;
+		}
+	}
+
+	public void OnPlayBounce( PlayerPawn player, TraceResult tr )
+	{
+		CurrentBounce++;
+
+		// The bounce winner is the person who wins based on where the ball landed.
+		var bounceWinner = GetBounceWinner( tr.StartPosition );
+
+		// If we didn't hit the table, assume it was the floor.
+		// TODO - What about the net?
+		bool isTable = tr.Surface?.ResourceName == "wood";
+		if ( !isTable )
+		{
+			if ( CurrentBounce == 3 )
+			{
+				WinRound( ServingTeam );
+			}
+			else
+			{
+				WinRound( GetOppositeTeam( ServingTeam ) );
+			}
+		}
+		// RallyCount == 1 assumes that the player just served, but hit the ball once.
+		// Let's behave differently here.
+		else if ( RallyCount == 1 )
+		{
+			// If we hit the third bounce.
+			if ( CurrentBounce == 3 )
+			{
+				WinRound( bounceWinner );
+			}
+		}
+		// If we're on any other rally other than the first rally, let's play normal.
+		// If the ball hits the second bounce, game over.
+		else if ( RallyCount > 1 )
+		{
+			if ( CurrentBounce == 2 )
+			{
+				WinRound( bounceWinner );
+			}
+		}
+	}
+
 	public void OnBallBounce( Vector3 hitPos )
 	{
-		if ( IsServer )
+		var player = ServingTeam.Client.Pawn as PlayerPawn;
+
+		var tr = Trace.Ray( hitPos, hitPos + Vector3.Down * 10f )
+			.WorldOnly()
+			.Run();
+
+		switch ( State )
 		{
-			// If the ball bounces while we're serving, the player threw the ball and didn't hit it
-			if ( State == GameState.Serving )
-			{
-				var pawn = ServingTeam.Client.Pawn as PlayerPawn;
-				Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", pawn.PaddleHand.NetworkIdent, 5, "sports_tennis" );
-				State = GameState.FailedServe;
-				HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.PlayerId}", 2f );
-
-				//Sound.FromWorld( "tabletennis.failed_serve", hitPos );
-
-				return;
-			}
-
-			// We only care about ball bounce events when we're in play.
-			if ( State != GameState.Playing )
-				return;
-			
-			// Trace down, see what we really hit
-			var tr = Trace.Ray( hitPos, hitPos + Vector3.Down * 10f )
-				.WorldOnly()
-				.Run();
-
-			CurrentBounce++;
-
-			if ( CurrentBounce < 2 && tr.Surface?.ResourceName != "wood" )
-			{
-				var winner = GetOppositeTeam( ServingTeam );
-				if ( winner != null )
-				{
-					State = GameState.PointAwarded;
-					winner.ScorePoint();
-				}
-			}
-			else if ( CurrentBounce == 2f )
-			{
-				var winner = GetBounceWinner( hitPos );
-				if ( winner != null )
-				{
-					State = GameState.PointAwarded;
-					winner.ScorePoint();
-				}
-				else
-				{
-					State = GameState.Serving;
-				}
-			}
+			case GameState.Serving: 
+				OnServingBounce( player, tr );
+				break;
+			case GameState.Playing:
+				OnPlayBounce( player, tr );
+				break;
 		}
 	}
 
@@ -356,26 +419,25 @@ public partial class TableTennisGame
 			var pawn = paddle.Owner as PlayerPawn;
 			LastHitter = pawn.GetTeam();
 
+			RallyCount++;
+
 			if ( State == GameState.Serving )
 			{
 				State = GameState.Playing;
 			}
 			else if ( State == GameState.Playing )
 			{
+				var bounces = CurrentBounce;
+
+				// Reset bounce count, as it's per rally.
+				CurrentBounce = 0;
+
 				// If the paddle is hit by a player, and the ball hasn't bounced yet - award the serving team a point.
-				if ( CurrentBounce == 0 )
+				if ( bounces == 0 )
 				{
-					var winner = ServingTeam;
-					if ( winner != null )
-					{
-						State = GameState.PointAwarded;
-						winner.ScorePoint();
-					}
+					WinRound( ServingTeam );
 				}
-				else if ( CurrentBounce == 1 )
-				{
-					CurrentBounce--;
-				}
+
 			}
 
 			RpcPaddleHit( To.Everyone, paddle, hitPosition );
@@ -451,6 +513,7 @@ public partial class TableTennisGame
 
 			if ( newState == GameState.Serving )
 			{
+				RallyCount = 0;
 				TimeSinceScoredPoint = 0;
 				CurrentBounce = 0;
 				LastHitter = null;

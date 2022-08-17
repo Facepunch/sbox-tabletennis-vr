@@ -9,15 +9,7 @@ public partial class Team : Entity
 
 	// Networkable data
 	[Net] public new Client Client { get; set; }
-	[Net] public int CurrentScore { get; protected set; }
-
-	public void ScorePoint()
-	{
-		CurrentScore++;
-		HintWidget.AddMessage( To.Everyone, $"{Name} scored", $"sports_score" );
-		TableTennisGame.Current.AddServe();
-		TableTennisGame.Current.OnScored( this );
-	}
+	[Net] public int CurrentScore { get; set; }
 
 	/// <summary>
 	/// The team's color, used for UI elements mainly.
@@ -46,6 +38,11 @@ public partial class Team : Entity
 	/// the Scores widget will be placed.
 	/// </summary>
 	public Transform ScoreAnchor { get; set; }
+
+	/// <summary>
+	/// Is this my team?
+	/// </summary>
+	public bool IsMine => Client == Local.Client;
 
 	/// <summary>
 	/// Resets the player's anchor position, and anything else we might want to reset.
