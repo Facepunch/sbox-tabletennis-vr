@@ -267,7 +267,7 @@ public partial class TableTennisGame
 	{
 		var cl = ConsoleSystem.Caller;
 
-		if ( Current.IsOnSide( cl, hitPos ) )
+		if ( Current.IsOnSide( cl, hitPos ) || Current.HasBotTeam() )
 		{
 			Current.OnBallBounce( hitPos );
 			Current.RpcBallBounce( To.Everyone, hitPos );
@@ -289,10 +289,7 @@ public partial class TableTennisGame
 
 	public bool IsOnSide( Client cl, Vector3 hitPos )
 	{
-		if ( HasBotTeam() ) return true;
-
 		// Blue -x Red +x
-
 		if ( BlueTeam.Client == cl )
 		{
 			return hitPos.x < 0;
@@ -364,8 +361,16 @@ public partial class TableTennisGame
 		// Let's behave differently here.
 		else if ( RallyCount == 1 )
 		{
+			if ( CurrentBounce == 1 )
+			{
+				// The ball must hit the serving team's side, otherwise it's illegal play.
+				if ( !IsOnSide( ServingTeam.Client, tr.StartPosition ) )
+				{
+					WinRound( GetOppositeTeam( ServingTeam ) );
+				}
+			}
 			// If we hit the third bounce.
-			if ( CurrentBounce == 3 )
+			else if ( CurrentBounce == 3 )
 			{
 				WinRound( bounceWinner );
 			}
@@ -436,7 +441,6 @@ public partial class TableTennisGame
 				{
 					WinRound( ServingTeam );
 				}
-
 			}
 
 			RpcPaddleHit( To.Everyone, paddle, hitPosition );
