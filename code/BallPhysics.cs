@@ -213,7 +213,7 @@ public static partial class BallPhysics
 		var ballRelativeVelocity = ball.Velocity - (paddle.Velocity + paddle.Velocity.Normal * magnitudeFromAngular); // ?
 
 		// Our ball will bounce off this normal a tiny bit (cor is gonna be about 0.15 on rubber?)
-		ball.Velocity = Vector3.Reflect( ballRelativeVelocity.Normal, sweep.Normal ) * ballRelativeVelocity.Length * (1.0f - 0.18f);
+		ball.Velocity = Vector3.Reflect( ballRelativeVelocity.Normal, sweep.Normal ) * ballRelativeVelocity.Length * (1.0f + 0.18f);
 
 		// Probably some shit we can do with the ball mass / paddle mass blah blah, this feels about right for now though
 		// ball.Velocity += (paddle.Velocity.Length + magnitudeFromAngular) * 1.0f * sweep.Normal;
