@@ -7,10 +7,10 @@ public partial class PreferenceRow : Panel
 	public Label Label { get; }
 	public Panel ValueArea { get; }
 
-	public PreferenceRow( object target, PropertyInfo property ) : this()
+	public PreferenceRow( object target, PropertyDescription property ) : this()
 	{
-		var info = DisplayInfo.ForProperty( property );
-		Label.Text = info.Name;
+		var currentValue = property.GetValue( target );
+		Label.Text = DisplayInfo.For( property ).Name;
 
 		if ( property.PropertyType == typeof( bool ) )
 		{
@@ -92,7 +92,7 @@ public partial class ClientPreferencesWidget : MenuPageWidget
 
 	public void AddProperties( object obj )
 	{
-		var properties = obj.GetType().GetProperties( BindingFlags.Public | BindingFlags.Instance );
+		var properties = TypeLibrary.GetPropertyDescriptions( obj );
 
 		foreach ( var prop in properties )
 			Canvas.AddChild( new PreferenceRow( obj, prop ) );
