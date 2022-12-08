@@ -64,7 +64,6 @@ public partial class Paddle : ModelEntity
 			Transform = Transform.WithPosition( Transform.Position + Transform.Rotation.Down * 2.0f );
 		}
 
-		if ( Game.Current is not TableTennisGame game ) return;
 		// if ( !game.ServerBall.IsValid() ) return;
 
 		/*if ( TableTennisGame.DebugBallPhysics )

@@ -53,7 +53,7 @@ public class MenuTeamCard : Panel
 		if ( Team.Client.IsValid() )
 		{
 			PlayerName.Text = Team.Client.Name;
-			AvatarImage.SetTexture( $"avatar:{Team.Client.PlayerId}" );
+			AvatarImage.SetTexture( $"avatar:{Team.Client.SteamId}" );
 		}
 	}
 }
@@ -127,7 +127,7 @@ public class MenuWidget : WorldPanel
 		if ( Global.IsRunningInVR )
 			Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
 		else
-			Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+			Rotation = Rotation.LookAt( -Camera.Rotation.Forward );
 
 		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
 		WorldScale = 0.4f;

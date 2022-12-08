@@ -144,7 +144,7 @@ public partial class VrPlayerHand : AnimatedEntity
 		if ( !cl.IsUsingVr )
 		{
 			var leftHand = HandType == VrHandType.Left;
-			tr = new( Player.EyePosition + Player.EyeRotation.Forward * 10f + (leftHand ? Player.EyeRotation.Left : Player.EyeRotation.Right) * 10f + Player.EyeRotation.Down * 10f, Rotation.Identity, VR.Scale );
+			tr = new( Player.HeadTransform.Position + Player.HeadTransform.Rotation.Forward * 10f + (leftHand ? Player.HeadTransform.Rotation.Left : Player.HeadTransform.Rotation.Right) * 10f + Player.HeadTransform.Rotation.Down * 10f, Rotation.Identity, VR.Scale );
 		}
 
 		return tr;

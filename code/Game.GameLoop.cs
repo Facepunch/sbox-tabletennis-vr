@@ -161,7 +161,6 @@ public partial class TableTennisGame
 
 		var pawn = new PlayerPawn();
 		cl.Pawn = pawn;
-		pawn.Setup( cl );
 
 		if ( !BlueTeam.TryAdd( cl ) )
 		{
@@ -169,7 +168,7 @@ public partial class TableTennisGame
 				MakeSpectator( cl );
 		}
 
-		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.PlayerId}" );
+		HintWidget.AddMessage( To.Everyone, $"{cl.Name} joined", $"avatar:{cl.SteamId}" );
 
 		if ( State == GameState.WaitingForPlayers && BlueTeam.IsOccupied() && RedTeam.IsOccupied() )
 			State = GameState.Serving;
@@ -233,7 +232,7 @@ public partial class TableTennisGame
 			}
 		}
 
-		HintWidget.AddMessage( To.Everyone, $"{cl.Name} left", $"avatar:{cl.PlayerId}" );
+		HintWidget.AddMessage( To.Everyone, $"{cl.Name} left", $"avatar:{cl.SteamId}" );
 	}
 
 	[Event.Tick.Server]
@@ -317,7 +316,7 @@ public partial class TableTennisGame
 
 		State = GameState.FailedServe;
 		
-		HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.PlayerId}", 2f );
+		HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.SteamId}", 2f );
 		Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", player.PaddleHand.NetworkIdent, 5, "sports_tennis" );
 	}
 

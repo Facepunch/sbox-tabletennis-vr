@@ -59,6 +59,7 @@ public partial class Team : Entity
 			return;
 	
 		player.Transform = Anchor;
+		VR.Anchor = ClientPreferences.LocalSettings.Anchor.GetTransform();
 	}
 
 	public bool IsOccupied() => Client.IsValid();

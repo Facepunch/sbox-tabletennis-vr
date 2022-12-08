@@ -43,8 +43,9 @@ public partial class RankComponent : EntityComponent
 		try
 		{
 			var cl = Entity as Client;
-			var results = await GameServices.Leaderboard.Query( Global.GameIdent, cl.PlayerId, "Unknown" );
-			var myEntries = results.Entries.Where( x => x.PlayerId == cl.PlayerId );
+			var rank = await cl.FetchGameRankAsync();
+			/*Elo = rank.
+
 
 			if ( myEntries.Count() > 0 )
 			{
@@ -55,7 +56,7 @@ public partial class RankComponent : EntityComponent
 			{
 				Log.Info( $"No elo found for {cl.Name}." );
 				Elo = 1000;
-			}
+			}*/
 		}
 		catch ( Exception e )
 		{

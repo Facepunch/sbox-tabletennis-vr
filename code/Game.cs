@@ -11,9 +11,9 @@ global using System.Threading.Tasks;
 
 namespace TableTennis;
 
-public partial class TableTennisGame : Game
+public partial class TableTennisGame : GameManager
 {
-	public static new TableTennisGame Current => Game.Current as TableTennisGame;
+	public static new TableTennisGame Current => GameManager.Current as TableTennisGame;
 
 	public TableTennisGame()
 	{
@@ -78,16 +78,6 @@ public partial class TableTennisGame : Game
 		if ( hit )
 		{
 			IHitTheBallCunt( Ball.Position, Ball.Velocity, Time.Now );
-		}
-	}
-
-	public override void PostCameraSetup( ref CameraSetup camSetup )
-	{
-		if ( Local.Pawn != null )
-		{
-			VR.Anchor = ClientPreferences.LocalSettings.Anchor.GetTransform();
-		
-			Local.Pawn.PostCameraSetup( ref camSetup );
 		}
 	}
 }

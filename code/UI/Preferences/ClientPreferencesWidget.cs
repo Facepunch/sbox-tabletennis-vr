@@ -131,7 +131,7 @@ public partial class ClientPreferencesWidget : MenuPageWidget
 		if ( Global.IsRunningInVR )
 			Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
 		else
-			Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+			Rotation = Rotation.LookAt( -Camera.Rotation.Forward );
 
 		Position = hand.Position + Vector3.Up * 5.6f;
 		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );

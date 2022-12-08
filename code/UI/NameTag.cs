@@ -7,7 +7,7 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 	protected override void OnActivate()
 	{
 		var rankComponent = Entity.Client?.Components.Get<RankComponent>();
-		NameTag = new NameTag( Entity.Client?.Name ?? Entity.Name, Entity.Client?.PlayerId, rankComponent?.RankImage );
+		NameTag = new NameTag( Entity.Client?.Name ?? Entity.Name, Entity.Client?.SteamId, rankComponent?.RankImage );
 	}
 
 	protected override void OnDeactivate()
@@ -19,16 +19,16 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 	/// <summary>
 	/// Called for every tag, while it's active
 	/// </summary>
-	[Event.Frame]
+	[Event.Client.Frame]
 	public void FrameUpdate()
 	{
-		var tx = new Transform().WithPosition( Entity.EyePosition );
+		var tx = new Transform().WithPosition( Entity.HeadTransform.Position );
 		tx.Position += Vector3.Up * 10.0f;
 		
 		if ( Global.IsRunningInVR )
 			tx.Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
 		else
-			tx.Rotation = Rotation.LookAt( -CurrentView.Rotation.Forward );
+			tx.Rotation = Rotation.LookAt( -Camera.Rotation.Forward );
 		
 		tx.Scale = 1f;
 		
@@ -47,7 +47,7 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 	/// <summary>
 	/// Called once per frame to manage component creation/deletion
 	/// </summary>
-	[Event.Frame]
+	[Event.Client.Frame]
 	public static void SystemUpdate()
 	{
 		foreach ( var player in Sandbox.Entity.All.OfType<PlayerPawn>() )
@@ -59,7 +59,7 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 				continue;
 			}
 
-			var shouldRemove = player.Position.Distance( CurrentView.Position ) > 500;
+			var shouldRemove = player.Position.Distance( Camera.Position ) > 500;
 			shouldRemove = shouldRemove || player.LifeState != LifeState.Alive;
 			shouldRemove = shouldRemove || player.IsDormant;
 

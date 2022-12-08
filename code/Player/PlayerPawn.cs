@@ -10,6 +10,8 @@ public partial class PlayerPawn : Entity
 	// Accessor for the paddle
 	public Paddle Paddle => PaddleHand.Paddle;
 
+	public Transform HeadTransform { get; private set; }
+
 	public override void Spawn()
 	{
 		Transmit = TransmitType.Always;
@@ -26,12 +28,6 @@ public partial class PlayerPawn : Entity
 		};
 		
 		PaddleHand.Paddle.Owner = this;
-	}
-
-	public void Setup( Client cl )
-	{
-		if ( !cl.IsUsingVr )
-			Components.Add( new PlayerCamera() );
 	}
 
 	public override void ClientSpawn()
@@ -60,12 +56,11 @@ public partial class PlayerPawn : Entity
 
 		if ( cl.IsUsingVr )
 		{
-			EyePosition = Input.VR.Head.Position;
-			EyeRotation = Input.VR.Head.Rotation;
+			HeadTransform = Input.VR.Head;
 		}
 		else
 		{
-			EyePosition = Position + Vector3.Up * 50f;
+			HeadTransform = Transform.WithPosition( Position + Vector3.Up * 50f );
 		}
 
 		ServeHand?.Simulate( cl );
@@ -80,13 +75,12 @@ public partial class PlayerPawn : Entity
 		PaddleHand?.FrameSimulate( cl );
 	}
 
-	[Event.Frame]
+	[Event.Client.Frame]
 	protected void UpdateHeadSpot()
 	{
 		if ( HeadModel.IsValid() )
 		{
-			HeadModel.Position = EyePosition;
-			HeadModel.Rotation = EyeRotation;
+			HeadModel.Transform = HeadTransform;
 
 			var team = Client.GetTeam();
 			if ( team != null )
@@ -94,21 +88,19 @@ public partial class PlayerPawn : Entity
 				HeadModel.SceneObject.Attributes.Set( "PlayerColor", team.Color );
 			}
 
-			HeadModel.EnableDrawing = CurrentView.Viewer != Client;
+			HeadModel.EnableDrawing = Camera.FirstPersonViewer != Client;
 		}
 	}
 
 	public Team GetTeam() => Client.GetTeam();
 
 	WorldInput WorldInput = new();
-	public override void BuildInput( InputBuilder input )
+	public override void BuildInput()
 	{
-		base.BuildInput( input );
-
 		if ( !Global.IsRunningInVR )
 		{
-			WorldInput.Ray = new Ray( CurrentView.Position, CurrentView.Rotation.Forward );
-			WorldInput.MouseLeftPressed = input.Down( InputButton.PrimaryAttack );
+			WorldInput.Ray = new Ray( Camera.Position, Camera.Rotation.Forward );
+			WorldInput.MouseLeftPressed = Input.Down( InputButton.PrimaryAttack );
 		}
 		else
 		{
