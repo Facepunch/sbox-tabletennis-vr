@@ -9,17 +9,17 @@ public partial class TableTennisGame
 	[ConCmd.Server]
 	public static void IHitTheBallCunt( Vector3 position, Vector3 velocity, float time )
 	{
-		Current.RPCBallHit( To.Multiple( Client.All.Where( c => c != ConsoleSystem.Caller ) ), ConsoleSystem.Caller, position, velocity, time );
+		Current.RPCBallHit( To.Multiple( Game.Clients.Where( c => c != ConsoleSystem.Caller ) ), ConsoleSystem.Caller, position, velocity, time );
 	}
 
 	[ConCmd.Server]
 	public static void IThrewTheBallCunt( Vector3 position, Vector3 velocity, float time )
 	{
-		Current.RPCBallThrow( To.Multiple( Client.All.Where( c => c != ConsoleSystem.Caller ) ), ConsoleSystem.Caller, position, velocity, time );
+		Current.RPCBallThrow( To.Multiple( Game.Clients.Where( c => c != ConsoleSystem.Caller ) ), ConsoleSystem.Caller, position, velocity, time );
 	}
 
 	[ClientRpc]
-	public void RPCBallHit( Client hittingClient, Vector3 position, Vector3 velocity, float timeThen )
+	public void RPCBallHit( IClient hittingClient, Vector3 position, Vector3 velocity, float timeThen )
 	{
 		Ball.Position = position;
 		Ball.Velocity = velocity;
@@ -27,7 +27,7 @@ public partial class TableTennisGame
 	}
 
 	[ClientRpc]
-	public void RPCBallThrow( Client throwingClient, Vector3 position, Vector3 velocity, float timeThen )
+	public void RPCBallThrow( IClient throwingClient, Vector3 position, Vector3 velocity, float timeThen )
 	{
 		Ball.Position = position;
 		Ball.Velocity = velocity;
@@ -38,7 +38,7 @@ public partial class TableTennisGame
 	/// Gives a client's pawn the ability to serve the active ball.
 	/// </summary>
 	[ClientRpc]
-	public void ClientServingBall( Client client )
+	public void ClientServingBall( IClient client )
 	{
 		if ( Ball.IsValid() ) Ball.Delete();
 		Ball = new Ball();

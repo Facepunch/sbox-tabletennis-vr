@@ -39,7 +39,7 @@ public partial class PlayerPawn : Entity
 
 	protected override void OnDestroy()
 	{
-		if ( IsServer )
+		if ( Game.IsServer )
 		{
 			Paddle?.Delete();
 			ServeHand?.Delete();
@@ -50,7 +50,7 @@ public partial class PlayerPawn : Entity
 		}
 	}
 
-	public override void Simulate( Client cl )
+	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );
 
@@ -67,7 +67,7 @@ public partial class PlayerPawn : Entity
 		PaddleHand?.Simulate( cl );
 	}
 
-	public override void FrameSimulate( Client cl )
+	public override void FrameSimulate( IClient cl )
 	{
 		base.FrameSimulate( cl );
 
@@ -97,7 +97,7 @@ public partial class PlayerPawn : Entity
 	WorldInput WorldInput = new();
 	public override void BuildInput()
 	{
-		if ( !Global.IsRunningInVR )
+		if ( !Game.IsRunningInVR )
 		{
 			WorldInput.Ray = new Ray( Camera.Position, Camera.Rotation.Forward );
 			WorldInput.MouseLeftPressed = Input.Down( InputButton.PrimaryAttack );

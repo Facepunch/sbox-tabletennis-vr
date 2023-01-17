@@ -109,7 +109,7 @@ public class MenuWidget : WorldPanel
 
 	public override void Tick()
 	{
-		var pawn = Local.Pawn as PlayerPawn;
+		var pawn = Game.LocalPawn as PlayerPawn;
 		if ( !pawn.IsValid() ) 
 			return;
 		
@@ -124,7 +124,7 @@ public class MenuWidget : WorldPanel
 
 		Position = hand.Position + Vector3.Up * 3f;
 
-		if ( Global.IsRunningInVR )
+		if ( Game.IsRunningInVR )
 			Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
 		else
 			Rotation = Rotation.LookAt( -Camera.Rotation.Forward );

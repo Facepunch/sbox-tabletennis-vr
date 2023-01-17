@@ -3,7 +3,7 @@
   "Type": "game",
   "Org": "facepunch",
   "Ident": "tabletennis",
-  "Tags": "vr",
+  "Tags": null,
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
@@ -13,7 +13,6 @@
   ],
   "HasCode": true,
   "CodePath": "/code/",
-  "RootNamespace": "TableTennis",
   "Metadata": {
     "MapList": [
       "facepunch.tt_arena"
@@ -76,11 +75,6 @@
       "VelocityIterations": 8,
       "SoftBodyIterations": 1,
       "SoftBodySubsteps": 1
-    },
-    "DefaultLeaderboards": null,
-    "Summary": "\uD83C\uDFD3Facepunch Presents Table Tennis VR",
-    "Description": "",
-    "Public": true,
-    "ReplaceTags": ""
+    }
   }
 }

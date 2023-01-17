@@ -29,12 +29,12 @@ public partial class Paddle : ModelEntity
 		return tr;
 	}
 
-	public override void Simulate( Client cl )
+	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );
 
 		// cba doing predicted atm
-		if ( !IsServer ) return;
+		if ( !Game.IsServer ) return;
 
 		// This is solely just to sync with other players
 		if ( cl.IsUsingVr )
@@ -48,7 +48,7 @@ public partial class Paddle : ModelEntity
 		}
 	}
 
-	public override void FrameSimulate( Client cl )
+	public override void FrameSimulate( IClient cl )
 	{
 		base.FrameSimulate( cl );
 

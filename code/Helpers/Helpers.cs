@@ -40,7 +40,7 @@ public partial class Helpers
 
 	public static void Display( string identifier, string message, Vector3 worldPosition, string icon = null, float lifetime = 2f )
 	{
-		Host.AssertClient();
+		Game.AssertClient();
 
 		_ = new HelperWidget( message, worldPosition, icon, lifetime );
 		Add( identifier );
@@ -48,7 +48,7 @@ public partial class Helpers
 
 	public static void Display( string identifier, string message, Entity followEntity, string icon = null, float lifetime = 2f )
 	{
-		Host.AssertClient();
+		Game.AssertClient();
 
 		_ = new HelperWidget( message, followEntity, icon, lifetime );
 		Add( identifier );
@@ -71,7 +71,7 @@ public partial class Helpers
 		
 	public static void TryDisplay( string identifier, string message, Entity followEntity, int amountUntilStop = 0, string icon = null, float lifetime = 2f )
 	{
-		Host.AssertClient();
+		Game.AssertClient();
 
 		if ( ShouldShow( identifier, amountUntilStop ) )
 		{

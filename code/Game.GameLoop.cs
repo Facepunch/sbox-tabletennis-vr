@@ -26,7 +26,7 @@ public partial class TableTennisGame
 			var oldState = _state;
 			_state = value;
 
-			Log.Info( $"{Host.Name}: Game state has changed from {oldState} to {_state}" );
+			Log.Info( $"Game state has changed from {oldState} to {_state}" );
 
 			OnStateChanged( oldState, _state );
 		}
@@ -80,7 +80,7 @@ public partial class TableTennisGame
 		HintWidget.AddMessage( To.Everyone, $"{winner.Name} won the match!", "emoji_events", 20 );
 		State = GameState.GameOver;
 
-		GameServices.RecordEvent( winner.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, loser.Client );
+		/* GameServices.RecordEvent( winner.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint}) and won the game!", 1, loser.Client );
 		winner.Client.SetGameResult( GameplayResult.Win, 1 );
 
 		if ( loser.Client != null )
@@ -89,7 +89,7 @@ public partial class TableTennisGame
 			loser.Client.SetGameResult( GameplayResult.Lose, -1 );
 		}
 
-		GameServices.EndGame();
+		GameServices.EndGame(); */
 	}
 
 	public void OnScored( Team team )
@@ -100,7 +100,7 @@ public partial class TableTennisGame
 			EndGame( team );
 		else
 		{
-			GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, GetOppositeTeam( team )?.Client );
+			// GameServices.RecordEvent( team.Client, $"Scored a serve (bounce: {CurrentBounce}, time: {TimeSinceScoredPoint})", 1, GetOppositeTeam( team )?.Client );
 			RpcScoredPoint( To.Everyone, team );
 		}
 
@@ -130,7 +130,7 @@ public partial class TableTennisGame
 		if ( force )
 		{
 			HintWidget.AddMessage( To.Everyone, $"The game was reset.", $"info" );
-			GameServices.AbandonGame( false );
+		//	GameServices.AbandonGame( false );
 		}
 
 		currentServe = 0;
@@ -154,7 +154,7 @@ public partial class TableTennisGame
 			Current.CreatePawn( cl );
 	}
 
-	protected void CreatePawn( Client cl )
+	protected void CreatePawn( IClient cl )
 	{
 		cl.Pawn?.Delete();
 		cl.Pawn = null;
@@ -174,7 +174,7 @@ public partial class TableTennisGame
 			State = GameState.Serving;
 	}
 
-	protected void MakeSpectator( Client cl )
+	protected void MakeSpectator( IClient cl )
 	{
 		var team = cl.GetTeam();
 		team?.SetClient( null );
@@ -186,7 +186,7 @@ public partial class TableTennisGame
 		cl.Pawn = new SpectatorPawn();
 	}
 
-	public override void ClientJoined( Client cl )
+	public override void ClientJoined( IClient cl )
 	{
 		// Set up client prefrences
 		cl.Components.GetOrCreate<ClientPreferencesComponent>();
@@ -201,7 +201,7 @@ public partial class TableTennisGame
 
 		// Non-VR players can't play Table Tennis - only watch.
 		// Unless we're in tools mode.
-		if ( !Host.IsToolsEnabled && !cl.IsUsingVr )
+		if ( !Game.IsEditor && !cl.IsUsingVr )
 		{
 			MakeSpectator( cl );
 			return;
@@ -210,7 +210,7 @@ public partial class TableTennisGame
 		CreatePawn( cl );
 	}
 
-	public override void ClientDisconnect( Client cl, NetworkDisconnectionReason reason )
+	public override void ClientDisconnect( IClient cl, NetworkDisconnectionReason reason )
 	{
 		if ( cl.Pawn.IsValid() )
 		{
@@ -224,8 +224,8 @@ public partial class TableTennisGame
 
 				if ( State != GameState.WaitingForPlayers )
 				{
-					GameServices.RecordEvent( cl, "Left the game too early." );
-					GameServices.AbandonGame( true );
+				//	GameServices.RecordEvent( cl, "Left the game too early." );
+				//	GameServices.AbandonGame( true );
 
 					ResetGame();
 				}
@@ -286,7 +286,7 @@ public partial class TableTennisGame
 		return BlueTeam.Client.IsBot || RedTeam.Client.IsBot;
 	}
 
-	public bool IsOnSide( Client cl, Vector3 hitPos )
+	public bool IsOnSide( IClient cl, Vector3 hitPos )
 	{
 		// Blue -x Red +x
 		if ( BlueTeam.Client == cl )
@@ -309,7 +309,7 @@ public partial class TableTennisGame
 
 	public void OnServingBounce( PlayerPawn player, TraceResult tr )
 	{
-		if ( !IsServer ) return;
+		if ( !Game.IsServer ) return;
 
 		// If the ball bounces somewhere while we're serving, assume that the paddle was not hit once.
 		// The state gets set to Playing if the paddle is hit.
@@ -417,7 +417,7 @@ public partial class TableTennisGame
 	{
 		SinceLastHit = 0;
 
-		if ( IsServer )
+		if ( Game.IsServer )
 		{
 			var pawn = paddle.Owner as PlayerPawn;
 			LastHitter = pawn.GetTeam();
@@ -485,13 +485,13 @@ public partial class TableTennisGame
 
 	public void StartGame()
 	{
-		foreach ( var cl in Client.All )
+		foreach ( var cl in Game.Clients )
 		{
 			cl.Components.Get<RankComponent>()?.FetchStats();
 		}
 
 		State = GameState.Serving;
-		GameServices.StartGame();
+		//GameServices.StartGame();
 	}
 
 	/// <summary>
@@ -501,7 +501,7 @@ public partial class TableTennisGame
 	/// <param name="newState"></param>
 	public void OnStateChanged( GameState oldState, GameState newState )
 	{
-		if ( IsServer )
+		if ( Game.IsServer )
 		{
 			GameStateChanged = 0;
 

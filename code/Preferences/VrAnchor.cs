@@ -14,7 +14,7 @@ public class VrAnchor
 
 	public Transform GetOriginTransform()
 	{
-		return Local.Pawn.Transform;
+		return Game.LocalPawn.Transform;
 	}
 	
 	public Transform GetTransform()

@@ -39,7 +39,7 @@ public partial class VrPlayerHand : AnimatedEntity
 	
 	protected virtual void OnHandChanged( VrHandType before, VrHandType after )
 	{
-		if ( IsServer ) Model = after == VrHandType.Left ? LeftHandModel : RightHandModel;
+		if ( Game.IsServer ) Model = after == VrHandType.Left ? LeftHandModel : RightHandModel;
 
 		UpdateHandMaterials();
 	}
@@ -49,13 +49,13 @@ public partial class VrPlayerHand : AnimatedEntity
 		var team = Client?.GetTeam();
 		if ( team == null ) return;
 
-		if ( IsClient )
+		if ( Game.IsClient )
 			SetMaterialOverride( team is Team.Red ? RedMaterialOverride : BlueMaterialOverride );
 
 		EnableDrawing = VisibleHand;
 	}
 
-	protected virtual void SimulateFingers( Client cl )
+	protected virtual void SimulateFingers( IClient cl )
 	{
 		var input = HandInput;
 	
@@ -125,7 +125,7 @@ public partial class VrPlayerHand : AnimatedEntity
 		Tags.Add( "hand" );
 	}
 
-	protected virtual void SimulateInput( Client cl )
+	protected virtual void SimulateInput( IClient cl )
 	{
 		// empty as default
 	}
@@ -137,7 +137,7 @@ public partial class VrPlayerHand : AnimatedEntity
 		UpdateHandMaterials();
 	}
 
-	public virtual Transform GetTransform( Client cl )
+	public virtual Transform GetTransform( IClient cl )
 	{
 		var tr = HandInput.Transform.WithScale( VR.Scale );
 		
@@ -150,7 +150,7 @@ public partial class VrPlayerHand : AnimatedEntity
 		return tr;
 	}
 
-	public override void Simulate( Client cl )
+	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );
 
@@ -165,7 +165,7 @@ public partial class VrPlayerHand : AnimatedEntity
 		Animate();
 	}
 
-	public override void FrameSimulate( Client cl )
+	public override void FrameSimulate( IClient cl )
 	{
 		base.FrameSimulate( cl );
 

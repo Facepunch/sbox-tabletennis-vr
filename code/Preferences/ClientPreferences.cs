@@ -34,7 +34,7 @@ public partial class ClientPreferences
 	[ConCmd.Server( "tt_prefs_debug" )]
 	public static void CmdDebug()
 	{
-		foreach ( var cl in Client.All )
+		foreach ( var cl in Game.Clients )
 		{
 			Log.Info( $"> {cl.Name}" );
 			var component = cl.Components.GetOrCreate<ClientPreferencesComponent>();

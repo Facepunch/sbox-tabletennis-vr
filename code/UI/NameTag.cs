@@ -25,7 +25,7 @@ internal class NameTagComponent : EntityComponent<PlayerPawn>
 		var tx = new Transform().WithPosition( Entity.HeadTransform.Position );
 		tx.Position += Vector3.Up * 10.0f;
 		
-		if ( Global.IsRunningInVR )
+		if ( Game.IsRunningInVR )
 			tx.Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
 		else
 			tx.Rotation = Rotation.LookAt( -Camera.Rotation.Forward );

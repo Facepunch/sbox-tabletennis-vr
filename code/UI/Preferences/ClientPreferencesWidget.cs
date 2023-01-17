@@ -125,10 +125,10 @@ public partial class ClientPreferencesWidget : MenuPageWidget
 	{
 		base.Tick();
 	
-		var pawn = Local.Pawn as PlayerPawn;
+		var pawn = Game.LocalPawn as PlayerPawn;
 		var hand = pawn.ServeHand;
 
-		if ( Global.IsRunningInVR )
+		if ( Game.IsRunningInVR )
 			Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
 		else
 			Rotation = Rotation.LookAt( -Camera.Rotation.Forward );

@@ -17,7 +17,7 @@ public partial class TableTennisGame : GameManager
 
 	public TableTennisGame()
 	{
-		if ( IsServer )
+		if ( Game.IsServer )
 		{
 			_ = new HudEntity();
 
@@ -33,7 +33,7 @@ public partial class TableTennisGame : GameManager
 			Helpers.Load();
 		}
 
-		Global.TimeScale = 0.95f;
+		Game.TimeScale = 0.95f;
 		Audio.ReverbScale = 3f;
 		Audio.ReverbVolume = 3f;
 	}
@@ -43,12 +43,12 @@ public partial class TableTennisGame : GameManager
 	/// </summary>
 	public Ball Ball { get; set; }
 
-	public override void Simulate( Client cl )
+	public override void Simulate( IClient cl )
 	{
 		base.Simulate( cl );
 
 		// Everything here is server only
-		if ( !IsServer ) return;
+		if ( !Game.IsServer ) return;
 
 		if ( Input.VR.LeftHand.ButtonB.WasPressed )
 		{
@@ -58,7 +58,7 @@ public partial class TableTennisGame : GameManager
 		DebugSimulate( cl );
 	}
 
-	public override void FrameSimulate( Client cl )
+	public override void FrameSimulate( IClient cl )
 	{
 		if ( cl.Pawn is not PlayerPawn pawn ) return;
 		if ( !pawn.Paddle.IsValid() ) return;

@@ -19,7 +19,7 @@ public partial class ServeHand : VrPlayerHand
 	}
 
 
-	public override void FrameSimulate( Client cl )
+	public override void FrameSimulate( IClient cl )
 	{
 		base.FrameSimulate( cl );
 

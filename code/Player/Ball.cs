@@ -24,7 +24,7 @@ public partial class Ball : ModelEntity
 
 	public override void Spawn()
 	{
-		Host.AssertClient();
+		Game.AssertClient();
 
 		SetModel( "models/tabletennis.ball.vmdl" );
 		SetupPhysicsFromModel( PhysicsMotionType.Keyframed, false );

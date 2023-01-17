@@ -42,9 +42,9 @@ public partial class RankComponent : EntityComponent
 	{
 		try
 		{
-			var cl = Entity as Client;
-			var rank = await cl.FetchGameRankAsync();
-			/*Elo = rank.
+			var cl = Entity as IClient;
+			/*var rank = await cl.FetchGameRankAsync();
+			Elo = rank.
 
 
 			if ( myEntries.Count() > 0 )
@@ -66,7 +66,7 @@ public partial class RankComponent : EntityComponent
 
 	protected override void OnActivate()
 	{
-		if ( !Host.IsServer ) return;
+		if ( !Game.IsServer ) return;
 		FetchStats();
 	}
 }

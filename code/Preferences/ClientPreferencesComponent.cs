@@ -13,7 +13,7 @@ public partial class ClientPreferencesComponent : EntityComponent, ISingletonCom
 	{
 		Settings = newSettings;
 
-		var cl = Entity as Client;
+		var cl = Entity as IClient;
 		var pawn = cl.Pawn as PlayerPawn;
 
 		if ( Settings.FlipHands )

@@ -30,7 +30,7 @@ public partial class ScoreWidget : WorldPanel
 		if ( !game.IsValid() )
 			return;
 
-		var myTeam = Local.Client?.GetTeam();
+		var myTeam = Game.LocalClient?.GetTeam();
 		if ( myTeam == null ) 
 			return;
 

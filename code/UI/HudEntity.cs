@@ -8,7 +8,7 @@ public class HudEntity : HudEntity<RootPanel>
 
 	public HudEntity()
 	{
-		if ( !IsClient )
+		if ( !Game.IsClient )
 			return;
 
 		Scores = new ScoreWidget();

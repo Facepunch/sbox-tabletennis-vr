@@ -8,7 +8,7 @@ public partial class Team : Entity
 	}
 
 	// Networkable data
-	[Net] public new Client Client { get; set; }
+	[Net] public new IClient Client { get; set; }
 	[Net] public int CurrentScore { get; set; }
 
 	/// <summary>
@@ -42,7 +42,7 @@ public partial class Team : Entity
 	/// <summary>
 	/// Is this my team?
 	/// </summary>
-	public bool IsMine => Client == Local.Client;
+	public bool IsMine => Client == Game.LocalClient;
 
 	/// <summary>
 	/// Resets the player's anchor position, and anything else we might want to reset.
@@ -64,7 +64,7 @@ public partial class Team : Entity
 
 	public bool IsOccupied() => Client.IsValid();
 
-	public void SetClient( Client cl = null )
+	public void SetClient( IClient cl = null )
 	{
 		Client = cl;
 		Reset();
@@ -75,7 +75,7 @@ public partial class Team : Entity
 		}
 	}
 
-	public bool TryAdd( Client cl )
+	public bool TryAdd( IClient cl )
 	{
 		if ( !IsOccupied() )
 		{
@@ -115,7 +115,7 @@ public partial class Team : Entity
 
 public static class ClientExtensions
 {
-	public static Team GetTeam( this Client cl )
+	public static Team GetTeam( this IClient cl )
 	{
 		var game = TableTennisGame.Current;
 

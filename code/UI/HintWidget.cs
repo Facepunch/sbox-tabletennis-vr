@@ -54,7 +54,7 @@ public partial class HintWidget : WorldPanel
 		if ( !game.IsValid() )
 			return;
 
-		var myTeam = Local.Client?.GetTeam();
+		var myTeam = Game.LocalClient?.GetTeam();
 		if ( myTeam == null )
 			return;
 
@@ -67,7 +67,7 @@ public partial class HintWidget : WorldPanel
 	{
 		Current.AddEntry( message, icon, lifetime, className );
 
-		if ( !Global.IsListenServer )
+		if ( !Game.IsListenServer )
 		{
 			Log.Info( $"{message}" );
 		}

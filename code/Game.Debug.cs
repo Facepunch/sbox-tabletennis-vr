@@ -35,8 +35,8 @@ public partial class TableTennisGame
 		
 		LastHitter = null;
 
-		var position = new Vector3( 72.0f, Rand.Float( -28.0f, 28.0f ), 56.0f );
-		var velocity = Vector3.Backward * Rand.Float( 360.0f, 380.0f );
+		var position = new Vector3( 72.0f, Game.Random.Float( -28.0f, 28.0f ), 56.0f );
+		var velocity = Vector3.Backward * Game.Random.Float( 360.0f, 380.0f );
 
 		LocalSetBall( To.Everyone, position, velocity );
 
@@ -52,7 +52,7 @@ public partial class TableTennisGame
 		Ball.Velocity = velocity;
 	}
 
-	private void DebugSimulate( Client cl )
+	private void DebugSimulate( IClient cl )
 	{
 		if ( DebugSpawnBallAlways )
 		{
