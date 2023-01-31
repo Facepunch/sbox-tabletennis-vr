@@ -1,4 +1,3 @@
-using System.Reflection;
 using TableTennis.UI;
 
 namespace TableTennis;
@@ -11,7 +10,7 @@ public partial class PreferenceRow : Panel
 	public PreferenceRow( object target, PropertyDescription property ) : this()
 	{
 		var currentValue = property.GetValue( target );
-		Label.Text = DisplayInfo.For( property ).Name;
+		Label.Text = property.Title;
 
 		if ( property.PropertyType == typeof( bool ) )
 		{
@@ -61,13 +60,13 @@ public partial class PreferenceRow : Panel
 
 	public PreferenceRow()
 	{
+		// EWWWWW STINKY
 		Label = Add.Label( "Label" );
 		Add.Panel().Style.FlexGrow = 1;
 		ValueArea = Add.Panel( "value-area" );
 	}
 }
 
-[UseTemplate]
 public partial class ClientPreferencesWidget : MenuPageWidget
 {
 	// @singleton
@@ -75,10 +74,14 @@ public partial class ClientPreferencesWidget : MenuPageWidget
 
 	// @ref
 	public Panel Canvas { get; set; }
+	Vector2 Size => new( 800, 750f );
 
 	public ClientPreferencesWidget()
 	{
 		Current = this;
+		Canvas = Add.Panel( "canvas" );
+		StyleSheet.Load( "/UI/Preferences/ClientPreferencesWidget.scss" );
+		Initialize();
 	}
 
 	public void ToggleEditingAnchor()
@@ -99,13 +102,6 @@ public partial class ClientPreferencesWidget : MenuPageWidget
 			Canvas.AddChild( new PreferenceRow( obj, prop ) );
 	}
 
-	Vector2 Size => new( 800, 750f );
-	protected override void PostTemplateApplied()
-	{
-		base.PostTemplateApplied();
-		Initialize();
-	}
-
 	public override void OnDeleted()
 	{
 		ClientPreferences.Save(); VrAnchorEditor.Finish( true );
@@ -120,7 +116,6 @@ public partial class ClientPreferencesWidget : MenuPageWidget
 
 		AddProperties( ClientPreferences.LocalSettings );
 	}
-
 
 	public override void Tick()
 	{
@@ -138,11 +133,6 @@ public partial class ClientPreferencesWidget : MenuPageWidget
 		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
 		WorldScale = 0.4f;
 		Scale = 2.0f;
-
-		//if ( hand.InMenu )
-		//{
-		//	SetVisible( !Visible );
-		//}
 
 		VrAnchorEditor.Tick();
 	}
