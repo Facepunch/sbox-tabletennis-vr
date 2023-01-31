@@ -29,7 +29,7 @@
 
 @code 
 {
-    public bool Enabled { get; set; } = false;
+	public bool Enabled { get; set; } = false;
 	public MenuPageWidget Page { get; set; }
 	Vector2 Size => new( 500, 420f );
 
@@ -75,15 +75,36 @@
 		var pawn = Game.LocalPawn as PlayerPawn;
 		if ( !pawn.IsValid() ) 
 			return;
-		
+
 		var hand = pawn.ServeHand;
 		if ( !hand.IsValid() ) 
 			return;
 
-		if ( hand.InMenu || Input.Pressed( InputButton.Flashlight ) )
+		if ( hand.InMenu )
 		{
 			SetEnabled( !Enabled );
 		}
+
+		if ( !Game.IsRunningInVR )
+		{
+			if ( Input.Pressed( InputButton.Flashlight ) )
+			{
+				SetEnabled( !Enabled );
+			}
+
+			if (  Input.Pressed( InputButton.Jump ) )
+			{
+				if ( Page is ClientPreferencesWidget )
+				{
+					Return();
+				}
+				else
+				{
+					OpenPreferences();
+				}
+			}
+		}
+
 
 		Position = hand.Position + Vector3.Up * 3f;
 
