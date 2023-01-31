@@ -1,77 +1,44 @@
-ScoreWidget {
+ScoreWidget
+{
     flex-direction: column;
     opacity: 0;
-
     transition: all 0.5s ease;
 
-    &.visible {
+    &.visible
+    {
         opacity: 1;
     }
 
-    text {
-        font-family: Poppins;
+    text
+    {
         color: white;
         text-shadow: 0px 0px 2px rgba( black, 0.5 );
         text-align: center;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
     }
 
-    .score {
-        bottom: 100px;
+    .score
+    {
         font-size: 120px;
         font-weight: bold;
     }
 
-    .main {
+    .main
+    {
         height: 100%;
         font-size: 40px;
-        justify-content: center;
-        align-items: center;
-        align-content: center;
-        flex-direction: row;
 
-        .pane {
+        .pane
+        {
             height: 100%;
-            width: 50%;
+            width: 100%;
             justify-content: center;
             align-items: center;
-            align-content: center;
-        }
-
-        .left {
-            // background-image: linear-gradient( to left, rgba( #EE6352, 0.4 ), rgba( black, 0.05 ) 50% );
-
-            .name {
-                width: 100%;
-                position: absolute;
-                right: 0;
-                bottom: 0;
-                padding-right: 16px;
-            }
-
-            .score {
-                right: 0;
-                padding-right: 16px;
-                position: absolute;
-            }
-        }
-
-        .right {
-            //background-image: linear-gradient( to right, rgba( #08B2E3, 0.4 ), rgba( black, 0.05 ) 50% );
-
-            .name {
-                bottom: 0;
-                position: absolute;
-                padding-left: 16px;
-            }
-
-            .score {
-                position: absolute;
-                padding-left: 16px;
-            }
-        }
-
-        text {
-            width: 100%;
+            align-content: stretch;
+            flex-direction: column-reverse;
         }
     }
 }

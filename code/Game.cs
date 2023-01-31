@@ -9,6 +9,8 @@ global using System.Linq;
 global using System.ComponentModel;
 global using System.Threading.Tasks;
 
+using TableTennis.UI;
+
 namespace TableTennis;
 
 public partial class TableTennisGame : GameManager

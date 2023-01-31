@@ -1,0 +1,72 @@
+@using Sandbox;
+@using System;
+@using Sandbox.UI;
+
+@namespace TableTennis.UI
+@inherits WorldPanel;
+@attribute [StyleSheet( "/UI/ScoreWidget.scss" )]
+
+<root>
+    <div class="main">
+        <div class="pane">
+            <text class="name">@RedName</text>
+            <text class="score">@RedScore</text>
+        </div>
+
+        <div class="pane">
+            <text class="name">@BlueName</text>
+            <text class="score">@BlueScore</text>
+        </div>
+    </div>
+</root>
+
+@code {
+    public int BlueScore { get; set; } = 0;
+    public int RedScore { get; set; } = 0;
+    public string RedName { get; set; } = "Red Team";
+    public string BlueName { get; set; } = "Blue Team";
+
+    TimeSince SinceChanged;
+    Vector2 Size => new( 1200, 900 );
+
+    public ScoreWidget()
+    {
+		BindClass( "visible", () => AlwaysShowScores || SinceChanged < 5f );
+    }
+
+    protected override void OnAfterTreeRender(bool firstTime)
+    {
+        var game = TableTennisGame.Current;
+
+        var myTeam = Game.LocalClient?.GetTeam();
+        if ( myTeam == null ) return;
+
+        var anchor = myTeam.ScoreAnchor;
+
+        PanelBounds = new( -Size.x / 2f, -Size.y / 2f, Size.x, Size.y );
+        Position = anchor.Position;
+        Rotation = anchor.Rotation;
+
+        var blueTeam = game.BlueTeam;
+        BlueScore = blueTeam.CurrentScore;
+
+        var redTeam = game.RedTeam;
+        RedScore = redTeam.CurrentScore;
+
+        RedName = ( redTeam.Client?.Name ?? "N/A" ).Truncate( 14, ".." );
+        BlueName = ( blueTeam.Client?.Name ?? "N/A" ).Truncate( 14, ".." );
+
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine( TableTennisGame.Current?.BlueTeam.CurrentScore, TableTennisGame.Current?.RedTeam.CurrentScore);
+    }
+
+
+	[Event( "tt.gamestatechanged")]
+	public void GameStateChanged( GameState oldState, GameState newState )
+	{
+		SinceChanged = 0;
+	}
+}

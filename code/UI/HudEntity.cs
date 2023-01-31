@@ -1,4 +1,4 @@
-namespace TableTennis;
+namespace TableTennis.UI;
 
 public class HudEntity : HudEntity<RootPanel>
 {
