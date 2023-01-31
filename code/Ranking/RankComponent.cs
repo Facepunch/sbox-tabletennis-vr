@@ -38,35 +38,10 @@ public partial class RankComponent : EntityComponent
 		};
 	}
 
-	public async void FetchStats()
-	{
-		try
-		{
-			var cl = Entity as IClient;
-			/*var rank = await cl.FetchGameRankAsync();
-			Elo = rank.
-
-
-			if ( myEntries.Count() > 0 )
-			{
-				Elo = myEntries.First().Rating;
-				Log.Info( $"{cl.Name}'s Elo ({Elo}) was fetched." );
-			}
-			else
-			{
-				Log.Info( $"No elo found for {cl.Name}." );
-				Elo = 1000;
-			}*/
-		}
-		catch ( Exception e )
-		{
-			Log.Error( e );
-		}
-	}
-
 	protected override void OnActivate()
 	{
 		if ( !Game.IsServer ) return;
-		FetchStats();
+
+		// TODO - Implement me!
 	}
 }

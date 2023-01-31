@@ -283,20 +283,20 @@ public partial class TableTennisGame
 	
 	public bool HasBotTeam()
 	{
-		if ( !BlueTeam.Client.IsValid() || !RedTeam.Client.IsValid() ) return true;
+		if ( !BlueTeam.Player.IsValid() || !RedTeam.Player.IsValid() ) return true;
 
-		return BlueTeam.Client.IsBot || RedTeam.Client.IsBot;
+		return BlueTeam.Player.IsBot || RedTeam.Player.IsBot;
 	}
 
 	public bool IsOnSide( IClient cl, Vector3 hitPos )
 	{
 		// Blue -x Red +x
-		if ( BlueTeam.Client == cl )
+		if ( BlueTeam.Player == cl )
 		{
 			return hitPos.x < 0;
 		}
 
-		if ( RedTeam.Client == cl )
+		if ( RedTeam.Player == cl )
 		{
 			return hitPos.x > 0;
 		}
@@ -318,8 +318,8 @@ public partial class TableTennisGame
 
 		State = GameState.FailedServe;
 		
-		HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Client.Name} messed up their serve.", $"avatar:{ServingTeam.Client.SteamId}", 2f );
-		Helpers.TryDisplay( To.Single( ServingTeam.Client ), "serve_failure", "Make sure to hit the paddle when serving.", player.PaddleHand.NetworkIdent, 5, "sports_tennis" );
+		HintWidget.AddMessage( To.Everyone, $"{ServingTeam.Player.Name} messed up their serve.", $"avatar:{ServingTeam.Player.SteamId}", 2f );
+		Helpers.TryDisplay( To.Single( ServingTeam.Player ), "serve_failure", "Make sure to hit the paddle when serving.", player.PaddleHand.NetworkIdent, 5, "sports_tennis" );
 	}
 
 	public void WinRound( Team winner )
@@ -365,7 +365,7 @@ public partial class TableTennisGame
 			if ( CurrentBounce == 1 )
 			{
 				// The ball must hit the serving team's side, otherwise it's illegal play.
-				if ( !IsOnSide( ServingTeam.Client, tr.StartPosition ) )
+				if ( !IsOnSide( ServingTeam.Player, tr.StartPosition ) )
 				{
 					WinRound( GetOppositeTeam( ServingTeam ) );
 				}
@@ -389,7 +389,7 @@ public partial class TableTennisGame
 
 	public void OnBallBounce( Vector3 hitPos )
 	{
-		var player = ServingTeam.Client.Pawn as PlayerPawn;
+		var player = ServingTeam.Player.Pawn as PlayerPawn;
 
 		var tr = Trace.Ray( hitPos, hitPos + Vector3.Down * 10f )
 			.WorldOnly()
@@ -487,13 +487,7 @@ public partial class TableTennisGame
 
 	public void StartGame()
 	{
-		foreach ( var cl in Game.Clients )
-		{
-			cl.Components.Get<RankComponent>()?.FetchStats();
-		}
-
 		State = GameState.Serving;
-		//GameServices.StartGame();
 	}
 
 	/// <summary>
@@ -522,7 +516,7 @@ public partial class TableTennisGame
 				CurrentBounce = 0;
 				LastHitter = null;
 
-				ClientServingBall( To.Everyone, ServingTeam.Client );
+				ClientServingBall( To.Everyone, ServingTeam.Player );
 			}
 		}
 
@@ -539,6 +533,6 @@ public partial class TableTennisGame
 		DebugOverlay.Text( $"Current bounce: {CurrentBounce}", Vector3.Zero + Vector3.Down * 8f );
 		DebugOverlay.Text( $"Current serve: {CurrentServe}", Vector3.Zero + Vector3.Down * 16f );
 		DebugOverlay.Text( $"Serving team: {ServingTeam?.Name ?? "nobody"}", Vector3.Zero + Vector3.Down * 24f );
-		DebugOverlay.Text( $"Last ball hitter: {LastHitter?.Client?.Name ?? "nobody"}", Vector3.Zero + Vector3.Down * 32f );
+		DebugOverlay.Text( $"Last ball hitter: {LastHitter?.Player?.Name ?? "nobody"}", Vector3.Zero + Vector3.Down * 32f );
 	}
 }

@@ -21,7 +21,7 @@ public class MenuTeamCard : Panel
 		Team = team;
 
 		AvatarImage = Add.Image( "/ui/facepunch.png", "playeravatar" );
-		PlayerName = Add.Label( team.Client?.Name ?? "N/A", "playername" );
+		PlayerName = Add.Label( team.Player?.Name ?? "N/A", "playername" );
 
 		Add.Panel( "stretch" );
 		TeamScore = Add.Label( $"{team.CurrentScore}", "teamscore" );
@@ -50,10 +50,10 @@ public class MenuTeamCard : Panel
 
 		TeamScore.Text = $"{Team.CurrentScore}";
 
-		if ( Team.Client.IsValid() )
+		if ( Team.Player.IsValid() )
 		{
-			PlayerName.Text = Team.Client.Name;
-			AvatarImage.SetTexture( $"avatar:{Team.Client.SteamId}" );
+			PlayerName.Text = Team.Player.Name;
+			AvatarImage.SetTexture( $"avatar:{Team.Player.SteamId}" );
 		}
 	}
 }

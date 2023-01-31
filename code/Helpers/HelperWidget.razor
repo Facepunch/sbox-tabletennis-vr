@@ -1,7 +1,16 @@
-namespace TableTennis;
+@using System;
+@using Sandbox;
+@using Sandbox.UI;
 
-[UseTemplate]
-public partial class HelperWidget : WorldPanel
+@namespace TableTennis.UI
+@inherits WorldPanel
+
+<root>
+	<label class="icon">@Icon</label>
+	<label class="name">@HelperText</label>
+</root>
+
+@code
 {
 	public string HelperText { get; set; }
 	public string Icon { get; set; } = "help_outline";

@@ -8,7 +8,7 @@ public partial class Team : Entity
 	}
 
 	// Networkable data
-	[Net] public new IClient Client { get; set; }
+	[Net] public IClient Player { get; set; }
 	[Net] public int CurrentScore { get; set; }
 
 	/// <summary>
@@ -42,7 +42,7 @@ public partial class Team : Entity
 	/// <summary>
 	/// Is this my team?
 	/// </summary>
-	public bool IsMine => Client == Game.LocalClient;
+	public bool IsMine => Player == Game.LocalClient;
 
 	/// <summary>
 	/// Resets the player's anchor position, and anything else we might want to reset.
@@ -51,10 +51,10 @@ public partial class Team : Entity
 	{
 		CurrentScore = 0;
 
-		if ( !Client.IsValid() )
+		if ( !Player.IsValid() )
 			return;
 	
-		var player = Client.Pawn as PlayerPawn;
+		var player = Player.Pawn as PlayerPawn;
 		if ( !player.IsValid() )
 			return;
 	
@@ -64,14 +64,14 @@ public partial class Team : Entity
 			VR.Anchor = ClientPreferences.LocalSettings.Anchor.GetTransform();
 	}
 
-	public bool IsOccupied() => Client.IsValid();
+	public bool IsOccupied() => Player.IsValid();
 
 	public void SetClient( IClient cl = null )
 	{
-		Client = cl;
+		Player = cl;
 		Reset();
 
-		if ( Client.IsValid() )
+		if ( Player.IsValid() )
 		{
 			Log.Info( $"Added {cl.Name} to {Name}" );
 		}
@@ -121,7 +121,7 @@ public static class ClientExtensions
 	{
 		var game = TableTennisGame.Current;
 
-		if ( game.BlueTeam.Client == cl )
+		if ( game.BlueTeam.Player == cl )
 			return game.BlueTeam;
 
 		return game.RedTeam;
