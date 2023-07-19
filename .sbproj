@@ -7,12 +7,12 @@
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",
-  "ResourcePaths": [
-    "/code/ui/*",
-    "/ui/*"
-  ],
+  "Resources": null,
+  "MenuResources": null,
   "HasCode": true,
   "CodePath": "/code/",
+  "PackageReferences": [],
+  "EditorReferences": null,
   "Metadata": {
     "MapList": [
       "facepunch.tt_arena"

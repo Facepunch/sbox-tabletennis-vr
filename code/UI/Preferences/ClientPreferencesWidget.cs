@@ -43,13 +43,13 @@ public partial class PreferenceRow : Panel
 		}
 		else if ( property.PropertyType == typeof( float ) )
 		{
-			var value = (float)property.GetValue( target );
-			var minmax = property.GetCustomAttribute<MinMaxAttribute>();
-			var min = minmax?.MinValue ?? 0f;
-			var max = minmax?.MaxValue ?? 1000f;
-			var step = property.GetCustomAttribute<StepAttribute>()?.Value ?? .1f;
-			var slider = ValueArea.Add.SliderWithEntry( min, max, step );
-			slider.Bind( "value", target, property.Name );	
+			//var value = (float)property.GetValue( target );
+			//var minmax = property.GetCustomAttribute<MinMaxAttribute>();
+			//var min = minmax?.MinValue ?? 0f;
+			//var max = minmax?.MaxValue ?? 1000f;
+			//var step = property.GetCustomAttribute<StepAttribute>()?.Value ?? .1f;
+			//var slider = ValueArea.Add.SliderWithEntry( min, max, step );
+			//slider.Bind( "value", target, property.Name );	
 		}
 		else if ( property.PropertyType == typeof( VrAnchor ) )
 		{
