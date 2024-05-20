@@ -16,7 +16,6 @@ public partial class Player : Component
 	/// </summary>
 	[Property, Group( "Prefabs" )] public GameObject PaddlePrefab { get; set; }
 
-
 	/// <summary>
 	/// The player's left hand component.
 	/// </summary>
@@ -33,7 +32,6 @@ public partial class Player : Component
 		GameObject.BreakFromPrefab();
 
 		CreateAndHoldPaddle();
-		CreateAndHoldBall();
 	}
 
 	void CreateAndHoldPaddle()
@@ -41,12 +39,5 @@ public partial class Player : Component
 		var paddleInstance = PaddlePrefab.Clone();
 		var holdable = paddleInstance.Components.Get<IHoldableObject>( FindMode.EnabledInSelfAndDescendants );
 		RightHand.StartHolding( holdable );
-	}
-
-	void CreateAndHoldBall()
-	{
-		var paddleInstance = BallPrefab.Clone();
-		var holdable = paddleInstance.Components.Get<IHoldableObject>( FindMode.EnabledInSelfAndDescendants );
-		LeftHand.StartHolding( holdable );
 	}
 }

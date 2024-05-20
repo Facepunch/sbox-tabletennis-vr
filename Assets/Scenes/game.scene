@@ -2266,7 +2266,7 @@
     "NetworkFrequency": 30,
     "NetworkInterpolation": true,
     "ThreadedAnimation": true,
-    "TimeScale": 0.5,
+    "TimeScale": 1,
     "UseFixedUpdate": true,
     "NavMesh": {
       "Enabled": false,
@@ -2283,7 +2283,7 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-20T15:22:51.6816257\u002B01:00",
+  "LastSaved": "2024-05-20T15:32:36.8302548\u002B01:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": [

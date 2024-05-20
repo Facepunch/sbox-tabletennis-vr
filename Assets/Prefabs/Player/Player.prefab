@@ -146,6 +146,14 @@
             "MotionEnabled": false,
             "RigidbodyFlags": 0,
             "StartAsleep": false
+          },
+          {
+            "__type": "TableTennis.PlayerBallManager",
+            "__guid": "9ba4205d-c61d-4836-a512-437817752a53",
+            "BallPrefab": {
+              "_type": "gameobject",
+              "prefab": "prefabs/player/ball.prefab"
+            }
           }
         ],
         "Children": [
