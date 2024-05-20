@@ -291,7 +291,8 @@
           "__guid": "63ec4bb8-f145-459a-976d-2e58e2d90dac",
           "IsTrigger": false,
           "Model": "models/tabletennis_table/tabletennis_table.vmdl",
-          "Static": false
+          "Static": false,
+          "Surface": "surfaces/tabletennis.tabletop_wood.surface"
         }
       ]
     },
@@ -2188,6 +2189,28 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "__Prefab": "prefabs/player/player.prefab"
+    },
+    {
+      "__guid": "bd00bd38-bad5-4d71-a095-15c58bdde9d5",
+      "Flags": 0,
+      "Name": "Ball",
+      "Position": "0,-32,38.1284",
+      "Rotation": "-0.3747593,-0.3240693,-0.6570475,0.5681751",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/player/ball.prefab"
+    },
+    {
+      "__guid": "96d12eff-726a-4344-8d7d-ab6b81075529",
+      "Flags": 0,
+      "Name": "Paddle",
+      "Position": "5.65186,-32,40",
+      "Rotation": "-0.4304594,0.4304592,0.5609855,0.5609856",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/player/paddle.prefab"
     }
   ],
   "SceneProperties": {
@@ -2213,7 +2236,7 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-20T10:54:36.2793233\u002B01:00",
+  "LastSaved": "2024-05-20T10:58:10.8683426\u002B01:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": [

@@ -1,0 +1,59 @@
+{
+  "RootObject": {
+    "__guid": "bd00bd38-bad5-4d71-a095-15c58bdde9d5",
+    "Flags": 0,
+    "Name": "ball",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "49ded207-da6d-43dc-8852-01fb551176e4",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "Sandbox.SphereCollider",
+        "__guid": "539783ed-854e-462e-96b1-88ed0f68c3df",
+        "Center": "0,0,0",
+        "IsTrigger": false,
+        "Radius": 0.8,
+        "Static": false,
+        "Surface": "surfaces/tabletennis.ball.surface"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "64ae9ac6-cc06-44e8-9aef-b48703d260cf",
+        "Flags": 0,
+        "Name": "Model",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "7c6c2ced-4c7d-4fd5-a6e0-5918bedc2fed",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/tabletennis.ball.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

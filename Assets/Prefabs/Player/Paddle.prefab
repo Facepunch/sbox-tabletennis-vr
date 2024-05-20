@@ -1,0 +1,60 @@
+{
+  "RootObject": {
+    "__guid": "96d12eff-726a-4344-8d7d-ab6b81075529",
+    "Flags": 0,
+    "Name": "Paddle",
+    "Position": "5.65186,-32,40",
+    "Rotation": "-0.4304594,0.4304592,0.5609855,0.5609856",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.Rigidbody",
+        "__guid": "a6a30cff-b9e8-4d0c-9461-00c8170366f9",
+        "AngularDamping": 0,
+        "Gravity": true,
+        "LinearDamping": 0,
+        "Locking": {},
+        "MassOverride": 0,
+        "MotionEnabled": true,
+        "RigidbodyFlags": 0,
+        "StartAsleep": false
+      },
+      {
+        "__type": "Sandbox.ModelCollider",
+        "__guid": "73cc7182-3ffd-4424-9939-514a0e39c6d0",
+        "IsTrigger": false,
+        "Model": "models/tabletennis.paddle.vmdl",
+        "Static": false
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "f962dd4b-652a-4c97-be8d-6839ac2c606b",
+        "Flags": 0,
+        "Name": "Model",
+        "Position": "0,0,0",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "df9b4802-23b0-43c6-bb16-7f3f0fc1f9f9",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/tabletennis.paddle.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}
