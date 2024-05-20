@@ -1,0 +1,28 @@
+{
+  "publish": {
+    "Allowed": true,
+    "Enabled": false,
+    "ProjectConfig": {
+      "Title": "tabletennis_arena",
+      "Type": "map",
+      "Org": "local",
+      "Ident": "tabletennis_arena",
+      "Tags": null,
+      "Schema": 0,
+      "Resources": null,
+      "PackageReferences": [],
+      "EditorReferences": [
+        "facepunch.wood_painted_blue_b_hs#28980",
+        "facepunch.concrete_glossy#18629",
+        "stardrive.rope_barrier_a#26473",
+        "facepunch.carpet_a#18621",
+        "facepunch.floor_painted_asphalt#18668",
+        "facepunch.rubber_a_hs#28967",
+        "facepunch.metal_painted_blue_a_hs#29191"
+      ],
+      "Metadata": {
+        "SingleAssetSource": "maps/tabletennis_arena.vmap"
+      }
+    }
+  }
+}

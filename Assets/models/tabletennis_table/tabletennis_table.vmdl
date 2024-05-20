@@ -1,0 +1,536 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:modeldoc29:version{3cec427c-1b0e-4d48-a90a-0436f33a6041} -->
+{
+	rootNode = 
+	{
+		_class = "RootNode"
+		children = 
+		[
+			{
+				_class = "RenderMeshList"
+				children = 
+				[
+					{
+						_class = "RenderMeshFile"
+						filename = "models/tabletennis_table/pingpong.fbx"
+						import_translation = [ 0.0, 0.0, 0.0 ]
+						import_rotation = [ 0.0, 0.0, 0.0 ]
+						import_scale = 0.1
+						align_origin_x_type = "None"
+						align_origin_y_type = "None"
+						align_origin_z_type = "None"
+						parent_bone = ""
+						import_filter = 
+						{
+							exclude_by_default = false
+							exception_list = [  ]
+						}
+					},
+				]
+			},
+			{
+				_class = "MaterialGroupList"
+				children = 
+				[
+					{
+						_class = "DefaultMaterialGroup"
+						remaps = 
+						[
+							{
+								from = "pingpong_table.vmat"
+								to = "models/tabletennis_table/textures/pingpongtable_base.vmat"
+							},
+							{
+								from = "concrete_damage_edgefins.vmat"
+								to = "models/tabletennis_table/textures/table/pingpong_table.vmat"
+							},
+							{
+								from = "plastic_glossy_a_hs.vmat"
+								to = "models/tabletennis_table/textures/pingpong_net.vmat"
+							},
+						]
+						use_global_default = false
+						global_default_material = ""
+					},
+				]
+			},
+			{
+				_class = "PhysicsShapeList"
+				children = 
+				[
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "wood"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 0.008731, -0.009901, 29.031836 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 60.014038, 107.983734, 1.930321 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "plastic"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -0.006513, -0.006222, 32.887566 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 70.240379, 0.08134, 4.853432 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 35.500507, -0.00209, 32.996742 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 0.762505, 0.744183, 5.496096 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -35.504765, -0.00209, 32.996742 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 0.762505, 0.744183, 5.496096 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 0.042981, 0.01181, 26.488596 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 57.88213, 106.006226, 2.900573 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 18.993235, -39.006989, 13.988583 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 27.965889 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 18.993235, 39.036362, 13.988583 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 27.965889 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 18.993235, -39.006989, 13.988583 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 27.965889 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -19.00836, 39.036362, 13.988583 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 27.965889 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -21.249025, 26.747297, 14.001692 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.491813, 26.50367, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -21.249025, -26.744469, 14.001692 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.491813, 26.50367, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 21.243341, 26.747297, 14.001692 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.491813, 26.50367, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -21.249025, -26.744469, 14.001692 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.491813, 26.50367, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 0.059124, -38.993507, 19.492397 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 36.487373, 1.013662, 6.916088 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 0.059124, 39.033466, 19.492397 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 36.487373, 1.013662, 6.916088 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.50058, 14.511686, 16.913811 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 22.115444 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.50058, 14.500207, 4.896479 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 19.009111, 1.805958 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.496994, 21.435793, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.496994, 7.394259, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.562359, 14.511686, 16.913811 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 22.115444 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.560322, 14.500207, 4.896479 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 19.009111, 1.805958 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.45768, 21.435793, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.491451, 7.394259, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.562359, -14.419996, 16.913811 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 22.115444 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.560322, -14.481135, 4.896479 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 19.009111, 1.805958 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.45768, -7.57523, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 23.491451, -21.508217, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.446972, -14.419996, 16.913811 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 2.0, 22.115444 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.528419, -14.481135, 4.896479 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 2.0, 19.009111, 1.805958 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.448189, -7.57523, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -23.522503, -21.508217, 1.998233 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 1.247069, 2.680954, 3.978283 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -0.092701, -14.496249, 18.491789 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 45.43095, 1.006954, 1.034664 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -0.092701, 14.495444, 18.491789 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 45.43095, 1.006954, 1.034664 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -22.931389, -30.023422, 20.186201 ]
+						angles = [ -0.0, 0.0, 34.483093 ]
+						dimensions = [ 1.067263, 24.117886, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 22.959, -30.023422, 20.186201 ]
+						angles = [ -0.0, 0.0, 34.483093 ]
+						dimensions = [ 1.067263, 24.117886, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 22.959, 30.240746, 20.186203 ]
+						angles = [ 0.0, 0.0, -35.870087 ]
+						dimensions = [ 1.067263, 24.117886, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -22.917828, 30.240746, 20.186203 ]
+						angles = [ 0.0, 0.0, -35.870087 ]
+						dimensions = [ 1.067263, 24.117886, 1.493825 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ 32.033825, 0.004832, 28.650501 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 7.993248, 0.997904, 3.243372 ]
+					},
+					{
+						_class = "PhysicsShapeBox"
+						parent_bone = ""
+						surface_prop = "metal"
+						collision_group = ""
+						collision_interact_as = ""
+						collision_interact_with = ""
+						collision_interact_exclude = ""
+						origin = [ -32.011169, 0.004832, 28.650501 ]
+						angles = [ 0.0, 0.0, 0.0 ]
+						dimensions = [ 7.993248, 0.997904, 3.243372 ]
+					},
+				]
+			},
+		]
+		model_archetype = ""
+		primary_associated_entity = ""
+		anim_graph_name = ""
+		base_model_name = ""
+	}
+}

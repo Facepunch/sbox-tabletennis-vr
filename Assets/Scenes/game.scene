@@ -1,0 +1,2170 @@
+{
+  "__guid": "baf9f945-f2a2-489d-8eff-681e5aacf056",
+  "GameObjects": [
+    {
+      "__guid": "130d5ce4-1a6d-4f9d-b060-9e293d1d21f9",
+      "Flags": 0,
+      "Name": "Object",
+      "Position": "149.995,149.995,-212.125",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "9b5d1683-c1fe-4f1e-bc3f-fd930e9e5e87",
+          "MapName": "maps/tabletennis_arena.vmap",
+          "UseMapFromLaunch": false
+        }
+      ]
+    },
+    {
+      "__guid": "e79ce3a3-a770-43bf-8f99-96979fda4ba9",
+      "Flags": 0,
+      "Name": "Box",
+      "Position": "0,0,30",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "a4a4e091-654c-4826-9dad-5a65b594a88b",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACk2Sh07DQBBEbSfYKQRSIHRI6L3//6/BPOlZupNG9t3OttmdV1X1G8yCs6AJtkEbjIJJsBvsBcfBVXAZbILb4D54DJ6DWhCjPItgx3iD4Nz3nnvg\u002B0AeuVttw\u002BDIL7V0wbV2\u002BHyXcvEdy6v1IefKf7hT\u002B6nlw10bq1OHPe2t3EO5xNg3Zi0f7rzoeVHo2GmbFf4rYzTmXBa21lxTbbXa9LU2arEttFrb81C/k\u002BDDukfOrNe2srb\u002B4HfqTBvvF75V\u002BjOrb2OP5X6q28Rd6PTvd6fUemNNA\u002B83vrX6M8tXY6PTnTs1sgd27E0uWj\u002B4b9jhw/0yNro\u002BBewidvhwf4wFXoyJHT7cd/NjJxecfo\u002BojR75Jwfa0gN2/PElJ77UQy30AB8OWqEpvtRDLfTAnRrQlhnhj9Zw2AnmyqzZBzT6y\u002BlrpUbyEOsfxFxUFcADAAA=",
+            "Positions": [
+              "-30,-54,4",
+              "30,-54,4",
+              "30,54,4",
+              "-30,54,4",
+              "-30,54,-4",
+              "30,54,-4",
+              "30,-54,-4",
+              "-30,-54,-4",
+              "30,-0.5,4",
+              "-30,-0.5,4",
+              "-30,0.5,4",
+              "30,0.5,4",
+              "-30,0.5,9.5",
+              "-30,-0.5,9.5",
+              "30,-0.5,9.5",
+              "30,0.5,9.5"
+            ],
+            "TextureOrigin": [
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119",
+              "-34,-10,4.00119"
+            ],
+            "TextureRotation": [
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,0,0",
+              "1,0,0",
+              "1,0,0",
+              "1,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1",
+              "0,-1,0",
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "TextureAngle": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "MaterialIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/dev/reflectivity_30.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "b2263b68-bd38-4198-a35f-48c450adb9e2",
+      "Flags": 0,
+      "Name": "Spot Light (1)",
+      "Position": "-0.00006500341,0,176",
+      "Rotation": "0,0.7071068,0,0.7071068",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "8be2b740-cc53-4c51-8afd-bef6458f769a",
+          "Attenuation": 1,
+          "ConeInner": 45,
+          "ConeOuter": 60,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.96471,0.88235,0.82745,1",
+          "Radius": 512,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "b019697b-943f-44b5-92cb-c075f2657507",
+      "Flags": 0,
+      "Name": "tabletennis_table (1)",
+      "Position": "0,0,4",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "4a3c8d48-e90e-47de-b8f1-07e1da7a3c4b",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/tabletennis_table/tabletennis_table.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "63ec4bb8-f145-459a-976d-2e58e2d90dac",
+          "IsTrigger": false,
+          "Model": "models/tabletennis_table/tabletennis_table.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "2b72065b-4fc1-4183-ace3-dcf6e3ae3172",
+      "Flags": 0,
+      "Name": "Box (3)",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "e90efb7f-6509-4bbc-b522-5aef97ecdef7",
+          "Collision": "Mesh",
+          "Color": "0.90233,0.1301,0.1301,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
+            "Positions": [
+              "-128,-128,4",
+              "128,-128,4",
+              "128,128,4",
+              "-128,128,4",
+              "-128,128,-4",
+              "128,128,-4",
+              "128,-128,-4",
+              "-128,-128,-4"
+            ],
+            "TextureOrigin": [
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901"
+            ],
+            "TextureRotation": [
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "TextureAngle": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "MaterialIndex": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/generic/concrete_glossy.vmat",
+              "materials/generic/carpet_a.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "da00876a-fb1d-4c1d-b62b-e2a330bd18e2",
+      "Flags": 0,
+      "Name": "tabletennis_table (2)",
+      "Position": "0,0,4",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "19ee5bae-b76c-4e95-85a4-4281168abfb4",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/tabletennis_table/tabletennis_table.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "528fae88-3208-45a8-b4b4-0212c3ae17eb",
+          "IsTrigger": false,
+          "Model": "models/tabletennis_table/tabletennis_table.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "6b8479c0-1cfb-4511-a293-8b9f7af07568",
+      "Flags": 0,
+      "Name": "barrier_covered (8)",
+      "Position": "64,144,28",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "f0037c58-2fb0-43cb-8c44-cfcac4e94374",
+      "Flags": 0,
+      "Name": "barrier_covered (9)",
+      "Position": "-64,144,28",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "6b962012-6a50-47d5-bde3-1606960fb6fd",
+      "Flags": 0,
+      "Name": "barrier_covered (10)",
+      "Position": "-144,64,28.00002",
+      "Rotation": "0,0,1,0.00000008940697",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "111b09ff-e423-476f-9944-37c637b40a32",
+      "Flags": 0,
+      "Name": "barrier_covered (11)",
+      "Position": "-144,-64,28.00002",
+      "Rotation": "0,0,1,0.00000008940697",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "1d1f8972-e8f1-4c16-a9e8-55ce14fceea8",
+      "Flags": 0,
+      "Name": "Box (2)",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "e81e9140-73b8-477b-9517-3625c0452592",
+          "Collision": "Mesh",
+          "Color": "0.90233,0.1301,0.1301,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
+            "Positions": [
+              "-128,-128,4",
+              "128,-128,4",
+              "128,128,4",
+              "-128,128,4",
+              "-128,128,-4",
+              "128,128,-4",
+              "128,-128,-4",
+              "-128,-128,-4"
+            ],
+            "TextureOrigin": [
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901"
+            ],
+            "TextureRotation": [
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "TextureAngle": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "MaterialIndex": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/generic/concrete_glossy.vmat",
+              "materials/generic/carpet_a.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "cb9e6f3e-f64c-4923-8646-12a6c2d67066",
+      "Flags": 0,
+      "Name": "Spot Light",
+      "Position": "-0.00006500341,0,176",
+      "Rotation": "0,0.7071068,0,0.7071068",
+      "Tags": "light_spot,light",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpotLight",
+          "__guid": "f8bc258a-c25c-4d7a-9187-24e7dd3ebb44",
+          "Attenuation": 1,
+          "ConeInner": 45,
+          "ConeOuter": 60,
+          "FogMode": "Enabled",
+          "FogStrength": 1,
+          "LightColor": "0.91373,0.98039,1,1",
+          "Radius": 512,
+          "Shadows": true
+        }
+      ]
+    },
+    {
+      "__guid": "48aeb7fa-8d7d-4e8d-9fee-9b3178e3bf3c",
+      "Flags": 0,
+      "Name": "Game Camera",
+      "Position": "0,-168,112",
+      "Rotation": "-0.1830127,0.1830127,0.6830127,0.6830127",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.CameraComponent",
+          "__guid": "679fefea-9755-492a-b422-e4a6b6f281fb",
+          "BackgroundColor": "0.33333,0.46275,0.52157,1",
+          "ClearFlags": "All",
+          "FieldOfView": 60,
+          "IsMainCamera": true,
+          "Orthographic": false,
+          "OrthographicHeight": 1204,
+          "Priority": 1,
+          "RenderExcludeTags": "",
+          "RenderTags": "",
+          "TargetEye": "None",
+          "Viewport": "0,0,1,1",
+          "ZFar": 10000,
+          "ZNear": 10
+        }
+      ]
+    },
+    {
+      "__guid": "7c21938a-bfba-4d58-8bea-6ae1feb21573",
+      "Flags": 0,
+      "Name": "bleachers_blue (1)",
+      "Position": "312,0,0.0003063767",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "5490241f-0b06-409d-8a16-a154a933ffbb",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "red",
+          "Model": "models/bleachers/bleachers.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "115722dc-b777-444c-99c6-c71b8e439d57",
+      "Flags": 0,
+      "Name": "bleachers_blue (3)",
+      "Position": "228,0,0.0003063767",
+      "Rotation": "0,0,-1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "18a8495f-0be9-4211-8dcb-b2f61e6e014a",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "default",
+          "Model": "models/bleachers/bleachers.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "128ebde3-14dd-4694-877e-929b9ee1e597",
+      "Flags": 0,
+      "Name": "bleachers_blue (4)",
+      "Position": "-312,0,0.0003063767",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "83453e37-65a4-493a-b0ad-c79f3eac1e67",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "default",
+          "Model": "models/bleachers/bleachers.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1fb3da9d-ecf2-4927-8876-eeae7ae23834",
+      "Flags": 0,
+      "Name": "bleachers_blue (6)",
+      "Position": "0,228,0.0003063767",
+      "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "30582b77-70aa-4932-b88b-f2095ecefa9d",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "default",
+          "Model": "models/bleachers/bleachers.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7e0cae9e-a5bc-4123-9a63-b78280367f58",
+      "Flags": 0,
+      "Name": "bleachers_blue (5)",
+      "Position": "0,-228,0.0003063767",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "28124216-7f1e-43b1-8c67-ca50cd1b5958",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "red",
+          "Model": "models/bleachers/bleachers.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e9ba27de-c3a1-4966-b140-d2c8b54e7b46",
+      "Flags": 0,
+      "Name": "bleachers_blue (2)",
+      "Position": "-228,0,0.0003063767",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "1a0e9b7d-910e-403a-817a-fedcf6d410db",
+          "BodyGroups": 18446744073709551615,
+          "MaterialGroup": "red",
+          "Model": "models/bleachers/bleachers.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "0d289c26-1661-4623-a90d-3852857fb48e",
+      "Flags": 0,
+      "Name": "Box",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "4c2b00c0-cd28-4c3b-ba35-f336bf0e2bd6",
+          "Collision": "Mesh",
+          "Color": "0.90233,0.1301,0.1301,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl2Qiw6CUAxDh1flgg/wAfr/X2pP0iWLJA25W9t16xHxFc4C30E4\u002Bt2FWbgKd2Ew4NTvIZxcb9ZH4b5db\u002Bb9z/oUzVh8m7lPc9FOzjRYQ8ZXyXxxXvrw4e72wvtWdoEPdzMXj8We9OHDXcvO7EqdN396eKaeLHjkLciePeYxi4z0mMFtMisablFvRXZ2Tj158KQOF78f9WSROMQBAAA=",
+            "Positions": [
+              "-128,-128,4",
+              "128,-128,4",
+              "128,128,4",
+              "-128,128,4",
+              "-128,128,-4",
+              "128,128,-4",
+              "128,-128,-4",
+              "-128,-128,-4"
+            ],
+            "TextureOrigin": [
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901",
+              "384,0,3.999901"
+            ],
+            "TextureRotation": [
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "1,0,0",
+              "0,-1,0",
+              "0,1,0",
+              "-1,0,0",
+              "1,0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,-1,0",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1",
+              "0,0,-1"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "TextureAngle": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "MaterialIndex": [
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/generic/concrete_glossy.vmat",
+              "materials/generic/carpet_a.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "525d081f-b74b-4941-aa25-958a5fbf9844",
+      "Flags": 0,
+      "Name": "Box",
+      "Position": "0,0,0.0001005276",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "0846f9a8-2ebf-4355-a3b9-e5dfc3c43de2",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACl3RiUrDQBSF4Symxpi2dnFvq\u002B//kno/OIHQgQPDnP\u002BuMzdN81saSk5XeihtSlNpLL2UdqW30rl0KX2V2kjM\u002BhzzRn3yNSv2lrc\u002BdTd3tT/iOY\u002BrvH3YObmwT\u002BmzTS79bkt/dcQ8J8fCT4nhD2HH\u002BH1yv8dXa5/5u\u002BSxh1N8MYfVXHisGD4eK2bZkd3oia/ua/aqtr7s9zO\u002BN73o0x2PFcPHY8Xw1bC7a3yzfue/zK6uf/uJj8cuf4THiuHjsWL45vR3Zl72Y19mUpf3D\u002BoN6GBQAgAA",
+            "Positions": [
+              "-1024,-512,0",
+              "1024,-512,0",
+              "1024,512,0",
+              "-1024,512,0",
+              "-1024,-512,399.9999",
+              "-1024,512,399.9999",
+              "1024,-512,399.9999",
+              "-1024,-512,399.9999",
+              "-1024,512,399.9999",
+              "1024,512,399.9999",
+              "1024,512,399.9999",
+              "1024,-512,399.9999"
+            ],
+            "TextureOrigin": [
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276"
+            ],
+            "TextureRotation": [
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "TextureAngle": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "MaterialIndex": [
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/generic/concrete_glossy.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "1605bd9c-432c-459f-9897-ba3ca76c8837",
+      "Flags": 0,
+      "Name": "beam_structures_02a (1)",
+      "Position": "-1008,264,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "bbc9b97f-9a51-423b-94c1-d3118eee01df",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f6456d72-2422-4f36-9a5b-ab07fa0115f6",
+      "Flags": 0,
+      "Name": "beam_structures_02a",
+      "Position": "-776,496,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a456f4c7-1bc9-4f7f-a0d3-ecf1e3c58d95",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "c364f592-c50c-4005-bcbc-da50a5bb4dfd",
+      "Flags": 0,
+      "Name": "beam_structures_04a (4)",
+      "Position": "152,480,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "cf183bf1-06b1-4ce8-80f7-b406af61af41",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "998c074b-e808-470a-a198-163636308994",
+      "Flags": 0,
+      "Name": "Box (1)",
+      "Position": "0,0,0.0001005276",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MeshComponent",
+          "__guid": "c3f04a86-2724-4589-9e79-a8e59aaf296c",
+          "Collision": "Mesh",
+          "Color": "1,1,1,1",
+          "HideInGame": false,
+          "IsTrigger": false,
+          "Mesh": {
+            "Topology": "H4sIAAAAAAAACm2S6Q6CQBCDgZVDVFC879v3f0Ptl3ST/eEmTYC2M9NZuizLPkIlcAph5PdWaIS50AkbYSWchIPwEG5CbuBNz\u002BBvILhulmgv/gZX/plhZ45TJ3WDtVPXQjv2vLlrMfdM\u002BOrgmbhG1Lf2wJfWNuaDa2/N06v3HgrXYR9L83gWSa7K2t58bW2X7GjwTPD0XXu/wXOx55ezBM8Sn9GjfdqPfm8PPD3Y3dk8WY8C90Z2\u002BnJ/V/Po0cY7Qo8WDzx6tHjgycndkRmeXd0F/oe4S/6Ld5KPWckIjx4tHnj0aPHAk4fsZIr7x8POyEVv\u002BB8XhoLGvAIAAA==",
+            "Positions": [
+              "-1024,-512,0",
+              "1024,-512,0",
+              "1024,512,0",
+              "-1024,512,0",
+              "-1024,-512,399.9999",
+              "-1024,512,399.9999",
+              "1024,-512,399.9999",
+              "-1024,-512,399.9999",
+              "-1024,512,399.9999",
+              "1024,512,399.9999",
+              "1024,512,399.9999",
+              "1024,-512,399.9999",
+              "-1024,-512,399.9999",
+              "1024,-512,399.9999"
+            ],
+            "TextureOrigin": [
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276",
+              "119.9999,8,0.0001005276"
+            ],
+            "TextureRotation": [
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1",
+              "0,0,0,1"
+            ],
+            "TextureUAxis": [
+              "1,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0"
+            ],
+            "TextureVAxis": [
+              "0,-1,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0",
+              "0,0,0"
+            ],
+            "TextureScale": [
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25",
+              "0.25,0.25"
+            ],
+            "TextureOffset": [
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0",
+              "0,0"
+            ],
+            "TextureAngle": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "MaterialIndex": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            "EdgeFlags": [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            "Materials": [
+              "materials/generic/concrete_glossy.vmat",
+              "models/walls/corrugated_wall_a.vmat"
+            ]
+          },
+          "SmoothingAngle": 40,
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "91191fe3-ce3f-4c95-a16a-ebe43e2bb148",
+      "Flags": 0,
+      "Name": "beam_structures_04a (6)",
+      "Position": "-156,-480,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a6c20b59-72f8-4db2-8e9d-69c70addbfa7",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f5f07417-a5c2-443b-8c20-879b33cecb77",
+      "Flags": 0,
+      "Name": "beam_structures_05a (3)",
+      "Position": "76.00004,-282.2306,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "a1f9cdc5-6816-48a3-8b82-ed0b55bc32a5",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_05a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "a03024e0-acb2-40f2-ad74-af82375a44fb",
+      "Flags": 0,
+      "Name": "beam_structures_02a (6)",
+      "Position": "-620.0001,-495.9998,0",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b419ef58-2379-4ac1-80b1-22826a18dbce",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ef47aedd-1692-4ccc-b4f5-fd35c454b490",
+      "Flags": 0,
+      "Name": "beam_structures_04a (7)",
+      "Position": "-620.0001,-479.9998,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "7dcc35d0-1144-4f63-a4bc-4fd720b837c3",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ae8573a1-23df-4d37-b65d-7d9d31d0598b",
+      "Flags": 0,
+      "Name": "beam_structures_05a (4)",
+      "Position": "-388,-282.2304,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "85ffd73b-3002-4b45-95f7-6588df1093bb",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_05a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d0be15cb-101d-404f-9c69-9d55ea696156",
+      "Flags": 0,
+      "Name": "beam_structures_02a (7)",
+      "Position": "-156,-496,0",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "68b361e4-0111-4174-b222-2fff55773871",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "fe1dd4dd-fd7f-45d5-a10d-11cd5c090b0f",
+      "Flags": 0,
+      "Name": "beam_structures_04a (8)",
+      "Position": "308,-480.0002,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "413f4b55-7c49-470a-82ef-e20eab05bf86",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "44f7832d-dfa5-4ddf-b1be-2ac69bb0bd6f",
+      "Flags": 0,
+      "Name": "beam_structures_02a (8)",
+      "Position": "308,-496.0002,0",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "47be9f07-b47c-4168-b117-fc734f3a265b",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "dd2a51c5-6153-4551-b5b0-72f18edcad9f",
+      "Flags": 0,
+      "Name": "beam_structures_04a (9)",
+      "Position": "771.9999,-480.0004,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "d7062db4-dc0f-4e6f-8565-2e0063f3aa17",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5d344606-7f34-4cf6-9d71-9152589b64fc",
+      "Flags": 0,
+      "Name": "beam_structures_02a (9)",
+      "Position": "771.9999,-496.0004,0",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "944dd594-d018-40dd-a507-6a330c88db5c",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "28af680e-f849-4a19-89da-0551ff521d2f",
+      "Flags": 0,
+      "Name": "beam_structures_04a (10)",
+      "Position": "771.9999,-480.0004,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "fa490c7a-d4e6-4aab-8541-e4e8609a9653",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "1f39443e-7049-4434-943f-22f666584e20",
+      "Flags": 0,
+      "Name": "beam_structures_05a (5)",
+      "Position": "540.0001,-282.2308,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "2ecb0761-9ddc-45d6-a446-65f7f8479fb4",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_05a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "92a3868e-9ba4-4858-8f8e-69a6312769c9",
+      "Flags": 0,
+      "Name": "beam_structures_01a (1)",
+      "Position": "-1008,-264.601,169.0174",
+      "Rotation": "0.00000005960467,0.00000005960462,-0.7071065,-0.7071069",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "10750a7d-fe89-4251-970a-b9e6ed9cece1",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_01a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5975254c-fd2c-44ba-be93-d7871049d128",
+      "Flags": 0,
+      "Name": "beam_structures_03a (1)",
+      "Position": "-1008,-263.9997,-28",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "83ef47f7-674f-495c-aeea-165f553ea6fb",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_03a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f105e6b5-ebb5-49e4-90f4-70b19b37bf6a",
+      "Flags": 0,
+      "Name": "beam_structures_04a (11)",
+      "Position": "-156,-480,384",
+      "Rotation": "-0.4999999,0.5000001,0.4999999,0.5000001",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "4622b3a9-0a2a-498b-81be-bfb565916593",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "68e76516-00b4-46c3-ba53-20b2795774d6",
+      "Flags": 0,
+      "Name": "beam_structures_02a (10)",
+      "Position": "771.9999,-496.0004,0",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "08f1a8a5-13bc-4fc5-a4e3-bb1ec43fe212",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "25dc94fa-66e8-445f-88b7-f5dc4db82185",
+      "Flags": 0,
+      "Name": "beam_structures_02a (11)",
+      "Position": "1004,-264.0005,0",
+      "Rotation": "0,0,1,0.0000001947072",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "1765e6a4-7865-4566-b5cc-74c9d27efe52",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f91ec2b2-9cde-4d86-b539-c7036a577d6d",
+      "Flags": 0,
+      "Name": "beam_structures_04a (3)",
+      "Position": "152,480,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "2ec633d4-0d5c-4f3f-8e5d-0a623e5afabb",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "e65a1644-fc72-4223-8bf1-16abd5e8aae2",
+      "Flags": 0,
+      "Name": "beam_structures_05a (1)",
+      "Position": "-80,282.2305,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "38d60a36-f0b5-4f6c-8927-ebe54ebb1582",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_05a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "94bc4b4e-0253-462f-95fe-146420944069",
+      "Flags": 0,
+      "Name": "beam_structures_02a (5)",
+      "Position": "616,496,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "f5d6ca7d-88c7-4326-99d5-aa2d4725c4b5",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "ce7398b3-fddf-4aac-b4da-4ee29574c57c",
+      "Flags": 0,
+      "Name": "beam_structures_04a (5)",
+      "Position": "616,480,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "ce0972e4-6937-44ea-b96b-4c465a23f3bb",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "960f2e25-5d5b-4030-bae5-a1a245b6a77e",
+      "Flags": 0,
+      "Name": "beam_structures_05a (2)",
+      "Position": "384,282.2305,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "cb52c709-1967-41ea-b7b6-0008e8815d53",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_05a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "451f9a23-7904-431c-99c2-dfb12a274495",
+      "Flags": 0,
+      "Name": "beam_structures_02a (4)",
+      "Position": "152,496,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "b3e1c6cf-abbb-4b1f-b4c4-e3027cb552ab",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "7fd09e2c-06ad-475a-a668-8a48fa081cbf",
+      "Flags": 0,
+      "Name": "beam_structures_04a (2)",
+      "Position": "-312,480,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "22aafad4-1d73-4f40-b9fc-344819b46ce5",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b20c644e-db4b-4eda-9ee1-c38fa7f953fb",
+      "Flags": 0,
+      "Name": "beam_structures_02a (3)",
+      "Position": "-312,496,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "c8d52af0-964a-4d7e-9405-53cc30e49607",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5e7a90bf-01db-450c-b302-eb800ff39af1",
+      "Flags": 0,
+      "Name": "beam_structures_04a (1)",
+      "Position": "-776,480,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "68039929-0754-479e-8c5f-f55c015de66c",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "b0be1846-2be2-4be6-b1bf-bd0f4a9135d8",
+      "Flags": 0,
+      "Name": "beam_structures_02a (2)",
+      "Position": "-776,496,0",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "f42613e6-59d2-44b1-a6c8-2c86e36162af",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_02a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "73545f26-8f2f-4598-bc0d-da0ad78e5e66",
+      "Flags": 0,
+      "Name": "beam_structures_04a",
+      "Position": "-776,480,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8a8446d6-895c-493e-a165-c030fb96c22f",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_04a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "5c506b1b-9e10-468f-bbfc-2d4bf80919be",
+      "Flags": 0,
+      "Name": "beam_structures_05a",
+      "Position": "-544,282.2305,384",
+      "Rotation": "0.5,0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "3b8bcf2a-68d8-4761-942d-e6712eb95f56",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_05a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "f6c29673-b81a-41bf-8e08-d17a473cfb35",
+      "Flags": 0,
+      "Name": "beam_structures_01a",
+      "Position": "1004,264.6013,169.0174",
+      "Rotation": "0.00000005960463,-0.00000005960466,0.7071068,-0.7071066",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "21fe8bfd-85b7-4cb7-bbcf-f7642784697d",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_01a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "8ac0384f-1c75-40b2-a61e-58471e739946",
+      "Flags": 0,
+      "Name": "beam_structures_03a",
+      "Position": "1004,264,-28",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8cd6eb94-8065-4ea6-ab34-c121d5b30f33",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/beam/beam_structures_03a.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "d0b93ef9-2ba3-462c-84b6-1493c50d683e",
+      "Flags": 0,
+      "Name": "barrier_covered (4)",
+      "Position": "64,-144,28",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "f6daf3ef-c99c-404f-8a00-a5092ebe1efc",
+      "Flags": 0,
+      "Name": "barrier_covered (5)",
+      "Position": "-64,-144,28",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "b0dc52ca-1eb4-486f-9a28-341eb890b471",
+      "Flags": 0,
+      "Name": "barrier_covered (1)",
+      "Position": "64,144,28",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "ffdccba9-fc5b-44e5-bbc2-6443a156a0d8",
+      "Flags": 0,
+      "Name": "barrier_covered (2)",
+      "Position": "144,-64,28.00002",
+      "Rotation": "0,0,1,0.00000008940697",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "f07c8e87-3d4a-4947-aca4-58d7b0c7029d",
+      "Flags": 0,
+      "Name": "barrier_covered (6)",
+      "Position": "-144,64,28.00002",
+      "Rotation": "0,0,1,0.00000008940697",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "cb7fbacb-bb7d-4682-98cf-5462ce6660bc",
+      "Flags": 0,
+      "Name": "barrier_covered (7)",
+      "Position": "-144,-64,28.00002",
+      "Rotation": "0,0,1,0.00000008940697",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "4e946b1c-42b8-4d70-bfaf-a96e3c2b8adb",
+      "Flags": 0,
+      "Name": "barrier_covered (3)",
+      "Position": "144,64,28.00002",
+      "Rotation": "0,0,1,0.00000008940697",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "42b92612-f318-4816-baaf-162729faf5c0",
+      "Flags": 0,
+      "Name": "barrier_covered",
+      "Position": "-64,144,28",
+      "Rotation": "0,0,0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/mapstuff/barrier_covered.prefab"
+    },
+    {
+      "__guid": "425f8b41-32f8-4d76-b250-1c5df82a830f",
+      "Flags": 0,
+      "Name": "chair_01 (1)",
+      "Position": "-108,-104,4.000817",
+      "Rotation": "0,0,0.3826832,0.9238796",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "446f28fa-4142-4d8a-b366-356eeb49b9c6",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/chair/chair_01.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "16e06799-8cb5-4eef-819d-9f16a5d6d25e",
+          "IsTrigger": false,
+          "Model": "models/chair/chair_01.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "09dc47d5-d9cf-45d4-8443-c20f643bf995",
+      "Flags": 0,
+      "Name": "chair_01",
+      "Position": "108,108,4.000871",
+      "Rotation": "0,0,-0.9238795,0.3826834",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "8a76e11f-5728-4e5f-949d-b7fe4aa7f565",
+          "BodyGroups": 18446744073709551615,
+          "Model": "models/chair/chair_01.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1"
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "3fd7d43b-d20b-437d-87ef-b98929358397",
+          "IsTrigger": false,
+          "Model": "models/chair/chair_01.vmdl",
+          "Static": false
+        }
+      ]
+    },
+    {
+      "__guid": "61c328ce-2f65-4a35-8cca-d24094eee535",
+      "Flags": 0,
+      "Name": "Cubemap Fog",
+      "Position": "-37.24449,-23.56689,75.57053",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.GradientFog",
+          "__guid": "93cacde2-ba3c-4470-b4e9-3bbc606d1036",
+          "Color": "0.1907,0.1907,0.1907,1",
+          "EndDistance": 2048,
+          "FalloffExponent": 1,
+          "Height": 500,
+          "StartDistance": 512,
+          "VerticalFalloffExponent": 2
+        }
+      ]
+    },
+    {
+      "__guid": "30e65728-12aa-4cf0-b606-4dfd0432a1db",
+      "Flags": 0,
+      "Name": "Envmap Probe",
+      "Position": "0,0,196",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.EnvmapProbe",
+          "__guid": "362d1a79-324b-491e-a130-f521743107bd",
+          "Texture": "textures/cubemaps/default2.vtex",
+          "Bounds": {
+            "Mins": "-750,-500,-180",
+            "Maxs": "750,500,180"
+          },
+          "DelayBetweenUpdates": 0.1,
+          "Feathering": 0.45,
+          "FrameInterval": 5,
+          "MaxDistance": 2048,
+          "Projection": "Box",
+          "RenderDynamically": true,
+          "TintColor": "1,1,1,1",
+          "UpdateStrategy": "OnEnabled",
+          "ZFar": 2048,
+          "ZNear": 0
+        }
+      ]
+    },
+    {
+      "__guid": "4c8e78f8-c062-4b17-84fa-1bdab73d4986",
+      "Flags": 0,
+      "Name": "Volumetric Fog",
+      "Position": "0,0,256",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.VolumetricFogVolume",
+          "__guid": "a78d3c37-798f-4c40-8ae0-8e74d3c75a52",
+          "Bounds": {
+            "Mins": "-256,-256,-256",
+            "Maxs": "256,256,256"
+          },
+          "FalloffExponent": 0,
+          "Strength": 0.37
+        }
+      ]
+    },
+    {
+      "__guid": "17945447-3fc2-4be2-bf9f-d0856a237889",
+      "Flags": 0,
+      "Name": "Cubemap Sphere",
+      "Position": "0,0,64",
+      "Scale": "0.4,0.4,0.4",
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelRenderer",
+          "__guid": "708123f9-c54d-41b8-ab98-54d5a6b549e4",
+          "BodyGroups": 18446744073709551615,
+          "MaterialOverride": "materials/dev/dev_metal_rough00.vmat",
+          "Model": "models/dev/sphere.vmdl",
+          "RenderType": "Off",
+          "Tint": "1,1,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "eb4b5cdf-4fc8-4995-b26c-ca4e9f6e6bb3",
+      "Flags": 0,
+      "Name": "Red Spawn (1)",
+      "Position": "0,64,4",
+      "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "7b7c8295-8333-49c3-9b06-985f52f21e13",
+          "Color": "0,0.05,1,1"
+        }
+      ]
+    },
+    {
+      "__guid": "9d9b2d1f-d785-4fa5-9941-5ed9b9b5f443",
+      "Flags": 0,
+      "Name": "Red Spawn",
+      "Position": "0,-64,4",
+      "Rotation": "0,0,0.7071067,0.7071068",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.SpawnPoint",
+          "__guid": "82a75021-d929-4dca-b3a6-fcf4fe663576",
+          "Color": "1,0,0,1"
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 30,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "game",
+  "Description": "",
+  "LastSaved": "2024-05-20T10:26:12.0135865\u002B01:00",
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": [
+    "facepunch.carpet_a",
+    "facepunch.concrete_glossy",
+    "facepunch.corrugated_door_double_a_128"
+  ]
+}

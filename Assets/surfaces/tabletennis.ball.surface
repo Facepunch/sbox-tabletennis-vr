@@ -1,0 +1,19 @@
+{
+	"basesurface": "surfaces/plastic.hollow.surface",
+	"description": "",
+	"friction": 0.100000,
+	"elasticity": 0.900000,
+	"density": 100.000000,
+	"thickness": -1.000000,
+	"dampening": 0.000000,
+	"bouncethreshold": 40.000000,
+	"impacteffects":
+	{
+	},
+	"sounds":
+	{
+	},
+	"breakables":
+	{
+	}
+}

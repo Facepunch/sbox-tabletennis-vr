@@ -1,0 +1,19 @@
+{
+	"basesurface": "surfaces/wood.surface",
+	"description": "Tabletop with accurate elasticity",
+	"friction": 0.600000,
+	"elasticity": 0.150000,
+	"density": 2000.000000,
+	"thickness": -1.000000,
+	"dampening": 0.000000,
+	"bouncethreshold": 40.000000,
+	"impacteffects":
+	{
+	},
+	"sounds":
+	{
+	},
+	"breakables":
+	{
+	}
+}

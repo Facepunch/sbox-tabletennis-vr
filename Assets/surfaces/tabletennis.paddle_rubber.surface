@@ -1,0 +1,19 @@
+{
+	"basesurface": "surfaces/rubber.surface",
+	"description": "",
+	"friction": 0.800000,
+	"elasticity": 0.400000,
+	"density": 2000.000000,
+	"thickness": -1.000000,
+	"dampening": 0.000000,
+	"bouncethreshold": 40.000000,
+	"impacteffects":
+	{
+	},
+	"sounds":
+	{
+	},
+	"breakables":
+	{
+	}
+}

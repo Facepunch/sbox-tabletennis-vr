@@ -1,0 +1,13 @@
+{
+	"sounds":
+	[
+		"sounds/ambient/ambient.tabletennisroom.vsnd"
+	],
+	"ui": true,
+	"volume": 0.500000,
+	"volumerandom": 0.000000,
+	"pitch": 1.000000,
+	"pitchrandom": 0.000000,
+	"distancemax": 360.000000,
+	"selectionmode": "3"
+}

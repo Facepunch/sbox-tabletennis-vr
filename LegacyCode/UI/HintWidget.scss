@@ -1,0 +1,95 @@
+HintWidget {
+    transition: all 0.25s ease;
+    opacity: 1;
+
+    text {
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        text-shadow: 0px 0px 2px rgba( black, 0.5 );
+    }
+
+    .canvas {
+        height: 100%;
+        width: 100%;
+        font-size: 24px;
+        flex-direction: column-reverse;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: stretch;
+        align-content: flex-end;
+
+        text {
+            width: 100%;
+        }
+    }
+}
+
+HintWidgetEntry {
+    width: 100%;
+    height: 24px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.25s ease;
+
+    .message {
+        font-size: 16px;
+        font-weight: bold;
+        color: white;
+        text-align: center;
+        text-shadow: 0px 0px 2px rgba( black, 0.5 );
+    }
+
+    .avatar {
+        height: 100%;
+        width: 24px;
+        border-radius: 100px;
+        margin-right: 8px;
+    }
+
+
+    .icon {
+        height: 24px;
+        width: 24px;
+        margin-right: 8px;
+        font-family: "Material Icons";
+        font-size: 24px;
+        color: white;
+    }
+
+    &:intro {
+        height: 0px;
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    &:outro {
+        height: 0px;
+        transform: scaleY(0);
+        opacity: 0;
+    }
+
+    &.win, &.lose {
+        .icon {
+            font-size: 32px;
+            height: 32px;
+            width: 32px;
+        }
+
+        .message {
+            font-size: 24px;
+        }
+    }
+
+    &.win {
+        .icon, .message {
+            color: #63db77;
+        }
+    }
+
+    &.lose {
+        .icon, .message {
+            color: #f98372;
+        }
+    }
+}

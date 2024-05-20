@@ -1,0 +1,15 @@
+{
+	"UI": false,
+	"Volume": 1,
+	"VolumeRandom": 0,
+	"Pitch": 1,
+	"PitchRandom": 0.100000,
+	"Decibels": 105,
+	"Sounds":
+	[
+		"sounds/tabletennis.paddle.vsnd"
+	],
+	"SelectionMode": "Random",
+	"MaximumDistance": 2533.850000,
+	"MinimumDistance": 126.692505
+}

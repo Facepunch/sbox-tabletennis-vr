@@ -1,0 +1,50 @@
+{
+  "RootObject": {
+    "__guid": "42b92612-f318-4816-baaf-162729faf5c0",
+    "Flags": 0,
+    "Name": "barrier_covered",
+    "Position": "-84,140,28",
+    "Rotation": "0,0,0.7071068,0.7071068",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "Sandbox.ModelRenderer",
+        "__guid": "8bc9f7ce-9379-45ce-bfe1-ac4bfe1ed245",
+        "BodyGroups": 18446744073709551615,
+        "Model": "models/barrier_cover/barrier_cover.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1"
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "072a1d7e-5282-4c0e-a3ab-52078da58331",
+        "Flags": 0,
+        "Name": "barrier (1)",
+        "Position": "0,-0,-26.72323",
+        "Rotation": "0,0,-0.7071068,0.7071068",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.Prop",
+            "__guid": "4a19558b-2724-4862-9756-20bde5371486",
+            "BodyGroups": 18446744073709551615,
+            "Health": 0,
+            "IsStatic": false,
+            "Model": "models/barrier/barrier.vmdl"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}

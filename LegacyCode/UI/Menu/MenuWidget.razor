@@ -1,0 +1,120 @@
+@using Sandbox;
+@using System;
+@using Sandbox.UI;
+
+@namespace TableTennis.UI
+@inherits WorldPanel
+@attribute [StyleSheet( "/UI/Menu/MenuWidget.scss" )]
+
+<root>
+    <image class="logo" src="/ui/logo_transparent.png"/>
+
+    <div class="canvas">
+        <button class="prefs" onclick=@OpenPreferences>
+            <text class="icon">tune</text>
+            <text class="text">Preferences</text>
+        </button>
+
+        <MenuTeamCard team="red" />
+        <MenuTeamCard team="blue" />
+    </div>
+
+    <div class="actions">
+        <button class="goback" onclick=@Return>
+            <text class="icon">keyboard_return</text>
+            <text class="text">Return</text>
+        </button>
+    </div>
+</root>
+
+@code 
+{
+	public bool Enabled { get; set; } = false;
+	public MenuPageWidget Page { get; set; }
+	Vector2 Size => new( 500, 420f );
+
+	public MenuTeamCard BlueTeamCard { get; set; }
+	public MenuTeamCard RedTeamCard { get; set; }
+
+	public MenuWidget()
+	{
+		BindClass( "focused", () => Page is null );
+	}
+
+	public void SetPage( MenuPageWidget page )
+	{
+		if ( Page != null ) Page.Delete( true );
+
+		Page = page;
+
+		SetClass( "inpage", page != null );
+	}
+
+	public void OpenPreferences()
+	{
+		SetPage( new ClientPreferencesWidget() );
+	}
+
+	public void Return() { SetPage( null ); }
+
+	public void SetEnabled( bool enabled )
+	{
+		if ( Enabled == enabled ) return;
+
+		Enabled = enabled;
+		SetClass( "enabled", enabled );
+
+		if ( !Enabled )
+		{
+			SetPage( null );
+		}
+	}
+
+	public override void Tick()
+	{
+		var pawn = Game.LocalPawn as PlayerPawn;
+		if ( !pawn.IsValid() ) 
+			return;
+
+		var hand = pawn.ServeHand;
+		if ( !hand.IsValid() ) 
+			return;
+
+		if ( hand.InMenu )
+		{
+			SetEnabled( !Enabled );
+		}
+
+		if ( !Game.IsRunningInVR )
+		{
+			if ( Input.Pressed( InputButton.Flashlight ) )
+			{
+				SetEnabled( !Enabled );
+			}
+
+			if (  Input.Pressed( InputButton.Jump ) )
+			{
+				if ( Page is ClientPreferencesWidget )
+				{
+					Return();
+				}
+				else
+				{
+					OpenPreferences();
+				}
+			}
+		}
+
+
+		Position = hand.Position + Vector3.Up * 3f;
+
+		if ( Game.IsRunningInVR )
+			Rotation = Rotation.LookAt( -Input.VR.Head.Rotation.Forward );
+		else
+			Rotation = Rotation.LookAt( -Camera.Rotation.Forward );
+
+		PanelBounds = new( -Size.x / 2f, -Size.y, Size.x, Size.y );
+		WorldScale = 0.4f;
+		Scale = 2.0f;
+	}
+}
