@@ -3,8 +3,6 @@
     "__guid": "42b92612-f318-4816-baaf-162729faf5c0",
     "Flags": 0,
     "Name": "barrier_covered",
-    "Position": "-84,140,28",
-    "Rotation": "0,0,0.7071068,0.7071068",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
@@ -30,12 +28,19 @@
         "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "Sandbox.Prop",
-            "__guid": "4a19558b-2724-4862-9756-20bde5371486",
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "29aafe2a-fb9e-4710-b4a5-364256ca5a3c",
             "BodyGroups": 18446744073709551615,
-            "Health": 0,
-            "IsStatic": false,
-            "Model": "models/barrier/barrier.vmdl"
+            "Model": "models/barrier/barrier.vmdl",
+            "RenderType": "On",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.ModelCollider",
+            "__guid": "c678a635-4a92-4f14-8086-30d298216e6b",
+            "IsTrigger": false,
+            "Model": "models/barrier/barrier.vmdl",
+            "Static": false
           }
         ]
       }
