@@ -1,0 +1,209 @@
+{
+  "RootObject": {
+    "__guid": "c5ca008b-515e-44da-abd4-1be71917d851",
+    "Flags": 0,
+    "Name": "Player",
+    "Position": "-3.999976,-76.35971,0.0000412507",
+    "Rotation": "0,0,0.7071068,0.7071068",
+    "Enabled": true,
+    "NetworkMode": 2,
+    "NetworkInterpolation": true,
+    "Children": [
+      {
+        "__guid": "50061b70-1d1c-445a-a06e-97a0e610fae6",
+        "Flags": 0,
+        "Name": "Right Hand",
+        "Position": "0.000001907349,-16,48",
+        "Tags": "hand",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "TableTennis.Hand",
+            "__guid": "f8027efa-fd21-4f1f-92da-b79a415cb9e0",
+            "HandSource": "Right",
+            "Model": {
+              "_type": "component",
+              "component_id": "c7909112-8513-4e47-9492-cfddae230889",
+              "go": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.SphereCollider",
+            "__guid": "8772d19d-62c1-47eb-918e-fe6b7113098f",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Radius": 3,
+            "Static": false
+          },
+          {
+            "__type": "Sandbox.Rigidbody",
+            "__guid": "6640c333-38a6-4983-9c42-928d74725020",
+            "AngularDamping": 0,
+            "Gravity": false,
+            "LinearDamping": 0,
+            "Locking": {},
+            "MassOverride": 0,
+            "MotionEnabled": false,
+            "RigidbodyFlags": 0,
+            "StartAsleep": false
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd",
+            "Flags": 0,
+            "Name": "Right Hand Model",
+            "Position": "-0.000009536743,0,-0.000003814697",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "c7909112-8513-4e47-9492-cfddae230889",
+                "BodyGroups": 18446744073709551615,
+                "CreateBoneObjects": false,
+                "Model": "models/hands/human_hand_right.vmdl",
+                "RenderType": "Off",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "6be6814c-72d2-4bd6-b28f-3128638a28db",
+        "Flags": 0,
+        "Name": "Left Hand",
+        "Position": "0,16,48",
+        "Tags": "hand",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "TableTennis.Hand",
+            "__guid": "280d58ac-479c-4b0c-976b-de7b3accf16b",
+            "HandSource": "Left",
+            "Model": {
+              "_type": "component",
+              "component_id": "d6529a9d-1d88-44ef-b127-2924d8ff77a3",
+              "go": "8dba2091-84dd-4e82-bac0-2b053af6b0a8",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.SphereCollider",
+            "__guid": "855e1331-4c54-42dc-aff1-74566834a987",
+            "Center": "0,0,0",
+            "IsTrigger": false,
+            "Radius": 3,
+            "Static": false
+          },
+          {
+            "__type": "Sandbox.Rigidbody",
+            "__guid": "bd86f0fd-7518-48c2-a8d1-5dff71debaa0",
+            "AngularDamping": 0,
+            "Gravity": false,
+            "LinearDamping": 0,
+            "Locking": {},
+            "MassOverride": 0,
+            "MotionEnabled": false,
+            "RigidbodyFlags": 0,
+            "StartAsleep": false
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "8dba2091-84dd-4e82-bac0-2b053af6b0a8",
+            "Flags": 0,
+            "Name": "Left Hand Model",
+            "Position": "0,0,0",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.SkinnedModelRenderer",
+                "__guid": "d6529a9d-1d88-44ef-b127-2924d8ff77a3",
+                "BodyGroups": 18446744073709551615,
+                "CreateBoneObjects": false,
+                "Model": "models/hands/human_hand_left.vmdl",
+                "RenderType": "Off",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "62128a1f-073e-436d-bce1-e31de0333522",
+        "Flags": 0,
+        "Name": "Head",
+        "Position": "0,0,64",
+        "Tags": "cameras",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.ModelRenderer",
+            "__guid": "e14cf22c-628a-4b5c-b803-284274ca8af9",
+            "BodyGroups": 18446744073709551615,
+            "Model": "models/vrhead/vrhead.vmdl",
+            "RenderType": "Off",
+            "Tint": "1,1,1,1"
+          },
+          {
+            "__type": "Sandbox.VR.VRTrackedObject",
+            "__guid": "7d00acf8-09ca-43ac-9d2b-40584178a62d",
+            "PoseSource": "Head",
+            "TrackingType": "All",
+            "UseRelativeTransform": false
+          },
+          {
+            "__type": "Sandbox.CameraComponent",
+            "__guid": "6424f89b-52be-4076-adbc-da98e799d843",
+            "BackgroundColor": "0.33333,0.46275,0.52157,1",
+            "ClearFlags": "All",
+            "FieldOfView": 80,
+            "IsMainCamera": true,
+            "Orthographic": false,
+            "OrthographicHeight": 1204,
+            "Priority": 16,
+            "RenderExcludeTags": "cameras",
+            "RenderTags": "",
+            "TargetEye": "Both",
+            "Viewport": "0,0,1,1",
+            "ZFar": 10000,
+            "ZNear": 10
+          }
+        ]
+      },
+      {
+        "__guid": "b887daac-e330-43dd-89ac-a4544a9eec8f",
+        "Flags": 0,
+        "Name": "Anchor",
+        "Position": "0,0,0",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.VR.VRAnchor",
+            "__guid": "d8d92952-d8a2-4245-8b10-73f9b2dee4d0"
+          }
+        ]
+      }
+    ]
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__version": 1,
+  "__references": []
+}
