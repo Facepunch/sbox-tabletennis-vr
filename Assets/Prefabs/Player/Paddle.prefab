@@ -72,7 +72,17 @@
         "Position": "0,0,-0.7831359",
         "Enabled": true,
         "NetworkMode": 2,
-        "NetworkInterpolation": true
+        "NetworkInterpolation": true,
+        "Components": [
+          {
+            "__type": "Sandbox.SphereCollider",
+            "__guid": "4e065328-3229-4309-b90f-0135a4e7c9e0",
+            "Center": "0,0,0",
+            "IsTrigger": true,
+            "Radius": 2,
+            "Static": false
+          }
+        ]
       }
     ]
   },
