@@ -2,15 +2,18 @@ namespace TableTennis;
 
 public partial class Hand : Component, Component.ITriggerListener
 {
-	[Property] public SkinnedModelRenderer Model { get; set; }
-
 	/// <summary>
 	/// The input deadzone, so holding ( flDeadzone * 100 ) percent of the grip down means we've got the grip / trigger down.
 	/// </summary>
 	const float flDeadzone = 0.25f;
 
 	/// <summary>
-	/// What the velocity?
+	/// The model renderer associated with this hand.
+	/// </summary>
+	[Property, Group( "Components" )] public SkinnedModelRenderer Model { get; set; }
+
+	/// <summary>
+	/// What the velocity of this hand?
 	/// </summary>
 	public Vector3 Velocity { get; set; }
 
@@ -18,37 +21,35 @@ public partial class Hand : Component, Component.ITriggerListener
 	/// Is the hand grip down?
 	/// </summary>
 	/// <returns></returns>
-	public bool IsGripDown()
-	{
-		var src = GetController();
-		if ( src is null ) return false;
-
-		return src.Grip.Value > flDeadzone;
-	}
+	public bool IsGripDown => Controller?.Grip.Value > flDeadzone;
 
 	/// <summary>
 	/// Is the hand trigger down?
 	/// </summary>
 	/// <returns></returns>
-	public bool IsTriggerDown()
-	{
-		var src = GetController();
-		if ( src is null ) return false;
+	public bool IsTriggerDown => Controller?.Trigger.Value > flDeadzone;
 
-		return src.Trigger.Value > flDeadzone;
-	}
+	/// <summary>
+	/// The VR controller input.
+	/// </summary>
+	public VRController Controller => HandSource == Source.Left ? Input.VR?.LeftHand : Input.VR?.RightHand;
 
-	public VRController GetController()
+	public bool IsDown( HoldInput holdInput )
 	{
-		return HandSource == HandSources.Left ? Input.VR?.LeftHand : Input.VR?.RightHand;
+		return holdInput switch
+		{
+			HoldInput.GripButton => IsGripDown,
+			HoldInput.TriggerButton => throw new NotImplementedException(),
+			HoldInput.Nothing => throw new NotImplementedException(),
+			_ => throw new NotImplementedException(),
+		};
 	}
 
 	private void UpdateTrackedLocation()
 	{
-		var controller = GetController();
-		if ( controller is null ) return;
+		if ( Controller is null ) return;
 
-		var tx = controller.Transform;
+		var tx = Controller.Transform;
 		// Bit of a hack, but the alyx controllers have a weird origin that I don't care for.
 		tx = tx.Add( Vector3.Forward * -2f, false );
 		tx = tx.WithRotation( tx.Rotation * Rotation.From( 20, -5, 0 ) );
@@ -64,5 +65,13 @@ public partial class Hand : Component, Component.ITriggerListener
 	{
 		UpdateTrackedLocation();
 		UpdatePose();
+
+		// Anything past this point will be owner-only.
+		if ( !IsProxy )
+		{
+			return;
+		}
+
+		UpdateHoldInput();
 	}
 }

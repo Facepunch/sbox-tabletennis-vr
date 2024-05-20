@@ -2,13 +2,16 @@
   "RootObject": {
     "__guid": "96d12eff-726a-4344-8d7d-ab6b81075529",
     "Flags": 0,
-    "Name": "Paddle",
-    "Position": "5.65186,-32,40",
-    "Rotation": "-0.4304594,0.4304592,0.5609855,0.5609856",
+    "Name": "paddle",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
     "Components": [
+      {
+        "__type": "TableTennis.BaseHoldable",
+        "__guid": "d127974a-b028-4172-abca-39adb304f019",
+        "HoldInput": "GripButton"
+      },
       {
         "__type": "Sandbox.Rigidbody",
         "__guid": "a6a30cff-b9e8-4d0c-9461-00c8170366f9",
@@ -34,7 +37,6 @@
         "__guid": "f962dd4b-652a-4c97-be8d-6839ac2c606b",
         "Flags": 0,
         "Name": "Model",
-        "Position": "0,0,0",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true,

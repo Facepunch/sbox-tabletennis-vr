@@ -3,6 +3,7 @@ namespace TableTennis;
 /// <summary>
 /// The player!
 /// </summary>
+[Icon( "accessibility_new" )]
 public partial class Player : Component
 {
 	/// <summary>

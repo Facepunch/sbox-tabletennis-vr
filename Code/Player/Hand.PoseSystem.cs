@@ -1,27 +1,30 @@
 namespace TableTennis;
 
+[Icon( "front_hand" )]
 public partial class Hand
 {
 	/// <summary>
 	/// Represents a controller to use when fetching skeletal data (finger curl/splay values)
 	/// </summary>
-	public enum HandSources
+	public enum Source
 	{
 		/// <summary>
 		/// The left controller
 		/// </summary>
+		[Icon( "front_hand" )]
 		Left,
 
 		/// <summary>
 		/// The right controller
 		/// </summary>
+		[Icon( "front_hand" )]
 		Right
 	}
 
 	/// <summary>
 	/// Which hand should we use to update the parameters?
 	/// </summary>
-	[Property] public HandSources HandSource { get; set; } = HandSources.Left;
+	[Property, Group( "Pose System" )] public Source HandSource { get; set; } = Source.Left;
 
 	/// <summary>
 	/// A preset pose. This is fucking shit, but I don't think it matters for this game.
@@ -53,7 +56,7 @@ public partial class Hand
 		if ( !Game.IsRunningInVR ) return;
 
 		// Get our controller inputs
-		var source = GetController();
+		var source = Controller;
 
 		Model.Set( "BasePose", 1 );
 		Model.Set( "bGrab", true );

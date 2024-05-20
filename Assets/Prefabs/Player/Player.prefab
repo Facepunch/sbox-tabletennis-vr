@@ -46,7 +46,11 @@
           {
             "__type": "TableTennis.Hand",
             "__guid": "f8027efa-fd21-4f1f-92da-b79a415cb9e0",
-            "HandSource": "Right",
+            "HandGameObject": {
+              "_type": "gameobject",
+              "go": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd"
+            },
+            "HandSource": "Left",
             "Model": {
               "_type": "component",
               "component_id": "c7909112-8513-4e47-9492-cfddae230889",
@@ -111,6 +115,10 @@
           {
             "__type": "TableTennis.Hand",
             "__guid": "280d58ac-479c-4b0c-976b-de7b3accf16b",
+            "HandGameObject": {
+              "_type": "gameobject",
+              "go": "8dba2091-84dd-4e82-bac0-2b053af6b0a8"
+            },
             "HandSource": "Left",
             "Model": {
               "_type": "component",
