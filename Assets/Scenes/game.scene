@@ -270,33 +270,6 @@
       ]
     },
     {
-      "__guid": "b019697b-943f-44b5-92cb-c075f2657507",
-      "Flags": 0,
-      "Name": "tabletennis_table (1)",
-      "Position": "0,0,4",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "Components": [
-        {
-          "__type": "Sandbox.ModelRenderer",
-          "__guid": "4a3c8d48-e90e-47de-b8f1-07e1da7a3c4b",
-          "BodyGroups": 18446744073709551615,
-          "Model": "models/tabletennis_table/tabletennis_table.vmdl",
-          "RenderType": "On",
-          "Tint": "1,1,1,1"
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "63ec4bb8-f145-459a-976d-2e58e2d90dac",
-          "IsTrigger": false,
-          "Model": "models/tabletennis_table/tabletennis_table.vmdl",
-          "Static": false,
-          "Surface": "surfaces/tabletennis.tabletop_wood.surface"
-        }
-      ]
-    },
-    {
       "__guid": "2b72065b-4fc1-4183-ace3-dcf6e3ae3172",
       "Flags": 0,
       "Name": "Box (3)",
@@ -447,7 +420,8 @@
           "__guid": "528fae88-3208-45a8-b4b4-0212c3ae17eb",
           "IsTrigger": false,
           "Model": "models/tabletennis_table/tabletennis_table.vmdl",
-          "Static": false
+          "Static": true,
+          "Surface": "surfaces/tabletennis.tabletop_wood.surface"
         }
       ]
     },
@@ -2189,15 +2163,110 @@
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "__Prefab": "prefabs/player/player.prefab"
+    },
+    {
+      "__guid": "ec6cc4e4-6b32-4e56-bb84-47bd91aaea00",
+      "Flags": 0,
+      "Name": "ball",
+      "Position": "1.34304,-30.94763,96",
+      "Rotation": "0,0.6968268,0,0.7172394",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "__Prefab": "prefabs/player/ball.prefab"
+    },
+    {
+      "__guid": "bb575e11-0fca-46d2-abf3-33f15892e8a0",
+      "Flags": 0,
+      "Name": "origin",
+      "Position": "0.9019144,-30.94763,96.36609",
+      "Rotation": "0,0.7071067,0,0.7071067",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true
+    },
+    {
+      "__guid": "d87a3e0d-56b7-4b5b-a961-642194f7f0b8",
+      "Flags": 0,
+      "Name": "paddle",
+      "Position": "-4.426104,-30.94763,51.35988",
+      "Rotation": "0,0.7071067,0,0.7071067",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Rigidbody",
+          "__guid": "e1507a5c-749a-4b19-b27c-cefac00c1191",
+          "AngularDamping": 0,
+          "Gravity": true,
+          "LinearDamping": 0,
+          "Locking": {},
+          "MassOverride": 0,
+          "MotionEnabled": false,
+          "RigidbodyFlags": 0,
+          "StartAsleep": false
+        },
+        {
+          "__type": "Sandbox.ModelCollider",
+          "__guid": "a77f4823-f38d-4f0f-9fa6-d53194cb53ff",
+          "IsTrigger": false,
+          "Model": "models/tabletennis.paddle.vmdl",
+          "Static": false,
+          "Surface": "surfaces/tabletennis.paddle_rubber.surface"
+        },
+        {
+          "__type": "PaddleTestComponent",
+          "__guid": "9ef97e76-80a1-421d-9181-0414c13269db",
+          "Ball": {
+            "_type": "gameobject",
+            "go": "ec6cc4e4-6b32-4e56-bb84-47bd91aaea00"
+          },
+          "BallOrigin": {
+            "_type": "gameobject",
+            "go": "bb575e11-0fca-46d2-abf3-33f15892e8a0"
+          }
+        }
+      ],
+      "Children": [
+        {
+          "__guid": "6eeac84e-7309-4cbc-b75b-f3e35fdd9232",
+          "Flags": 0,
+          "Name": "Model",
+          "Position": "0,0,0",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true,
+          "Components": [
+            {
+              "__type": "Sandbox.ModelRenderer",
+              "__guid": "a3840611-c9c7-4beb-a6a9-2fc0c8ae3bd6",
+              "BodyGroups": 18446744073709551615,
+              "Model": "models/tabletennis.paddle.vmdl",
+              "RenderType": "Off",
+              "Tint": "1,1,1,1"
+            }
+          ]
+        },
+        {
+          "__guid": "9e6d8e75-1191-4110-b5fb-1e173f117127",
+          "Flags": 0,
+          "Name": "Hold Origin",
+          "Position": "0,0,-0.7831359",
+          "Enabled": true,
+          "NetworkMode": 2,
+          "NetworkInterpolation": true
+        }
+      ]
     }
   ],
   "SceneProperties": {
-    "FixedUpdateFrequency": 50,
+    "FixedUpdateFrequency": 200,
     "MaxFixedUpdates": 5,
     "NetworkFrequency": 30,
     "NetworkInterpolation": true,
     "ThreadedAnimation": true,
-    "TimeScale": 1,
+    "TimeScale": 0.5,
     "UseFixedUpdate": true,
     "NavMesh": {
       "Enabled": false,
@@ -2214,7 +2283,7 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-20T14:52:19.2862565\u002B01:00",
+  "LastSaved": "2024-05-20T15:22:51.6816257\u002B01:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": [

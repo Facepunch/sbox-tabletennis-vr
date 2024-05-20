@@ -1,19 +1,18 @@
 {
-	"basesurface": "surfaces/rubber.surface",
-	"description": "",
-	"friction": 0.800000,
-	"elasticity": 0.400000,
-	"density": 2000.000000,
-	"thickness": -1.000000,
-	"dampening": 0.000000,
-	"bouncethreshold": 40.000000,
-	"impacteffects":
-	{
-	},
-	"sounds":
-	{
-	},
-	"breakables":
-	{
-	}
+  "BaseSurface": "surfaces/rubber.surface",
+  "AudioSurface": "Generic",
+  "Description": "",
+  "Friction": 0.8,
+  "Elasticity": 0.88,
+  "Density": 2000,
+  "Thickness": -1,
+  "Dampening": 0,
+  "BounceThreshold": 40,
+  "ImpactEffects": {},
+  "ScrapeEffects": {},
+  "Sounds": {},
+  "Breakables": {},
+  "Tags": null,
+  "__version": 0,
+  "__references": []
 }

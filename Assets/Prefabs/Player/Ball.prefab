@@ -43,7 +43,7 @@
         "__guid": "539783ed-854e-462e-96b1-88ed0f68c3df",
         "Center": "0,0,0",
         "IsTrigger": false,
-        "Radius": 0.8,
+        "Radius": 1,
         "Static": false,
         "Surface": "surfaces/tabletennis.ball.surface"
       }
@@ -73,17 +73,7 @@
         "Name": "Hold Position",
         "Enabled": true,
         "NetworkMode": 2,
-        "NetworkInterpolation": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SphereCollider",
-            "__guid": "4b351414-3dbb-4c47-8884-54f73a715b2b",
-            "Center": "0,0,0",
-            "IsTrigger": true,
-            "Radius": 2,
-            "Static": false
-          }
-        ]
+        "NetworkInterpolation": true
       }
     ]
   },

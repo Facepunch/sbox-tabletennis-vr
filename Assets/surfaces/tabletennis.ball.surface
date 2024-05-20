@@ -1,19 +1,18 @@
 {
-	"basesurface": "surfaces/plastic.hollow.surface",
-	"description": "",
-	"friction": 0.100000,
-	"elasticity": 0.900000,
-	"density": 100.000000,
-	"thickness": -1.000000,
-	"dampening": 0.000000,
-	"bouncethreshold": 40.000000,
-	"impacteffects":
-	{
-	},
-	"sounds":
-	{
-	},
-	"breakables":
-	{
-	}
+  "BaseSurface": "surfaces/plastic.hollow.surface",
+  "AudioSurface": "Generic",
+  "Description": "",
+  "Friction": 0.1,
+  "Elasticity": 1,
+  "Density": 100,
+  "Thickness": -1,
+  "Dampening": 0,
+  "BounceThreshold": 0,
+  "ImpactEffects": {},
+  "ScrapeEffects": {},
+  "Sounds": {},
+  "Breakables": {},
+  "Tags": null,
+  "__version": 0,
+  "__references": []
 }

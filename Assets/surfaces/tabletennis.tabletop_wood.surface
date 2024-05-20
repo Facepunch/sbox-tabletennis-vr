@@ -1,19 +1,18 @@
 {
-	"basesurface": "surfaces/wood.surface",
-	"description": "Tabletop with accurate elasticity",
-	"friction": 0.600000,
-	"elasticity": 0.150000,
-	"density": 2000.000000,
-	"thickness": -1.000000,
-	"dampening": 0.000000,
-	"bouncethreshold": 40.000000,
-	"impacteffects":
-	{
-	},
-	"sounds":
-	{
-	},
-	"breakables":
-	{
-	}
+  "BaseSurface": "surfaces/wood.surface",
+  "AudioSurface": "Generic",
+  "Description": "Tabletop with accurate elasticity",
+  "Friction": 0.6,
+  "Elasticity": 0.9,
+  "Density": 2000,
+  "Thickness": -1,
+  "Dampening": 0,
+  "BounceThreshold": 0,
+  "ImpactEffects": {},
+  "ScrapeEffects": {},
+  "Sounds": {},
+  "Breakables": {},
+  "Tags": null,
+  "__version": 0,
+  "__references": []
 }

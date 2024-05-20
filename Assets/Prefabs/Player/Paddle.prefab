@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "96d12eff-726a-4344-8d7d-ab6b81075529",
+    "__guid": "166873e1-adf5-4f84-8cd6-fa9ea1c4e5f1",
     "Flags": 0,
     "Name": "paddle",
     "Enabled": true,
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "TableTennis.BaseHoldable",
-        "__guid": "d127974a-b028-4172-abca-39adb304f019",
+        "__guid": "e756133a-ac9a-400f-97bc-554a73e2c124",
         "HandPreset": {
           "Thumb": 1,
           "Index": 1,
@@ -21,34 +21,35 @@
         "HoldType": "OnRelease",
         "Rigidbody": {
           "_type": "component",
-          "component_id": "a6a30cff-b9e8-4d0c-9461-00c8170366f9",
-          "go": "96d12eff-726a-4344-8d7d-ab6b81075529",
+          "component_id": "fc2ff274-af1d-4e42-826f-899d71b6dff1",
+          "go": "166873e1-adf5-4f84-8cd6-fa9ea1c4e5f1",
           "component_type": "Rigidbody"
         }
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "a6a30cff-b9e8-4d0c-9461-00c8170366f9",
+        "__guid": "fc2ff274-af1d-4e42-826f-899d71b6dff1",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
         "Locking": {},
         "MassOverride": 0,
-        "MotionEnabled": true,
+        "MotionEnabled": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       },
       {
         "__type": "Sandbox.ModelCollider",
-        "__guid": "73cc7182-3ffd-4424-9939-514a0e39c6d0",
+        "__guid": "7c1de73c-eaea-4ba6-8be5-67829a9147b9",
         "IsTrigger": false,
         "Model": "models/tabletennis.paddle.vmdl",
-        "Static": false
+        "Static": false,
+        "Surface": "surfaces/tabletennis.paddle_rubber.surface"
       }
     ],
     "Children": [
       {
-        "__guid": "f962dd4b-652a-4c97-be8d-6839ac2c606b",
+        "__guid": "ae0f5e03-76df-4d46-bbf0-f900f6effbf1",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -57,7 +58,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "df9b4802-23b0-43c6-bb16-7f3f0fc1f9f9",
+            "__guid": "603a3cf4-fb74-4c10-989b-3d7650cad42e",
             "BodyGroups": 18446744073709551615,
             "Model": "models/tabletennis.paddle.vmdl",
             "RenderType": "Off",
@@ -66,23 +67,13 @@
         ]
       },
       {
-        "__guid": "2e473acf-5fd0-4b3e-9482-9ae9ebcec211",
+        "__guid": "b96477f4-ca1d-4353-ada3-0caed4703666",
         "Flags": 0,
         "Name": "Hold Origin",
         "Position": "0,0,-0.7831359",
         "Enabled": true,
         "NetworkMode": 2,
-        "NetworkInterpolation": true,
-        "Components": [
-          {
-            "__type": "Sandbox.SphereCollider",
-            "__guid": "4e065328-3229-4309-b90f-0135a4e7c9e0",
-            "Center": "0,0,0",
-            "IsTrigger": true,
-            "Radius": 2,
-            "Static": false
-          }
-        ]
+        "NetworkInterpolation": true
       }
     ]
   },
