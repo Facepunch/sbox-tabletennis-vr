@@ -1,15 +1,16 @@
 {
   "RootObject": {
-    "__guid": "166873e1-adf5-4f84-8cd6-fa9ea1c4e5f1",
+    "__guid": "ea8bbf67-d905-4dd6-8ad5-13eaee8d9a9e",
     "Flags": 0,
     "Name": "paddle",
+    "Tags": "paddle",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "TableTennis.BaseHoldable",
-        "__guid": "e756133a-ac9a-400f-97bc-554a73e2c124",
+        "__guid": "3cee16fd-b104-419f-8a60-08423ac9d2ac",
         "HandPreset": {
           "Thumb": 1,
           "Index": 1,
@@ -21,14 +22,14 @@
         "HoldType": "OnRelease",
         "Rigidbody": {
           "_type": "component",
-          "component_id": "fc2ff274-af1d-4e42-826f-899d71b6dff1",
-          "go": "166873e1-adf5-4f84-8cd6-fa9ea1c4e5f1",
+          "component_id": "fbea6a37-f097-4f2c-8120-80f371af0ee2",
+          "go": "ea8bbf67-d905-4dd6-8ad5-13eaee8d9a9e",
           "component_type": "Rigidbody"
         }
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "fc2ff274-af1d-4e42-826f-899d71b6dff1",
+        "__guid": "fbea6a37-f097-4f2c-8120-80f371af0ee2",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -40,7 +41,7 @@
       },
       {
         "__type": "Sandbox.ModelCollider",
-        "__guid": "7c1de73c-eaea-4ba6-8be5-67829a9147b9",
+        "__guid": "9edee968-62dc-4727-ab5e-69ac965b33d0",
         "IsTrigger": false,
         "Model": "models/tabletennis.paddle.vmdl",
         "Static": false,
@@ -49,7 +50,7 @@
     ],
     "Children": [
       {
-        "__guid": "ae0f5e03-76df-4d46-bbf0-f900f6effbf1",
+        "__guid": "4ff64fa7-8a6e-437c-a760-986f992d069b",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -58,7 +59,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "603a3cf4-fb74-4c10-989b-3d7650cad42e",
+            "__guid": "d29ee794-580a-4bd8-981a-3d20ab65e18b",
             "BodyGroups": 18446744073709551615,
             "Model": "models/tabletennis.paddle.vmdl",
             "RenderType": "Off",
@@ -67,7 +68,7 @@
         ]
       },
       {
-        "__guid": "b96477f4-ca1d-4353-ada3-0caed4703666",
+        "__guid": "02e7d3a1-2b95-44c5-aa69-8255b192d623",
         "Flags": 0,
         "Name": "Hold Origin",
         "Position": "0,0,-0.7831359",

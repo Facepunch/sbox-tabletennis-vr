@@ -2170,7 +2170,6 @@
       "Name": "ball",
       "Position": "1.34304,-30.94763,96",
       "Rotation": "0,0.6968268,0,0.7172394",
-      "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "__Prefab": "prefabs/player/ball.prefab"
@@ -2181,7 +2180,6 @@
       "Name": "origin",
       "Position": "0.9019144,-30.94763,96.36609",
       "Rotation": "0,0.7071067,0,0.7071067",
-      "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true
     },
@@ -2191,7 +2189,7 @@
       "Name": "paddle",
       "Position": "-4.426104,-30.94763,51.35988",
       "Rotation": "0,0.7071067,0,0.7071067",
-      "Enabled": true,
+      "Tags": "paddle",
       "NetworkMode": 2,
       "NetworkInterpolation": true,
       "Components": [
@@ -2283,7 +2281,7 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-20T15:32:36.8302548\u002B01:00",
+  "LastSaved": "2024-05-20T15:54:59.243148\u002B01:00",
   "ResourceVersion": 1,
   "__version": 1,
   "__references": [

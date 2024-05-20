@@ -13,8 +13,6 @@ public sealed class PlayerBallManager : Component
 			return BallInstance;
 
 		var instance = BallPrefab.Clone();
-		instance.Transform.Position = Transform.Position;
-
 		var holdable = instance.Components.Get<IHoldableObject>( FindMode.EnabledInSelfAndDescendants );
 		BallInstance = holdable;
 
@@ -28,6 +26,7 @@ public sealed class PlayerBallManager : Component
 		if ( ( Hand.Controller?.ButtonA.WasPressed ?? false ) || Input.Down( "Jump" ) )
 		{
 			var ball = GetOrCreateBall();
+			ball.GameObject.Transform.Position = Transform.Position;
 			Hand.StartHolding( ball );
 		}
 	}

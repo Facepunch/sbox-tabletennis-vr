@@ -7,7 +7,7 @@
   "Density": 100,
   "Thickness": -1,
   "Dampening": 0,
-  "BounceThreshold": 0,
+  "BounceThreshold": 100,
   "ImpactEffects": {},
   "ScrapeEffects": {},
   "Sounds": {},

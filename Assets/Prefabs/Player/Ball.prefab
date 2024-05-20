@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "bd00bd38-bad5-4d71-a095-15c58bdde9d5",
+    "__guid": "d4d3cf99-2c1b-42db-9a05-9b6c8c7ff840",
     "Flags": 0,
     "Name": "ball",
     "Enabled": true,
@@ -9,7 +9,7 @@
     "Components": [
       {
         "__type": "TableTennis.BaseHoldable",
-        "__guid": "5c645a41-eb0e-4ce5-8ecb-f01528e04ca1",
+        "__guid": "1297839f-fc9e-46d5-8f87-d46fed46ddce",
         "HandPreset": {
           "Thumb": 1,
           "Index": 1,
@@ -21,14 +21,14 @@
         "HoldType": "OnRelease",
         "Rigidbody": {
           "_type": "component",
-          "component_id": "49ded207-da6d-43dc-8852-01fb551176e4",
-          "go": "bd00bd38-bad5-4d71-a095-15c58bdde9d5",
+          "component_id": "375cb2c9-8121-4d98-982d-b105f6bdb35e",
+          "go": "d4d3cf99-2c1b-42db-9a05-9b6c8c7ff840",
           "component_type": "Rigidbody"
         }
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "49ded207-da6d-43dc-8852-01fb551176e4",
+        "__guid": "375cb2c9-8121-4d98-982d-b105f6bdb35e",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -40,17 +40,23 @@
       },
       {
         "__type": "Sandbox.SphereCollider",
-        "__guid": "539783ed-854e-462e-96b1-88ed0f68c3df",
+        "__guid": "3e815007-33eb-4386-951c-f1b3eaf1b6c7",
         "Center": "0,0,0",
         "IsTrigger": false,
         "Radius": 1,
         "Static": false,
         "Surface": "surfaces/tabletennis.ball.surface"
+      },
+      {
+        "__type": "TableTennis.Ball",
+        "__guid": "f61d6d1f-cb58-410d-be0e-70235844530f",
+        "BallBounceSound": "sounds/tabletennis.bounce.sound",
+        "BallHitSound": "sounds/tabletennis.serve.sound"
       }
     ],
     "Children": [
       {
-        "__guid": "64ae9ac6-cc06-44e8-9aef-b48703d260cf",
+        "__guid": "5f052006-797e-4c94-b5b3-1ac16924d7d7",
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
@@ -59,7 +65,7 @@
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
-            "__guid": "7c6c2ced-4c7d-4fd5-a6e0-5918bedc2fed",
+            "__guid": "064e7db9-6fc9-49ba-a889-766305171ad4",
             "BodyGroups": 18446744073709551615,
             "Model": "models/tabletennis.ball.vmdl",
             "RenderType": "Off",
@@ -68,7 +74,7 @@
         ]
       },
       {
-        "__guid": "46699399-6947-44fe-a429-547e791f36ed",
+        "__guid": "c45fc745-2a2c-4cbf-b8f2-8c86ff3546ef",
         "Flags": 0,
         "Name": "Hold Position",
         "Enabled": true,
