@@ -25,18 +25,6 @@ public partial class Hand
 	/// Which hand should we use to update the parameters?
 	/// </summary>
 	[Property, Group( "Pose System" )] public Source HandSource { get; set; } = Source.Left;
-
-	/// <summary>
-	/// A preset pose. This is fucking shit, but I don't think it matters for this game.
-	/// </summary>
-	public enum PresetPose
-	{
-		None,
-		Grip,
-		GripNoIndex,
-		HoldItem,
-		Clamp
-	}
 	
 	private static List<string> AnimGraphNames = new()
 	{
@@ -53,8 +41,6 @@ public partial class Hand
 	/// <param name="preset"></param>
 	public void ApplyHandPreset( HandPreset preset = null )
 	{
-		if ( !Game.IsRunningInVR ) return;
-
 		// Get our controller inputs
 		var source = Controller;
 
@@ -64,7 +50,7 @@ public partial class Hand
 
 		for ( FingerValue v = FingerValue.ThumbCurl; v <= FingerValue.PinkyCurl; ++v )
 		{
-			Model.Set( AnimGraphNames[(int)v], source.GetFingerValue( v ) );
+			Model.Set( AnimGraphNames[(int)v], source?.GetFingerValue( v ) ?? 0 );
 		}
 
 		if ( preset is not null )
@@ -81,7 +67,14 @@ public partial class Hand
 		if ( !Model.IsValid() )
 			return;
 
-		// Apply default preset
-		ApplyHandPreset();
+		if ( HeldObject.IsValid() )
+		{
+			ApplyHandPreset( HeldObject.HandPreset );
+		}
+		else
+		{
+			// Apply default preset
+			ApplyHandPreset();
+		}
 	}
 }

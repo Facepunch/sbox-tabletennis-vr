@@ -67,7 +67,7 @@ public partial class Hand : Component, Component.ITriggerListener
 		UpdatePose();
 
 		// Anything past this point will be owner-only.
-		if ( !IsProxy )
+		if ( IsProxy )
 		{
 			return;
 		}

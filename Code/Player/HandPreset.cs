@@ -8,9 +8,14 @@ public sealed partial class HandPreset
 	public float Ring { get; set; } = 0f;
 	public float Pinky { get; set; } = 0f;
 
+	public HandPreset()
+	{
+		//
+	}
+
 	public override string ToString()
 	{
-		return $"{Thumb}, {Index}, {Middle}, {Ring}, {Pinky}";
+		return $"Thumb: {Thumb * 100}%, Index: {Index * 100}%, Middle: {Middle * 100}%, Ring: {Ring * 100}%, Pinky: {Pinky * 100}%";
 	}
 
 	enum FingerCurl

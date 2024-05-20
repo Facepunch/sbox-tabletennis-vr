@@ -8,6 +8,25 @@
     "NetworkInterpolation": true,
     "Components": [
       {
+        "__type": "TableTennis.BaseHoldable",
+        "__guid": "5c645a41-eb0e-4ce5-8ecb-f01528e04ca1",
+        "HandPreset": {
+          "Thumb": 1,
+          "Index": 1,
+          "Middle": 1,
+          "Ring": 1,
+          "Pinky": 1
+        },
+        "HoldInput": "GripButton",
+        "HoldType": "OnRelease",
+        "Rigidbody": {
+          "_type": "component",
+          "component_id": "49ded207-da6d-43dc-8852-01fb551176e4",
+          "go": "bd00bd38-bad5-4d71-a095-15c58bdde9d5",
+          "component_type": "Rigidbody"
+        }
+      },
+      {
         "__type": "Sandbox.Rigidbody",
         "__guid": "49ded207-da6d-43dc-8852-01fb551176e4",
         "AngularDamping": 0,
@@ -47,6 +66,15 @@
             "Tint": "1,1,1,1"
           }
         ]
+      },
+      {
+        "__guid": "46699399-6947-44fe-a429-547e791f36ed",
+        "Flags": 0,
+        "Name": "Hold Position",
+        "Position": "-32,0,256",
+        "Enabled": true,
+        "NetworkMode": 2,
+        "NetworkInterpolation": true
       }
     ]
   },

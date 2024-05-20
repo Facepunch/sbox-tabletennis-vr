@@ -50,7 +50,7 @@
               "_type": "gameobject",
               "go": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd"
             },
-            "HandSource": "Left",
+            "HandSource": "Right",
             "Model": {
               "_type": "component",
               "component_id": "c7909112-8513-4e47-9492-cfddae230889",

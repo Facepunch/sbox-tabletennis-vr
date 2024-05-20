@@ -26,4 +26,27 @@ public partial class Player : Component
 	/// The player's right hand component.
 	/// </summary>
 	[Property, Group( "Components" )] public Hand RightHand { get; set; }
+
+	protected override void OnStart()
+	{
+		// Good for debugging stuff
+		GameObject.BreakFromPrefab();
+
+		CreateAndHoldPaddle();
+		CreateAndHoldBall();
+	}
+
+	void CreateAndHoldPaddle()
+	{
+		var paddleInstance = PaddlePrefab.Clone();
+		var holdable = paddleInstance.Components.Get<IHoldableObject>( FindMode.EnabledInSelfAndDescendants );
+		RightHand.StartHolding( holdable );
+	}
+
+	void CreateAndHoldBall()
+	{
+		var paddleInstance = BallPrefab.Clone();
+		var holdable = paddleInstance.Components.Get<IHoldableObject>( FindMode.EnabledInSelfAndDescendants );
+		LeftHand.StartHolding( holdable );
+	}
 }

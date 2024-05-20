@@ -23,3 +23,21 @@ public enum HoldInput
 	[Icon( "sensors" )]
 	Nothing
 }
+
+/// <summary>
+/// The hold input type.
+/// </summary>
+public enum HoldType
+{
+	/// <summary>
+	/// Called continuously, will release the object when you release the hold input.
+	/// </summary>
+	[Icon( "pan_tool" )]
+	Continuous,
+
+	/// <summary>
+	/// Called when pressing the input button, will toggle the holding state.
+	/// </summary>
+	[Icon( "pan_tool" )]
+	OnRelease,
+}

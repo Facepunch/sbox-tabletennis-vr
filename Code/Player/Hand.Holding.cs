@@ -86,11 +86,11 @@ public partial class Hand : Component.ITriggerListener
 	/// </summary>
 	protected void UpdateHoldInput()
 	{
-		// Should we be automatically detaching this object?
+;		// Should we be automatically detaching this object?
 		bool didRelease = UpdateAutoReleaseObject();
 
 		// Do we have a candidate object to hold?
-		if ( TryFindHoldableObject( out var holdable ) )
+		if ( TryFindHoldableObject( out var holdable ) && IsDown( holdable.HoldInput ) )
 		{
 			// We have a holdable object to grab, let's try it!
 			StartHolding( holdable );
@@ -149,6 +149,7 @@ public partial class Hand : Component.ITriggerListener
 	/// <param name="holdable"></param>
 	public void OnStartHoldingObject( IHoldableObject holdable )
 	{
+		AttachHandTo( holdable.GameObject );
 		HeldObject = holdable;
 	}
 
@@ -158,6 +159,7 @@ public partial class Hand : Component.ITriggerListener
 	/// <param name="holdable"></param>
 	public void OnStopHoldingObject( IHoldableObject holdable )
 	{
+		DetachHand();
 		HeldObject = null;
 	}
 
