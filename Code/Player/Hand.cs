@@ -3,11 +3,6 @@ namespace TableTennis;
 public partial class Hand : Component, Component.ITriggerListener
 {
 	/// <summary>
-	/// The input deadzone, so holding ( flDeadzone * 100 ) percent of the grip down means we've got the grip / trigger down.
-	/// </summary>
-	const float flDeadzone = 0.25f;
-
-	/// <summary>
 	/// The model renderer associated with this hand.
 	/// </summary>
 	[Property, Group( "Components" )] public SkinnedModelRenderer Model { get; set; }
@@ -18,32 +13,9 @@ public partial class Hand : Component, Component.ITriggerListener
 	public Vector3 Velocity { get; set; }
 
 	/// <summary>
-	/// Is the hand grip down?
-	/// </summary>
-	/// <returns></returns>
-	public bool IsGripDown => Controller?.Grip.Value > flDeadzone;
-
-	/// <summary>
-	/// Is the hand trigger down?
-	/// </summary>
-	/// <returns></returns>
-	public bool IsTriggerDown => Controller?.Trigger.Value > flDeadzone;
-
-	/// <summary>
 	/// The VR controller input.
 	/// </summary>
 	public VRController Controller => HandSource == Source.Left ? Input.VR?.LeftHand : Input.VR?.RightHand;
-
-	public bool IsDown( HoldInput holdInput )
-	{
-		return holdInput switch
-		{
-			HoldInput.GripButton => IsGripDown,
-			HoldInput.TriggerButton => throw new NotImplementedException(),
-			HoldInput.Nothing => throw new NotImplementedException(),
-			_ => throw new NotImplementedException(),
-		};
-	}
 
 	private void UpdateTrackedLocation()
 	{
@@ -63,6 +35,12 @@ public partial class Hand : Component, Component.ITriggerListener
 
 	protected override void OnUpdate()
 	{
+		// Update input first.
+		if ( !IsProxy )
+		{
+			UpdateInput();
+		}
+
 		UpdateTrackedLocation();
 		UpdatePose();
 

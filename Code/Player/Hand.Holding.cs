@@ -1,6 +1,6 @@
 namespace TableTennis;
 
-public partial class Hand : Component.ITriggerListener
+public partial class Hand
 {
 	/// <summary>
 	/// The GameObject for the hand's model renderer.
@@ -28,23 +28,20 @@ public partial class Hand : Component.ITriggerListener
 	/// After that, we'll check distance to our hand.
 	/// </summary>
 	/// <returns></returns>
-	protected bool TryFindHoldableObject( out IHoldableObject holdable )
+	protected IHoldableObject TryFindHoldableObject()
 	{
 		// Are we already holding something?
 		if ( IsHolding )
 		{
-			holdable = HeldObject;
-			return true;
+			return HeldObject;
 		}
 
 		// Get the closest hovered object (if any)
-
 		var closest = HoveredObjects
 			.OrderBy( x => x.GameObject.Transform.Position.Distance( Transform.Position ) )
 			.FirstOrDefault();
 
-		holdable = closest;
-		return holdable.IsValid();
+		return closest;
 	}
 
 	/// <summary>
@@ -79,27 +76,6 @@ public partial class Hand : Component.ITriggerListener
 		}
 
 		return false;
-	}
-
-	/// <summary>
-	/// Called every <see cref="OnUpdate"/>, responsible for parsing input for holding stuff.
-	/// </summary>
-	protected void UpdateHoldInput()
-	{
-;		// Should we be automatically detaching this object?
-		bool didRelease = UpdateAutoReleaseObject();
-
-		// Do we have a candidate object to hold?
-		if ( TryFindHoldableObject( out var holdable ) && IsDown( holdable.HoldInput ) )
-		{
-			// We have a holdable object to grab, let's try it!
-			StartHolding( holdable );
-		}
-		else
-		{
-			// Stop holding an object if we have one.
-			StopHolding();
-		}
 	}
 
 	/// <summary>
