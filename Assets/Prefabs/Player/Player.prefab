@@ -2,12 +2,36 @@
   "RootObject": {
     "__guid": "c5ca008b-515e-44da-abd4-1be71917d851",
     "Flags": 0,
-    "Name": "Player",
-    "Position": "-3.999976,-76.35971,0.0000412507",
-    "Rotation": "0,0,0.7071068,0.7071068",
+    "Name": "player",
     "Enabled": true,
     "NetworkMode": 2,
     "NetworkInterpolation": true,
+    "Components": [
+      {
+        "__type": "TableTennis.Player",
+        "__guid": "df2dc1b7-820c-4470-9526-02d670710485",
+        "BallPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/player/ball.prefab"
+        },
+        "LeftHand": {
+          "_type": "component",
+          "component_id": "280d58ac-479c-4b0c-976b-de7b3accf16b",
+          "go": "6be6814c-72d2-4bd6-b28f-3128638a28db",
+          "component_type": "Hand"
+        },
+        "PaddlePrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/player/paddle.prefab"
+        },
+        "RightHand": {
+          "_type": "component",
+          "component_id": "f8027efa-fd21-4f1f-92da-b79a415cb9e0",
+          "go": "50061b70-1d1c-445a-a06e-97a0e610fae6",
+          "component_type": "Hand"
+        }
+      }
+    ],
     "Children": [
       {
         "__guid": "50061b70-1d1c-445a-a06e-97a0e610fae6",
@@ -56,7 +80,7 @@
             "__guid": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd",
             "Flags": 0,
             "Name": "Right Hand Model",
-            "Position": "-0.000009536743,0,-0.000003814697",
+            "Position": "0,0,0",
             "Enabled": true,
             "NetworkMode": 2,
             "NetworkInterpolation": true,
@@ -187,7 +211,6 @@
         "__guid": "b887daac-e330-43dd-89ac-a4544a9eec8f",
         "Flags": 0,
         "Name": "Anchor",
-        "Position": "0,0,0",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true,
