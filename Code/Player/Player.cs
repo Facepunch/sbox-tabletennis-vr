@@ -7,11 +7,6 @@ namespace TableTennis;
 public partial class Player : Component
 {
 	/// <summary>
-	/// The ball prefab.
-	/// </summary>
-	[Property, Group( "Prefabs" )] public GameObject BallPrefab { get; set; }
-
-	/// <summary>
 	/// The paddle prefab.
 	/// </summary>
 	[Property, Group( "Prefabs" )] public GameObject PaddlePrefab { get; set; }
@@ -30,6 +25,12 @@ public partial class Player : Component
 	{
 		// Good for debugging stuff
 		GameObject.BreakFromPrefab();
+
+		// Don't hold a paddle if we're in the menu (shit way of detecting it kinda)
+		if ( MenuManager.Instance.IsValid() )
+		{
+			return;
+		}
 
 		CreateAndHoldPaddle();
 	}

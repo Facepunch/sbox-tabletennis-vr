@@ -7,7 +7,7 @@ public sealed class MenuInputManager : Component
 
 	protected override void OnEnabled()
 	{
-		worldInput.Enabled = true;
+		worldInput.Enabled = !Game.IsRunningInVR;
 	}
 
 	protected override void OnDisabled()
