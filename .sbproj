@@ -17,7 +17,7 @@
     "RankType": "Elo",
     "MapSelect": "Hidden",
     "GameNetworkType": "Multiplayer",
-    "MaxPlayers": 8,
+    "MaxPlayers": 2,
     "MinPlayers": 1,
     "GameCategory": "Sports",
     "ControlModes": {
@@ -46,8 +46,14 @@
       "WarningsAsErrors": "",
       "Whitelist": true,
       "AssemblyReferences": [],
-      "IgnoreFolders": [],
+      "IgnoreFolders": [
+        "editor",
+        "unittest"
+      ],
       "DistinctAssemblyReferences": []
-    }
+    },
+    "StartupScene": "scenes/menu.scene",
+    "LaunchMode": "Normal",
+    "MapStartupScene": "scenes/menu.scene"
   }
 }

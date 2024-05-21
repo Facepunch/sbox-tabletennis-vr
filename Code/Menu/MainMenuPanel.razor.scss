@@ -1,0 +1,71 @@
+MainMenuPanel
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba( black, 0.5 );
+	backdrop-filter: blur( 50px );
+	justify-content: center;
+	align-items: center;
+	font-weight: bold;
+	border-radius: 12px;
+	flex-direction: column;
+	padding: 40px;
+	pointer-events: all;
+	border: 1px solid rgba( black, 0.65 );
+
+	.title
+	{
+		flex-grow: 1;
+		justify-content: center;
+		align-items: center;
+
+		img
+		{
+			width: 206px;
+			height: 206px;
+		}
+	}
+
+	.buttons
+	{
+		flex-direction: column;
+		gap: 16px;
+		width: 100%;
+
+		.button
+		{
+			justify-content: center;
+			align-items: center;
+			background-color: rgba( black, 0.5 );
+			padding: 16px 64px;
+			border-radius: 20px;
+			border: 1px solid rgba( black, 0.2 );
+
+			label
+			{
+				font-family: Poppins;
+				color: white;
+				font-size: 20px;
+				text-transform: uppercase;
+				font-weight: 500;
+				text-shadow: 1px 1px 1px rgba( black, 0.5 );
+			}
+
+			transition: transform 0.2s ease;
+
+			&:hover
+			{
+				background-color: rgba( black, 0.7 );
+				transform: scale( 1.1 );
+			}
+		}
+	}
+
+	.grow
+	{
+		flex-grow: 1;
+	}
+}

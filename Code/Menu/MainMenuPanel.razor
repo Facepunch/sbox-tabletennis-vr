@@ -1,0 +1,29 @@
+@inherits PanelComponent
+@namespace TableTennis
+
+<root>
+	<div class="title">
+		<img src="ui/logo_white.png" />
+	</div>
+
+	<div class="grow" />
+
+	<div class="buttons">
+		<div class="button" onclick=@(()=>Play())>Play</div>
+		<div class="button" onclick=@(()=>Quit())>Quit</div>
+	</div>
+</root>
+
+@code
+{
+	void Quit()
+	{
+		// Bye-bye
+		Game.Close();
+	}
+
+	void Play()
+	{
+		MenuManager.Instance.PlayGame();
+	}
+}
