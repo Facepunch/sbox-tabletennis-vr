@@ -76,8 +76,6 @@ public partial class BaseHoldable : Component, IHoldableObject
 		// Turn off rigidbody's gravity while we're holding the object.
 		Rigidbody.MotionEnabled = false;
 
-		Log.Info( Rigidbody.MotionEnabled );
-
 		// Do stuff
 		return true;
 	}

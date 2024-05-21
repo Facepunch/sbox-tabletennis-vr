@@ -2122,7 +2122,7 @@
     {
       "__guid": "eb4b5cdf-4fc8-4995-b26c-ca4e9f6e6bb3",
       "Flags": 0,
-      "Name": "Red Spawn (1)",
+      "Name": "Blue Spawn",
       "Position": "0,64,4",
       "Rotation": "0,-0,-0.7071068,0.7071068",
       "Enabled": true,
@@ -2256,6 +2256,25 @@
           "NetworkInterpolation": true
         }
       ]
+    },
+    {
+      "__guid": "27a4fe24-6f6c-4fc4-a903-201399d5d436",
+      "Flags": 0,
+      "Name": "Game",
+      "Position": "43.10672,-45.59146,-47.44153",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "TableTennis.GameManager",
+          "__guid": "0f44ee38-e38d-4788-86e0-3cdb5e9d4462",
+          "BallPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player/ball.prefab"
+          }
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -2281,12 +2300,12 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-20T15:54:59.243148\u002B01:00",
+  "LastSaved": "2024-05-21T08:30:56.5496369\u002B01:00",
   "ResourceVersion": 1,
-  "__version": 1,
   "__references": [
     "facepunch.carpet_a",
     "facepunch.concrete_glossy",
     "facepunch.corrugated_door_double_a_128"
-  ]
+  ],
+  "__version": 1
 }

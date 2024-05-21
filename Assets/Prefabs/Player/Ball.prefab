@@ -8,8 +8,10 @@
     "NetworkInterpolation": true,
     "Components": [
       {
-        "__type": "TableTennis.BaseHoldable",
-        "__guid": "1297839f-fc9e-46d5-8f87-d46fed46ddce",
+        "__type": "TableTennis.Ball",
+        "__guid": "f61d6d1f-cb58-410d-be0e-70235844530f",
+        "BallBounceSound": "sounds/tabletennis.bounce.sound",
+        "BallHitSound": "sounds/tabletennis.serve.sound",
         "HandPreset": {
           "Thumb": 1,
           "Index": 1,
@@ -19,6 +21,7 @@
         },
         "HoldInput": "GripButton",
         "HoldType": "OnRelease",
+        "MinContactSpeed": 70,
         "Rigidbody": {
           "_type": "component",
           "component_id": "375cb2c9-8121-4d98-982d-b105f6bdb35e",
@@ -46,12 +49,6 @@
         "Radius": 1,
         "Static": false,
         "Surface": "surfaces/tabletennis.ball.surface"
-      },
-      {
-        "__type": "TableTennis.Ball",
-        "__guid": "f61d6d1f-cb58-410d-be0e-70235844530f",
-        "BallBounceSound": "sounds/tabletennis.bounce.sound",
-        "BallHitSound": "sounds/tabletennis.serve.sound"
       }
     ],
     "Children": [
@@ -87,6 +84,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

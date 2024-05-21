@@ -3,21 +3,6 @@ namespace TableTennis;
 public sealed class PlayerBallManager : Component
 {
 	[RequireComponent] Hand Hand { get; set; }
-	[Property] public GameObject BallPrefab { get; set; }
-
-	public IHoldableObject BallInstance { get; private set; }
-
-	IHoldableObject GetOrCreateBall()
-	{
-		if ( BallInstance.IsValid() )
-			return BallInstance;
-
-		var instance = BallPrefab.Clone();
-		var holdable = instance.Components.Get<IHoldableObject>( FindMode.EnabledInSelfAndDescendants );
-		BallInstance = holdable;
-
-		return BallInstance;
-	}
 
 	protected override void OnUpdate()
 	{
@@ -25,7 +10,8 @@ public sealed class PlayerBallManager : Component
 
 		if ( ( Hand.Controller?.ButtonA.WasPressed ?? false ) || Input.Down( "Jump" ) )
 		{
-			var ball = GetOrCreateBall();
+			// Fetch the ball
+			var ball = GameManager.Instance.Ball;
 			ball.GameObject.Transform.Position = Transform.Position;
 			Hand.StartHolding( ball );
 		}
