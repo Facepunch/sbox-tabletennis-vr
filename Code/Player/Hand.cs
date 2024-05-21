@@ -17,17 +17,40 @@ public partial class Hand : Component, Component.ITriggerListener
 	/// </summary>
 	public VRController Controller => HandSource == Source.Left ? Input.VR?.LeftHand : Input.VR?.RightHand;
 
-	private void UpdateTrackedLocation()
+	private Angles GetAnglesOffset()
 	{
-		if ( Controller is null ) return;
+		var obj = HeldObject;
+		if ( !obj.IsValid() ) return Angles.Zero;
 
-		var tx = Controller.Transform;
-		// Bit of a hack, but the alyx controllers have a weird origin that I don't care for.
+		return HeldObject.HandAnglesOffset;
+	}
+
+	private Transform initialLocalTransform;
+	protected override void OnStart()
+	{
+		initialLocalTransform = Transform.Local;
+	}
+
+	private Transform GetOffset()
+	{
+		var tx = new Transform();
 		tx = tx.Add( Vector3.Forward * -2f, false );
 		tx = tx.WithRotation( tx.Rotation * Rotation.From( 20, -5, 0 ) );
+		tx = tx.WithRotation( tx.Rotation * Rotation.From( GetAnglesOffset() ) );
+		return tx;
+	}
 
+	private void UpdateTrackedLocation()
+	{
+		if ( Controller is null )
+		{
+			Transform.Local = global::Transform.Concat( initialLocalTransform, GetOffset() );
+			return;
+		}
+
+		var tx = Controller.Transform;
 		var prevPosition = Transform.World.Position;
-		Transform.World = tx;
+		Transform.World = global::Transform.Concat( tx, GetOffset() );
 
 		var newPosition = Transform.World.Position;
 		Velocity = newPosition - prevPosition;

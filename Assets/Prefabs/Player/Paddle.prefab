@@ -1,6 +1,6 @@
 {
   "RootObject": {
-    "__guid": "ea8bbf67-d905-4dd6-8ad5-13eaee8d9a9e",
+    "__guid": "b51b3673-10ad-47b5-8367-cb4f25c9e597",
     "Flags": 0,
     "Name": "paddle",
     "Tags": "paddle",
@@ -10,7 +10,8 @@
     "Components": [
       {
         "__type": "TableTennis.BaseHoldable",
-        "__guid": "3cee16fd-b104-419f-8a60-08423ac9d2ac",
+        "__guid": "31274348-62fa-40f5-b14a-7fe7db8f82d1",
+        "HandAnglesOffset": "0,0,0",
         "HandPreset": {
           "Thumb": 1,
           "Index": 1,
@@ -19,17 +20,21 @@
           "Pinky": 1
         },
         "HoldInput": "GripButton",
+        "HoldPoint": {
+          "_type": "gameobject",
+          "go": "017c56d6-d5a7-405c-8f4a-d57923a608a7"
+        },
         "HoldType": "OnRelease",
         "Rigidbody": {
           "_type": "component",
-          "component_id": "fbea6a37-f097-4f2c-8120-80f371af0ee2",
-          "go": "ea8bbf67-d905-4dd6-8ad5-13eaee8d9a9e",
+          "component_id": "cd246144-13ea-4e5b-9257-b689d743e4d3",
+          "go": "b51b3673-10ad-47b5-8367-cb4f25c9e597",
           "component_type": "Rigidbody"
         }
       },
       {
         "__type": "Sandbox.Rigidbody",
-        "__guid": "fbea6a37-f097-4f2c-8120-80f371af0ee2",
+        "__guid": "cd246144-13ea-4e5b-9257-b689d743e4d3",
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
@@ -38,43 +43,57 @@
         "MotionEnabled": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
-      },
-      {
-        "__type": "Sandbox.ModelCollider",
-        "__guid": "9edee968-62dc-4727-ab5e-69ac965b33d0",
-        "IsTrigger": false,
-        "Model": "models/tabletennis.paddle.vmdl",
-        "Static": false,
-        "Surface": "surfaces/tabletennis.paddle_rubber.surface"
       }
     ],
     "Children": [
       {
-        "__guid": "4ff64fa7-8a6e-437c-a760-986f992d069b",
+        "__guid": "f8926410-7697-42b9-a130-dfd64e6f904e",
         "Flags": 0,
-        "Name": "Model",
+        "Name": "Root",
+        "Rotation": "-0.01021738,-0.01021738,-0.707033,0.707033",
         "Enabled": true,
         "NetworkMode": 2,
         "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "Sandbox.ModelRenderer",
-            "__guid": "d29ee794-580a-4bd8-981a-3d20ab65e18b",
-            "BodyGroups": 18446744073709551615,
+            "__type": "Sandbox.ModelCollider",
+            "__guid": "a38fa96c-9bbe-4a36-ba3c-e09eb07f556b",
+            "IsTrigger": false,
             "Model": "models/tabletennis.paddle.vmdl",
-            "RenderType": "Off",
-            "Tint": "1,1,1,1"
+            "Static": false,
+            "Surface": "surfaces/tabletennis.paddle_rubber.surface"
+          }
+        ],
+        "Children": [
+          {
+            "__guid": "74a45a6a-46bc-43f1-b9fb-42a9a6d97adb",
+            "Flags": 0,
+            "Name": "Model",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true,
+            "Components": [
+              {
+                "__type": "Sandbox.ModelRenderer",
+                "__guid": "100d778d-6222-4c40-9c13-421b13ca3278",
+                "BodyGroups": 18446744073709551615,
+                "Model": "models/tabletennis.paddle.vmdl",
+                "RenderType": "Off",
+                "Tint": "1,1,1,1"
+              }
+            ]
+          },
+          {
+            "__guid": "017c56d6-d5a7-405c-8f4a-d57923a608a7",
+            "Flags": 0,
+            "Name": "Hold Origin",
+            "Position": "-0.5178437,-0.670567,-0.6272156",
+            "Rotation": "0,0,0.7071068,0.7071068",
+            "Enabled": true,
+            "NetworkMode": 2,
+            "NetworkInterpolation": true
           }
         ]
-      },
-      {
-        "__guid": "02e7d3a1-2b95-44c5-aa69-8255b192d623",
-        "Flags": 0,
-        "Name": "Hold Origin",
-        "Position": "0,0,-0.7831359",
-        "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true
       }
     ]
   },
@@ -82,6 +101,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

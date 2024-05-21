@@ -125,7 +125,7 @@ public partial class Hand
 	/// <param name="holdable"></param>
 	public void OnStartHoldingObject( IHoldableObject holdable )
 	{
-		AttachHandTo( holdable.GameObject );
+		AttachHandTo( holdable.HoldPoint );
 		HeldObject = holdable;
 	}
 

@@ -8,7 +8,12 @@ public interface IHoldableObject : IValid
 	/// <summary>
 	/// The position at where we'll hold this object.
 	/// </summary>
-	Transform HoldTransform { get; }
+	GameObject HoldPoint { get; }
+
+	/// <summary>
+	/// Hands!
+	/// </summary>
+	Angles HandAnglesOffset { get; }
 
 	/// <summary>
 	/// The hand preset

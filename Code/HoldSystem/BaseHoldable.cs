@@ -33,7 +33,9 @@ public partial class BaseHoldable : Component, IHoldableObject
 	/// <summary>
 	/// The hold transform for this holdable object.
 	/// </summary>
-	public Transform HoldTransform => HeldHand.Transform.World;
+	[Property, Group( "Setup" )] public GameObject HoldPoint { get; set; }
+
+	[Property] public Angles HandAnglesOffset { get; set; }
 
 	/// <summary>
 	/// Is this holdable being held right now?
@@ -96,17 +98,29 @@ public partial class BaseHoldable : Component, IHoldableObject
 		return true;
 	}
 
+	private Vector3 GetHoldPosition()
+	{
+		var vec = HeldHand.Transform.Position;
+		return vec;
+	}
+
+	private Rotation GetHoldRotation()
+	{
+		var rot = HeldHand.Transform.Rotation;
+		return rot;
+	}
+
 	/// <summary>
 	/// Updates the holdable's transform while we're being held by someone's hand.
 	/// </summary>
 	protected virtual void UpdateTransform()
 	{
 		var velocity = Rigidbody.Velocity;
-		Vector3.SmoothDamp( Rigidbody.Transform.Position, HoldTransform.Position, ref velocity, 0.1f, Time.Delta );
+		Vector3.SmoothDamp( Rigidbody.Transform.Position, GetHoldPosition(), ref velocity, 0.1f, Time.Delta );
 		Rigidbody.Velocity = velocity;
 
 		var angularVelocity = Rigidbody.AngularVelocity;
-		Rotation.SmoothDamp( Rigidbody.Transform.Rotation, HoldTransform.Rotation, ref angularVelocity, 0.1f, Time.Delta );
+		Rotation.SmoothDamp( Rigidbody.Transform.Rotation, GetHoldRotation(), ref angularVelocity, 0.1f, Time.Delta );
 		Rigidbody.AngularVelocity = angularVelocity;
 	}
 
