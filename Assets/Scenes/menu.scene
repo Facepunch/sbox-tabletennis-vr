@@ -2216,8 +2216,7 @@
         },
         {
           "__type": "TableTennis.MainMenuPanel",
-          "__guid": "63fc0e6d-1339-416c-a207-d1f046bfbb49",
-          "MyStringValue": "Hello World!"
+          "__guid": "63fc0e6d-1339-416c-a207-d1f046bfbb49"
         }
       ]
     },
@@ -2269,6 +2268,10 @@
           "Viewport": "0,0,1,1",
           "ZFar": 10000,
           "ZNear": 10
+        },
+        {
+          "__type": "TableTennis.DisableIfInVR",
+          "__guid": "9ab478ce-ede7-478c-82c6-250bd2e62fcf"
         }
       ]
     },
@@ -2425,7 +2428,7 @@
   },
   "Title": "menu",
   "Description": "",
-  "LastSaved": "2024-05-21T09:00:49.244522\u002B01:00",
+  "LastSaved": "2024-05-21T09:15:58.0253542\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.carpet_a",
