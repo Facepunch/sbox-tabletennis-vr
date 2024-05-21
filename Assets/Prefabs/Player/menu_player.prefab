@@ -77,12 +77,15 @@
           {
             "__type": "TableTennis.HandMenuPointer",
             "__guid": "cc9fe481-7355-46cc-a698-4da25a9183db",
+            "DotParticle": "particles/laserdot.vpcf",
             "Hand": {
               "_type": "component",
               "component_id": "2d0438d3-9c3b-4555-af86-917613c0f322",
               "go": "287994a4-d57e-45e1-9c8a-d4ba9835711f",
               "component_type": "Hand"
             },
+            "LaserColor": "1,1,1,1",
+            "LineParticle": "particles/laserline.vpcf",
             "PointerOrigin": {
               "_type": "gameobject",
               "go": "11192714-ec08-4daf-9d8e-03b96262fd9d"
