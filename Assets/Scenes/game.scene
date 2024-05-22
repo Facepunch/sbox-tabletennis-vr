@@ -2124,6 +2124,33 @@
           }
         }
       ]
+    },
+    {
+      "__guid": "fc958e98-b518-4353-8150-040dbdb0f3e1",
+      "Flags": 0,
+      "Name": "TableHUD",
+      "Position": "0,-28,34.11079",
+      "Rotation": "-0.5,-0.5,-0.5,0.5",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.WorldPanel",
+          "__guid": "a04be853-12b0-432b-a5fb-db4e3d4a3d1e",
+          "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
+          "LookAtCamera": false,
+          "PanelSize": "1024,1024",
+          "RenderScale": 1,
+          "VerticalAlign": "Center"
+        },
+        {
+          "__type": "TableTennis.TablePanel",
+          "__guid": "0db15f76-d453-4875-9fcc-467fe4a1a5b8",
+          "MyStringValue": "Hello World!"
+        }
+      ]
     }
   ],
   "SceneProperties": {
@@ -2149,7 +2176,7 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-22T11:01:48.8827358\u002B01:00",
+  "LastSaved": "2024-05-22T11:22:34.4075397\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.carpet_a",

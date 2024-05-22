@@ -67,6 +67,6 @@ public static class TeamExtensions
 		return comp.Color;
 	}
 
-	public static Team GetTeam( this Component component ) => component.GameObject.GetTeam();
-	public static Color GetTeamColor( this Component component ) => component.GameObject.GetTeamColor();
+	public static Team GetTeam( this Component component ) => component.GameObject?.GetTeam() ?? Team.None;
+	public static Color GetTeamColor( this Component component ) => component.GameObject?.GetTeamColor() ?? Color.White;
 }

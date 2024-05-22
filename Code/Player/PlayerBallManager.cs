@@ -8,6 +8,11 @@ public sealed class PlayerBallManager : Component
 	{
 		if ( IsProxy ) return;
 
+		if ( GameManager.Instance.State != GameState.FreePlay )
+		{
+			return;
+		}
+
 		if ( ( Hand.Controller?.ButtonA.WasPressed ?? false ) || Input.Down( "Jump" ) )
 		{
 			// Fetch the ball

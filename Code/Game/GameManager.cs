@@ -8,5 +8,16 @@ public partial class GameManager : Component
 	protected override void OnStart()
 	{
 		Instance = this;
+
+		DebugStartGameAsync();
+	}
+
+	protected async void DebugStartGameAsync()
+	{
+		await GameTask.DelaySeconds( 1f );
+
+		// We're serving by default, TODO: Networking OnActive
+		State = GameState.Serving;
+		ServingTeam = Team.Red;
 	}
 }

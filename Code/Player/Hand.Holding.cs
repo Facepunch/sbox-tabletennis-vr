@@ -1,3 +1,5 @@
+using Sandbox.Diagnostics;
+
 namespace TableTennis;
 
 public partial class Hand
@@ -145,6 +147,8 @@ public partial class Hand
 	/// <param name="gameObject"></param>
 	internal void AttachHandTo( GameObject gameObject )
 	{
+		Assert.IsValid( gameObject );
+
 		HandGameObject.SetParent( gameObject, false );
 	}
 

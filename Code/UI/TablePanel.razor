@@ -1,0 +1,37 @@
+@inherits PanelComponent
+@namespace TableTennis
+
+<root>
+	<div class="state">
+		@GameManager.Instance.State
+	</div>
+
+	<div class="grow" />
+
+	<div class="column">
+		<div class="score">
+			<div class="sub">Bounce</div>
+			<div class="value">@(game.CurrentBounce)</div>
+		</div>
+
+		<div class="score">
+			<div class="sub">Team</div>
+			<div class="value">@(game.ServingTeam)</div>
+		</div>
+
+		<div class="score">
+			<div class="sub">Rally</div>
+			<div class="value">@(game.RallyCount)</div>
+		</div>
+	</div>
+</root>
+
+@code
+{
+	GameManager game => GameManager.Instance;
+
+	/// <summary>
+	/// the hash determines if the system should be rebuilt. If it changes, it will be rebuilt
+	/// </summary>
+	protected override int BuildHash() => System.HashCode.Combine( Time.Now );
+}

@@ -3,9 +3,10 @@ namespace TableTennis;
 public enum GameState
 {
 	/// <summary>
-	/// Waiting for players to join the game.
+	/// Waiting for players...
 	/// </summary>
-	WaitingForPlayers,
+	WaitingForPlayers = 0,
+
 	/// <summary>
 	/// Players are serving.
 	/// </summary>
@@ -26,6 +27,11 @@ public enum GameState
 	/// The game is over.
 	/// </summary>
 	GameOver,
+
+	/// <summary>
+	/// Free play, no game loop.
+	/// </summary>
+	FreePlay = 100
 }
 
 public partial class GameManager
@@ -103,6 +109,16 @@ public partial class GameManager
 	/// <param name="newState"></param>
 	protected void OnStateChanged( GameState oldState, GameState newState )
 	{
+		if ( newState == GameState.Serving )
+		{
+			RallyCount = 0;
+			CurrentBounce = 0;
+			LastBallHitTeam = Team.None;
+
+			// Place the ball in the hand of the serving team.
+			// Falls back to the first player if we don't have enough players.. Should we cry and break the game?
+			PlaceBallInHand( GetFirstPlayer( ServingTeam ) ?? Scene.Components.GetAll<Player>().First() );
+		}
 	}
 
 	/// <summary>
@@ -159,8 +175,8 @@ public partial class GameManager
 		ServeRotation = 0;
 		CurrentBounce = 0;
 		RallyCount = 0;
-		State = GameState.WaitingForPlayers;
-		ServingTeam = Team.None;
+		State = default;
+		ServingTeam = Team.Red;
 	}
 
 	/// <summary>
@@ -212,6 +228,45 @@ public partial class GameManager
 				WinRound( ServingTeam );
 			}
 		}
+	}
+
+	/// <summary>
+	/// Get the first player of a team
+	/// </summary>
+	/// <param name="Team"></param>
+	/// <returns></returns>
+	public Player GetFirstPlayer( Team Team )
+	{
+		return Scene.Components.GetAll<Player>()
+			.Where( x => x.GetTeam() == Team )
+			.FirstOrDefault();
+	}
+	
+	/// <summary>
+	/// Get the player's left hand
+	/// </summary>
+	/// <param name="player"></param>
+	/// <returns></returns>
+	public Hand GetLeftHand( Player player )
+	{
+		return player.Components.GetAll<Hand>()
+			.FirstOrDefault( x => x.HandSource == Hand.Source.Left );
+	}
+
+	/// <summary>
+	/// Places the ball in a player's hand.
+	/// </summary>
+	/// <param name="player"></param>
+	public void PlaceBallInHand( Player player )
+	{
+		var hand = GetLeftHand( player );
+		var ball = Ball;
+		ball.GameObject.Transform.Position = hand.Transform.Position;
+
+		// Anyone! Stop holding the ball!
+		ball.HeldHand?.StopHolding();
+
+		hand.StartHolding( ball );
 	}
 
 	public void OnBallBounced( BallBounceEvent e )
