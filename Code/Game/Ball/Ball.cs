@@ -13,10 +13,14 @@ public partial class Ball : BaseHoldable, Component.ICollisionListener
 		if ( collision.Other.GameObject.Tags.Has( "paddle" ) )
 		{
 			Sound.Play( BallHitSound, collision.Contact.Point );
+
+			var paddle = collision.Other.GameObject.Components.Get<Paddle>( FindMode.EnabledInSelfAndDescendants );
+			GameManager.Instance?.OnBallHitEvent?.Invoke( this, paddle, collision );
 		}
 		if ( collision.Other.GameObject.Tags.Has( "table" ) )
 		{
 			Sound.Play( BallBounceSound, collision.Contact.Point );
+			GameManager.Instance?.OnBallBouncedEvent?.Invoke( this, collision );
 		}
 	}
 }
