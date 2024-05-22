@@ -2,8 +2,8 @@ namespace TableTennis;
 
 public partial class GameManager
 {
-	public record BallBounceEvent( Ball ball, Collision collisionEvent );
-	public record BallHitEvent( Ball ball, Paddle paddle, Collision collisionEvent );
+	public record BallBounceEvent( Ball Ball, Collision Collision );
+	public record BallHitEvent( Ball Ball, Paddle Paddle, Collision Collision );
 
 	/// <summary>
 	/// Points to the ball prefab.

@@ -42,6 +42,16 @@ public partial class GameManager
 	[Sync] public TimeSince TimeSinceGameStateChanged { get; private set; } = 1f;
 
 	/// <summary>
+	/// Which team hit the ball last?
+	/// </summary>
+	[Sync] public Team LastBallHitTeam { get; set; }
+
+	/// <summary>
+	/// How long has it been since the ball was hit?
+	/// </summary>
+	[Sync] public TimeSince TimeSinceBallHit { get; set; }
+
+	/// <summary>
 	/// The current serve. In table tennis, the person who serves gets alternated evey 2 serves.
 	/// </summary>
 	[Sync] public int CurrentServe { get; private set; } = 0;
@@ -148,9 +158,43 @@ public partial class GameManager
 		ServingTeam = Team.None;
 	}
 
+	/// <summary>
+	/// Called when the ball is hit by the paddle.
+	/// </summary>
+	/// <param name="e"></param>
 	public void OnBallHit( BallHitEvent e )
 	{
 		OnBallHitEvent?.Invoke( e );
+
+		TimeSinceBallHit = 0;
+
+		// Host is in charge of gameplay loop stuff.
+		if ( IsProxy )
+			return;
+
+		// Look for a team component from the paddle's hierarchy.
+		LastBallHitTeam = e.Paddle.GetTeam();
+
+		// Up the rally count
+		RallyCount++;
+
+		if ( State == GameState.Serving )
+		{
+			State = GameState.Playing;
+		}
+		else if ( State == GameState.Playing )
+		{
+			var bounces = CurrentBounce;
+
+			// Reset bounce count, as it's per rally.
+			CurrentBounce = 0;
+
+			// If the paddle is hit by a player, and the ball hasn't bounced yet - award the serving team a point.
+			if ( bounces == 0 )
+			{
+				WinRound( ServingTeam );
+			}
+		}
 	}
 
 	public void OnBallBounced( BallBounceEvent e )

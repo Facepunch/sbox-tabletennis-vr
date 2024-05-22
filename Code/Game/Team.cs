@@ -54,7 +54,7 @@ public static class TeamExtensions
 {
 	public static Team GetTeam( this GameObject gameObject )
 	{
-		var comp = gameObject.Components.Get<TeamComponent>();
+		var comp = gameObject.Components.Get<TeamComponent>( FindMode.EverythingInSelfAndAncestors );
 		if ( !comp.IsValid() ) return Team.None;
 
 		return comp.Team;
@@ -62,7 +62,7 @@ public static class TeamExtensions
 
 	public static Color GetTeamColor( this GameObject gameObject )
 	{
-		var comp = gameObject.Components.Get<TeamComponent>();
+		var comp = gameObject.Components.Get<TeamComponent>( FindMode.EverythingInSelfAndAncestors );
 		if ( !comp.IsValid() ) return Color.White;
 		return comp.Color;
 	}
