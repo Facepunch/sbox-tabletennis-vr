@@ -80,6 +80,19 @@ public partial class Hand
 		return false;
 	}
 
+	[Property, Group( "Buttons" ), Button( "Toggle", "front_hand" ), Title( "Manual Hold" )]
+	private void Editor_ToggleHold()
+	{
+		if ( HeldObject.IsValid() )
+		{
+			StopHolding();
+			return;
+		}
+
+		var holdable = TryFindHoldableObject();
+		if ( holdable.IsValid() ) StartHolding( holdable );
+	}
+
 	/// <summary>
 	/// Should we be automatically detaching this object?
 	/// </summary>
