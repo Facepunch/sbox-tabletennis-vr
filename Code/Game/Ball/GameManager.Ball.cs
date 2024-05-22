@@ -2,8 +2,8 @@ namespace TableTennis;
 
 public partial class GameManager
 {
-	public delegate void BallBounceDelegate( Ball ball, Collision collisionEvent );
-	public delegate void BallHitDelegate( Ball ball, Paddle paddle, Collision collisionEvent );
+	public record BallBounceEvent( Ball ball, Collision collisionEvent );
+	public record BallHitEvent( Ball ball, Paddle paddle, Collision collisionEvent );
 
 	/// <summary>
 	/// Points to the ball prefab.
@@ -13,12 +13,12 @@ public partial class GameManager
 	/// <summary>
 	/// Called when the ball bounces on a surface.
 	/// </summary>
-	public BallBounceDelegate OnBallBouncedEvent { get; set; }
+	public Action<BallBounceEvent> OnBallBouncedEvent { get; set; }
 
 	/// <summary>
 	/// Called when the ball bounces on a surface.
 	/// </summary>
-	public BallHitDelegate OnBallHitEvent { get; set; }
+	public Action<BallHitEvent> OnBallHitEvent { get; set; }
 
 	private Ball ball;
 	private Ball GetOrCreateBall()

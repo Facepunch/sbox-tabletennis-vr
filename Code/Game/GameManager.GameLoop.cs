@@ -147,4 +147,14 @@ public partial class GameManager
 		State = GameState.WaitingForPlayers;
 		ServingTeam = Team.None;
 	}
+
+	public void OnBallHit( BallHitEvent e )
+	{
+		OnBallHitEvent?.Invoke( e );
+	}
+
+	public void OnBallBounced( BallBounceEvent e )
+	{
+		OnBallBouncedEvent?.Invoke( e );
+	}
 }
