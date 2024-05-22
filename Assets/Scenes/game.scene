@@ -2093,6 +2093,34 @@
           "BallPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/player/ball.prefab"
+          },
+          "PlayArea": {
+            "_type": "component",
+            "component_id": "b954713b-6e67-457f-9c02-46a578c344c3",
+            "go": "8173f065-486c-49a1-91d8-0ac6541aa8f3",
+            "component_type": "PlayArea"
+          }
+        }
+      ]
+    },
+    {
+      "__guid": "8173f065-486c-49a1-91d8-0ac6541aa8f3",
+      "Flags": 0,
+      "Name": "PlayArea",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.PlayArea",
+          "__guid": "b954713b-6e67-457f-9c02-46a578c344c3",
+          "FirstArea": {
+            "Mins": "-128,0,0",
+            "Maxs": "128,128,128"
+          },
+          "SecondArea": {
+            "Mins": "128,-128,128",
+            "Maxs": "-128,0,0"
           }
         }
       ]
@@ -2121,7 +2149,7 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-21T13:49:26.7493085\u002B01:00",
+  "LastSaved": "2024-05-22T11:01:48.8827358\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.carpet_a",
