@@ -403,6 +403,7 @@
       "Flags": 0,
       "Name": "tabletennis_table (2)",
       "Position": "0,0,4",
+      "Tags": "table",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -2147,8 +2148,7 @@
         },
         {
           "__type": "TableTennis.TablePanel",
-          "__guid": "0db15f76-d453-4875-9fcc-467fe4a1a5b8",
-          "MyStringValue": "Hello World!"
+          "__guid": "0db15f76-d453-4875-9fcc-467fe4a1a5b8"
         }
       ]
     }
@@ -2159,7 +2159,7 @@
     "NetworkFrequency": 30,
     "NetworkInterpolation": true,
     "ThreadedAnimation": true,
-    "TimeScale": 1,
+    "TimeScale": 0.75,
     "UseFixedUpdate": true,
     "NavMesh": {
       "Enabled": false,
@@ -2176,7 +2176,7 @@
   },
   "Title": "game",
   "Description": "",
-  "LastSaved": "2024-05-22T11:22:34.4075397\u002B01:00",
+  "LastSaved": "2024-05-22T13:42:06.2102525\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.carpet_a",

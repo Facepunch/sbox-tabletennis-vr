@@ -119,6 +119,11 @@ public partial class GameManager
 			// Falls back to the first player if we don't have enough players.. Should we cry and break the game?
 			PlaceBallInHand( GetFirstPlayer( ServingTeam ) ?? Scene.Components.GetAll<Player>().First() );
 		}
+
+		if ( newState == GameState.FailedServe )
+		{
+			State = GameState.Serving;
+		}
 	}
 
 	/// <summary>
