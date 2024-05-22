@@ -10,10 +10,6 @@
       {
         "__type": "TableTennis.Player",
         "__guid": "df2dc1b7-820c-4470-9526-02d670710485",
-        "BallPrefab": {
-          "_type": "gameobject",
-          "prefab": "prefabs/player/ball.prefab"
-        },
         "LeftHand": {
           "_type": "component",
           "component_id": "280d58ac-479c-4b0c-976b-de7b3accf16b",
@@ -30,6 +26,12 @@
           "go": "50061b70-1d1c-445a-a06e-97a0e610fae6",
           "component_type": "Hand"
         }
+      },
+      {
+        "__type": "TableTennis.TeamComponent",
+        "__guid": "f990cfb5-acad-40df-a1ca-c7dcc303a3b0",
+        "Color": "1,1,1,1",
+        "Team": "None"
       }
     ],
     "Children": [
@@ -149,11 +151,7 @@
           },
           {
             "__type": "TableTennis.PlayerBallManager",
-            "__guid": "9ba4205d-c61d-4836-a512-437817752a53",
-            "BallPrefab": {
-              "_type": "gameobject",
-              "prefab": "prefabs/player/ball.prefab"
-            }
+            "__guid": "9ba4205d-c61d-4836-a512-437817752a53"
           }
         ],
         "Children": [
@@ -243,6 +241,6 @@
   "MenuPath": null,
   "MenuIcon": null,
   "ResourceVersion": 1,
-  "__version": 1,
-  "__references": []
+  "__references": [],
+  "__version": 1
 }

@@ -21,6 +21,11 @@ public partial class Player : Component
 	/// </summary>
 	[Property, Group( "Components" )] public Hand RightHand { get; set; }
 
+	/// <summary>
+	/// Auto-create a Team Component
+	/// </summary>
+	[RequireComponent] public TeamComponent TeamComponent { get; private set; }
+
 	protected override void OnStart()
 	{
 		// Good for debugging stuff
@@ -28,9 +33,7 @@ public partial class Player : Component
 
 		// Don't hold a paddle if we're in the menu (shit way of detecting it kinda)
 		if ( MenuManager.Instance.IsValid() )
-		{
 			return;
-		}
 
 		CreateAndHoldPaddle();
 	}

@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace TableTennis;
 
 public enum Team
@@ -10,11 +12,25 @@ public enum Team
 
 public partial class TeamComponent : Component
 {
-	public Team Team { get; set; }
+	public Action<Team> OnTeamChanged { get; set; } 
+
+	private Team team;
+	[Property, Group( "Setup" )] public Team Team
+	{
+		get => team;
+		set
+		{
+			if ( team == value ) return;
+
+			team = value;
+			TeamChanged( team );
+		}
+	}
 
 	/// <summary>
 	/// What color is this team?
 	/// </summary>
+	[Property, ReadOnly, JsonIgnore, Group( "Data" )]
 	public Color Color
 	{
 		get
@@ -26,6 +42,11 @@ public partial class TeamComponent : Component
 				_ => Color.White
 			};
 		}
+	}
+
+	private void TeamChanged( Team after )
+	{
+		OnTeamChanged?.Invoke( after );
 	}
 }
 
