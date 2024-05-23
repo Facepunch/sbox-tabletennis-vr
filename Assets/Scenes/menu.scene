@@ -1,5 +1,5 @@
 {
-  "__guid": "d0d92d18-c0cd-4870-8605-1a542ae5bafc",
+  "__guid": "7f9fcb7a-9116-4682-a488-51391de061cd",
   "GameObjects": [
     {
       "__guid": "677955ae-5c1b-4aa3-9984-0b1061dedda4",
@@ -2209,6 +2209,7 @@
           "__type": "Sandbox.WorldPanel",
           "__guid": "ceb0d864-a08f-4346-9ad4-e335c35af628",
           "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
           "LookAtCamera": false,
           "PanelSize": "360,512",
           "RenderScale": 0.5,
@@ -2224,8 +2225,7 @@
       "__guid": "4e64a31b-cf1d-4a5d-9e13-0f45ec73867d",
       "Flags": 0,
       "Name": "Menu",
-      "Position": "-90.29637,-0.6522883,62.85536",
-      "Rotation": "-0.08715574,0.000000003809698,-0.9961947,-0.00000004354505",
+      "Position": "-137.0291,-0.7338486,0",
       "Enabled": true,
       "NetworkMode": 2,
       "NetworkInterpolation": true,
@@ -2236,7 +2236,7 @@
           "GameScene": "scenes/game.scene",
           "Player": {
             "_type": "gameobject",
-            "go": "dc934dd8-bd7f-48bf-a301-f71fdb4a48bf"
+            "prefab": "prefabs/player/menu_player.prefab"
           },
           "WorldPanel": {
             "_type": "component",
@@ -2413,16 +2413,6 @@
           "Static": true
         }
       ]
-    },
-    {
-      "__guid": "dc934dd8-bd7f-48bf-a301-f71fdb4a48bf",
-      "Flags": 0,
-      "Name": "menu_player",
-      "Position": "-137.0291,-0.7338486,0",
-      "Enabled": true,
-      "NetworkMode": 2,
-      "NetworkInterpolation": true,
-      "__Prefab": "prefabs/player/menu_player.prefab"
     }
   ],
   "SceneProperties": {
@@ -2448,7 +2438,7 @@
   },
   "Title": "menu",
   "Description": "",
-  "LastSaved": "2024-05-21T09:48:54.7733827\u002B01:00",
+  "LastSaved": "2024-05-23T09:45:54.7199834\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.carpet_a",

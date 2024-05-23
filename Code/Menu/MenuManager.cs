@@ -26,6 +26,11 @@ public partial class MenuManager : Component
 	protected override void OnStart()
 	{
 		Instance = this;
+
+		if ( Game.IsRunningInVR )
+		{
+			Player.Clone( Transform.Position );
+		}
 	}
 	
 	/// <summary>
