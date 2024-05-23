@@ -2196,10 +2196,36 @@
       ]
     },
     {
+      "__guid": "e6fc74f6-9892-4858-8a3b-df2b20bf3379",
+      "Flags": 0,
+      "Name": "Menu Panel (1)",
+      "Position": "-90.29637,12,62.85536",
+      "Rotation": "-0.08715574,0.000000003809698,-0.9961947,-0.00000004354505",
+      "Enabled": true,
+      "NetworkMode": 2,
+      "NetworkInterpolation": true,
+      "Components": [
+        {
+          "__type": "Sandbox.WorldPanel",
+          "__guid": "274c407e-103f-47d3-997d-e51cd1ac8bea",
+          "HorizontalAlign": "Center",
+          "InteractionRange": 1000,
+          "LookAtCamera": false,
+          "PanelSize": "386,512",
+          "RenderScale": 0.5,
+          "VerticalAlign": "Center"
+        },
+        {
+          "__type": "TableTennis.MainMenuPanel",
+          "__guid": "88614bf5-67cf-471f-bea2-1c8e1fcd7ab4"
+        }
+      ]
+    },
+    {
       "__guid": "00d4f992-538d-422a-b33f-e2024989a802",
       "Flags": 0,
       "Name": "Menu Panel",
-      "Position": "-90.29637,-0.6522883,62.85536",
+      "Position": "-90.29637,-20,62.85536",
       "Rotation": "-0.08715574,0.000000003809698,-0.9961947,-0.00000004354505",
       "Enabled": true,
       "NetworkMode": 2,
@@ -2211,8 +2237,8 @@
           "HorizontalAlign": "Center",
           "InteractionRange": 1000,
           "LookAtCamera": false,
-          "PanelSize": "360,512",
-          "RenderScale": 0.5,
+          "PanelSize": "768,900",
+          "RenderScale": 1,
           "VerticalAlign": "Center"
         },
         {
@@ -2438,7 +2464,7 @@
   },
   "Title": "menu",
   "Description": "",
-  "LastSaved": "2024-05-23T09:45:54.7199834\u002B01:00",
+  "LastSaved": "2024-05-23T10:02:12.8974105\u002B01:00",
   "ResourceVersion": 1,
   "__references": [
     "facepunch.carpet_a",
