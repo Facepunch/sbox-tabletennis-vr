@@ -259,7 +259,7 @@ public partial class GameManager
 	public Hand GetLeftHand( Player player )
 	{
 		return player.Components.GetAll<Hand>()
-			.FirstOrDefault( x => x.HandSource == Hand.Source.Left );
+			.FirstOrDefault( x => x.HandSource == Hand.HandSources.Left );
 	}
 
 	/// <summary>
@@ -270,12 +270,13 @@ public partial class GameManager
 	{
 		var hand = GetLeftHand( player );
 		var ball = Ball;
-		ball.GameObject.Transform.Position = hand.Transform.Position;
+		ball.GameObject.WorldPosition = hand.WorldPosition;
 
+		// TODO: fix this
 		// Anyone! Stop holding the ball!
-		ball.HeldHand?.StopHolding();
+		// ball.HeldHand?.StopHolding();
 
-		hand.StartHolding( ball );
+		// hand.StartHolding( ball );
 	}
 
 	public void OnBallBounced( BallBounceEvent e )

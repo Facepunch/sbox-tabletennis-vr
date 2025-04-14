@@ -4,33 +4,32 @@
     "Flags": 0,
     "Name": "player",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "TableTennis.Player",
         "__guid": "df2dc1b7-820c-4470-9526-02d670710485",
-        "LeftHand": {
-          "_type": "component",
-          "component_id": "280d58ac-479c-4b0c-976b-de7b3accf16b",
-          "go": "6be6814c-72d2-4bd6-b28f-3128638a28db",
-          "component_type": "Hand"
-        },
-        "PaddlePrefab": {
+        "Head": {
           "_type": "gameobject",
-          "prefab": "prefabs/player/paddle.prefab"
+          "go": "62128a1f-073e-436d-bce1-e31de0333522"
         },
-        "RightHand": {
-          "_type": "component",
-          "component_id": "f8027efa-fd21-4f1f-92da-b79a415cb9e0",
-          "go": "50061b70-1d1c-445a-a06e-97a0e610fae6",
-          "component_type": "Hand"
-        }
+        "LeftHand": null,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "RightHand": null
       },
       {
         "__type": "TableTennis.TeamComponent",
         "__guid": "f990cfb5-acad-40df-a1ca-c7dcc303a3b0",
-        "Color": "1,1,1,1",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Team": "None"
       }
     ],
@@ -42,18 +41,20 @@
         "Position": "0.000001907349,-16,48",
         "Tags": "hand",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "TableTennis.Hand",
-            "__guid": "f8027efa-fd21-4f1f-92da-b79a415cb9e0",
-            "HandGameObject": {
-              "_type": "gameobject",
-              "go": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd"
-            },
+            "__type": "Hand",
+            "__guid": "7fe75a99-12be-4dbe-b6f4-6df5d607be2a",
+            "DefaultGrabbable": null,
             "HandSource": "Right",
-            "Model": {
+            "IsToggleGrab": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Renderer": {
               "_type": "component",
               "component_id": "c7909112-8513-4e47-9492-cfddae230889",
               "go": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd",
@@ -64,9 +65,22 @@
             "__type": "Sandbox.SphereCollider",
             "__guid": "8772d19d-62c1-47eb-918e-fe6b7113098f",
             "Center": "0,0,0",
+            "Friction": null,
             "IsTrigger": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Radius": 3,
-            "Static": false
+            "Static": false,
+            "Surface": null,
+            "SurfaceVelocity": "0,0,0"
           },
           {
             "__type": "Sandbox.Rigidbody",
@@ -74,9 +88,24 @@
             "AngularDamping": 0,
             "Gravity": false,
             "LinearDamping": 0,
-            "Locking": {},
+            "Locking": {
+              "X": false,
+              "Y": false,
+              "Z": false,
+              "Pitch": false,
+              "Yaw": false,
+              "Roll": false
+            },
+            "MassCenterOverride": "0,0,0",
             "MassOverride": 0,
             "MotionEnabled": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OverrideMassCenter": false,
             "RigidbodyFlags": 0,
             "StartAsleep": false
           }
@@ -86,21 +115,50 @@
             "__guid": "f1b5a675-8d60-4c3d-9168-045d1e7e44fd",
             "Flags": 0,
             "Name": "Right Hand Model",
-            "Position": "0,0,0",
             "Enabled": true,
-            "NetworkMode": 2,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.SkinnedModelRenderer",
                 "__guid": "c7909112-8513-4e47-9492-cfddae230889",
+                "AnimationGraph": null,
                 "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": null,
+                "CreateAttachments": false,
                 "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
                 "Model": "models/hands/human_hand_right.vmdl",
+                "Morphs": {},
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Parameters": {
+                  "bools": {},
+                  "ints": {},
+                  "floats": {},
+                  "vectors": {},
+                  "rotations": {}
+                },
+                "PlaybackRate": 1,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
                 "RenderType": "Off",
-                "Tint": "1,1,1,1"
+                "Sequence": {
+                  "Name": null,
+                  "Looping": true
+                },
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
               }
-            ]
+            ],
+            "Children": []
           }
         ]
       },
@@ -111,18 +169,20 @@
         "Position": "0,16,48",
         "Tags": "hand",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
-            "__type": "TableTennis.Hand",
-            "__guid": "280d58ac-479c-4b0c-976b-de7b3accf16b",
-            "HandGameObject": {
-              "_type": "gameobject",
-              "go": "8dba2091-84dd-4e82-bac0-2b053af6b0a8"
-            },
+            "__type": "Hand",
+            "__guid": "f12a81a2-82ab-41ca-98f8-5f08fe4a477e",
+            "DefaultGrabbable": null,
             "HandSource": "Left",
-            "Model": {
+            "IsToggleGrab": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "Renderer": {
               "_type": "component",
               "component_id": "d6529a9d-1d88-44ef-b127-2924d8ff77a3",
               "go": "8dba2091-84dd-4e82-bac0-2b053af6b0a8",
@@ -133,9 +193,22 @@
             "__type": "Sandbox.SphereCollider",
             "__guid": "855e1331-4c54-42dc-aff1-74566834a987",
             "Center": "0,0,0",
+            "Friction": null,
             "IsTrigger": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OnObjectTriggerEnter": null,
+            "OnObjectTriggerExit": null,
+            "OnTriggerEnter": null,
+            "OnTriggerExit": null,
             "Radius": 3,
-            "Static": false
+            "Static": false,
+            "Surface": null,
+            "SurfaceVelocity": "0,0,0"
           },
           {
             "__type": "Sandbox.Rigidbody",
@@ -143,15 +216,26 @@
             "AngularDamping": 0,
             "Gravity": false,
             "LinearDamping": 0,
-            "Locking": {},
+            "Locking": {
+              "X": false,
+              "Y": false,
+              "Z": false,
+              "Pitch": false,
+              "Yaw": false,
+              "Roll": false
+            },
+            "MassCenterOverride": "0,0,0",
             "MassOverride": 0,
             "MotionEnabled": false,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "OverrideMassCenter": false,
             "RigidbodyFlags": 0,
             "StartAsleep": false
-          },
-          {
-            "__type": "TableTennis.PlayerBallManager",
-            "__guid": "9ba4205d-c61d-4836-a512-437817752a53"
           }
         ],
         "Children": [
@@ -159,21 +243,50 @@
             "__guid": "8dba2091-84dd-4e82-bac0-2b053af6b0a8",
             "Flags": 0,
             "Name": "Left Hand Model",
-            "Position": "0,0,0",
             "Enabled": true,
-            "NetworkMode": 2,
-            "NetworkInterpolation": true,
             "Components": [
               {
                 "__type": "Sandbox.SkinnedModelRenderer",
                 "__guid": "d6529a9d-1d88-44ef-b127-2924d8ff77a3",
+                "AnimationGraph": null,
                 "BodyGroups": 18446744073709551615,
+                "BoneMergeTarget": null,
+                "CreateAttachments": false,
                 "CreateBoneObjects": false,
+                "MaterialGroup": null,
+                "MaterialOverride": null,
                 "Model": "models/hands/human_hand_left.vmdl",
+                "Morphs": {},
+                "OnComponentDestroy": null,
+                "OnComponentDisabled": null,
+                "OnComponentEnabled": null,
+                "OnComponentFixedUpdate": null,
+                "OnComponentStart": null,
+                "OnComponentUpdate": null,
+                "Parameters": {
+                  "bools": {},
+                  "ints": {},
+                  "floats": {},
+                  "vectors": {},
+                  "rotations": {}
+                },
+                "PlaybackRate": 1,
+                "RenderOptions": {
+                  "GameLayer": true,
+                  "OverlayLayer": false,
+                  "BloomLayer": false,
+                  "AfterUILayer": false
+                },
                 "RenderType": "Off",
-                "Tint": "1,1,1,1"
+                "Sequence": {
+                  "Name": null,
+                  "Looping": true
+                },
+                "Tint": "1,1,1,1",
+                "UseAnimGraph": true
               }
-            ]
+            ],
+            "Children": []
           }
         ]
       },
@@ -184,20 +297,39 @@
         "Position": "0,0,64",
         "Tags": "cameras",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "e14cf22c-628a-4b5c-b803-284274ca8af9",
             "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/vrhead/vrhead.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1"
           },
           {
             "__type": "Sandbox.VR.VRTrackedObject",
             "__guid": "7d00acf8-09ca-43ac-9d2b-40584178a62d",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "PoseSource": "Head",
             "TrackingType": "All",
             "UseRelativeTransform": false
@@ -208,7 +340,14 @@
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "FieldOfView": 80,
+            "FovAxis": "Horizontal",
             "IsMainCamera": true,
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
             "Orthographic": false,
             "OrthographicHeight": 1204,
             "Priority": 16,
@@ -219,27 +358,53 @@
             "ZFar": 10000,
             "ZNear": 10
           }
-        ]
+        ],
+        "Children": []
       },
       {
         "__guid": "b887daac-e330-43dd-89ac-a4544a9eec8f",
         "Flags": 0,
         "Name": "Anchor",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.VR.VRAnchor",
-            "__guid": "d8d92952-d8a2-4245-8b10-73f9b2dee4d0"
+            "__guid": "d8d92952-d8a2-4245-8b10-73f9b2dee4d0",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null
           }
-        ]
+        ],
+        "Children": []
       }
-    ]
+    ],
+    "__variables": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

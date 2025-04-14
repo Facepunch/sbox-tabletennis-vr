@@ -1,21 +1,25 @@
-namespace TableTennis;
+using System;
 
 public sealed partial class HandPreset
 {
+	[Range( 0, 1 )]
 	public float Thumb { get; set; } = 0f;
-	public float Index { get; set; } = 0f;
-	public float Middle { get; set; } = 0f;
-	public float Ring { get; set; } = 0f;
-	public float Pinky { get; set; } = 0f;
 
-	public HandPreset()
-	{
-		//
-	}
+	[Range( 0, 1 )]
+	public float Index { get; set; } = 0f;
+
+	[Range( 0, 1 )]
+	public float Middle { get; set; } = 0f;
+
+	[Range( 0, 1 )]
+	public float Ring { get; set; } = 0f;
+
+	[Range( 0, 1 )]
+	public float Pinky { get; set; } = 0f;
 
 	public override string ToString()
 	{
-		return $"Thumb: {Thumb * 100}%, Index: {Index * 100}%, Middle: {Middle * 100}%, Ring: {Ring * 100}%, Pinky: {Pinky * 100}%";
+		return $"{Thumb}, {Index}, {Middle}, {Ring}, {Pinky}";
 	}
 
 	enum FingerCurl
@@ -35,6 +39,8 @@ public sealed partial class HandPreset
 		Ring = ring;
 		Pinky = pinky;
 	}
+
+	public HandPreset() { }
 
 	string GetFingerCurl( FingerCurl curl )
 	{

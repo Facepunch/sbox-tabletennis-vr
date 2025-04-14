@@ -1,4 +1,3 @@
-namespace TableTennis;
 
 public partial class HandPreset
 {
