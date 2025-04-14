@@ -50,7 +50,7 @@ public partial class GameManager
 	/// <summary>
 	/// How long has it been since the game state changed?
 	/// </summary>
-	[Sync] public TimeSince TimeSinceGameStateChanged { get; private set; } = 1f;
+	[Sync( SyncFlags.FromHost )] public TimeSince TimeSinceGameStateChanged { get; private set; } = 1f;
 
 	/// <summary>
 	/// Which team hit the ball last?
@@ -83,10 +83,15 @@ public partial class GameManager
 	/// </summary>
 	[Sync] public int RallyCount { get; private set; } = 0;
 
+	/// <summary>
+	/// Who's serving?
+	/// </summary>
 	[Sync] public Team ServingTeam { get; private set; } = Team.None;
 
-	private GameState _state;
-	[Sync( Query = true )] public GameState State
+	[Sync, Change( nameof( OnStateChanged ) )]
+	private GameState _state { get; set; }
+
+	public GameState State
 	{
 		get => _state;
 		private set
@@ -97,7 +102,6 @@ public partial class GameManager
 			_state = value;
 
 			Log.Info( $"Game state has changed from {oldState} to {_state}" );
-			OnStateChanged( oldState, _state );
 			TimeSinceGameStateChanged = 0;
 		}
 	}

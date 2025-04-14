@@ -3,11 +3,13 @@
   "Type": "game",
   "Org": "facepunch",
   "Ident": "tabletennis",
-  "Tags": "",
   "Schema": 1,
+  "IncludeSourceFiles": false,
   "Resources": "/code/ui/*\n/ui/*",
   "PackageReferences": [],
   "EditorReferences": null,
+  "Mounts": null,
+  "IsStandaloneOnly": false,
   "Metadata": {
     "MapList": [
       "facepunch.tt_arena"

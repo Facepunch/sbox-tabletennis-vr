@@ -10,6 +10,9 @@ public enum Team
 	Red
 }
 
+/// <summary>
+/// Dictates what team something belongs to
+/// </summary>
 public partial class TeamComponent : Component
 {
 	public Action<Team> OnTeamChanged { get; set; } 
