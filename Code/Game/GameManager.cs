@@ -1,22 +1,26 @@
 namespace TableTennis;
 
 [Title( "Game" ), Icon( "sports_tennis" )]
-public partial class GameManager : Component
+public partial class GameManager : Component, Component.INetworkListener, ISceneStartup
 {
 	public static GameManager Instance { get; private set; }
 
 	protected override void OnStart()
 	{
 		Instance = this;
-
-		DebugStartGameAsync();
 	}
 
-	protected async void DebugStartGameAsync()
+	void ISceneStartup.OnHostInitialize()
 	{
-		await GameTask.DelaySeconds( 1f );
+		Networking.CreateLobby( new Sandbox.Network.LobbyConfig() { MaxPlayers = 2, DestroyWhenHostLeaves = true } );
+	}
 
-		// We're serving by default, TODO: Networking OnActive
+	void Component.INetworkListener.OnActive( Connection channel )
+	{
+		channel.CanSpawnObjects = false;
+
+		// TODO: create player here
+
 		State = GameState.Serving;
 		ServingTeam = Team.Red;
 	}
