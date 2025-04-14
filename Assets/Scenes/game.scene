@@ -2913,36 +2913,6 @@
       ]
     },
     {
-      "__guid": "27a4fe24-6f6c-4fc4-a903-201399d5d436",
-      "Flags": 0,
-      "Name": "Game",
-      "Position": "43.10672,-45.59146,-47.44153",
-      "Enabled": true,
-      "Components": [
-        {
-          "__type": "TableTennis.GameManager",
-          "__guid": "0f44ee38-e38d-4788-86e0-3cdb5e9d4462",
-          "BallPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/player/ball.prefab"
-          },
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "PlayArea": {
-            "_type": "component",
-            "component_id": "b954713b-6e67-457f-9c02-46a578c344c3",
-            "go": "8173f065-486c-49a1-91d8-0ac6541aa8f3",
-            "component_type": "PlayArea"
-          }
-        }
-      ],
-      "Children": []
-    },
-    {
       "__guid": "8173f065-486c-49a1-91d8-0ac6541aa8f3",
       "Flags": 0,
       "Name": "PlayArea",

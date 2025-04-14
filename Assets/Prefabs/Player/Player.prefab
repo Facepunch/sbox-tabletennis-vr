@@ -12,14 +12,24 @@
           "_type": "gameobject",
           "go": "62128a1f-073e-436d-bce1-e31de0333522"
         },
-        "LeftHand": null,
+        "LeftHand": {
+          "_type": "component",
+          "component_id": "f12a81a2-82ab-41ca-98f8-5f08fe4a477e",
+          "go": "6be6814c-72d2-4bd6-b28f-3128638a28db",
+          "component_type": "Hand"
+        },
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
-        "RightHand": null
+        "RightHand": {
+          "_type": "component",
+          "component_id": "7fe75a99-12be-4dbe-b6f4-6df5d607be2a",
+          "go": "50061b70-1d1c-445a-a06e-97a0e610fae6",
+          "component_type": "Hand"
+        }
       },
       {
         "__type": "TableTennis.TeamComponent",

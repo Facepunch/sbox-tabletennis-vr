@@ -1,13 +1,9 @@
-using Sandbox.Services;
 using TableTennis;
 
 public partial class VrSimulator : Component
 {
-	[Property]
-	public Hand LeftHand { get; set; }
-
-	[Property]
-	public Hand RightHand { get; set; }
+	public Hand LeftHand => Player.LeftHand;
+	public Hand RightHand => Player.RightHand;
 
 	[Property]
 	public Player Player { get; set; }
@@ -25,6 +21,12 @@ public partial class VrSimulator : Component
 	protected override void OnUpdate()
 	{
 		if ( !Game.IsEditor ) return;
+
+		if ( !Player.IsValid() )
+		{
+			var pl = Scene.GetAll<Player>().FirstOrDefault();
+			if ( pl.IsValid() ) Player = pl;
+		}
 
 		Output();
 

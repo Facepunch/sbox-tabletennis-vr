@@ -56,6 +56,7 @@
     },
     "StartupScene": "scenes/menu.scene",
     "LaunchMode": "Normal",
-    "MapStartupScene": "scenes/menu.scene"
+    "MapStartupScene": "scenes/menu.scene",
+    "SystemScene": "scenes/engine.scene"
   }
 }

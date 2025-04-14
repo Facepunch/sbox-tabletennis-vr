@@ -1,0 +1,62 @@
+{
+  "__guid": "baf9f945-f2a2-489d-8eff-681e5aacf056",
+  "GameObjects": [
+    {
+      "__guid": "27a4fe24-6f6c-4fc4-a903-201399d5d436",
+      "Flags": 0,
+      "Name": "Game",
+      "Position": "43.10672,-45.59146,-47.44153",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "TableTennis.GameManager",
+          "__guid": "0f44ee38-e38d-4788-86e0-3cdb5e9d4462",
+          "BallPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player/ball.prefab"
+          },
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        },
+        {
+          "__type": "VrSimulator",
+          "__guid": "ce98ec0e-4a9c-4790-ac69-f1cf65a93a93",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        }
+      ],
+      "Children": []
+    }
+  ],
+  "SceneProperties": {
+    "NetworkInterpolation": true,
+    "TimeScale": 0.75,
+    "WantsSystemScene": true,
+    "Metadata": {},
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "ResourceVersion": 2,
+  "Title": null,
+  "Description": null,
+  "__references": [],
+  "__version": 2
+}

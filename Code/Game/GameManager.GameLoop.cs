@@ -39,7 +39,7 @@ public partial class GameManager
 	/// <summary>
 	/// The play area for this game. Used to dictate where the ball is bouncing, defined by two zones created in the editor.
 	/// </summary>
-	[Property] public PlayArea PlayArea { get; set; }
+	public PlayArea PlayArea => Scene.GetAll<PlayArea>().FirstOrDefault();
 
 	/// <summary>
 	/// A game of table tennis has a total of 11 points.
