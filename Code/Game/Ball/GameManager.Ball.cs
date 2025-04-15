@@ -13,15 +13,18 @@ public partial class GameManager : IGameEvents
 	/// </summary>
 	[Property] public GameObject BallPrefab { get; set; }
 
-	private Ball ball;
+	[Sync( SyncFlags.FromHost )]
+	private Ball _ball { get; set; }
+
 	private Ball GetOrCreateBall()
 	{
 		// Do we already have a valid ball?
-		if ( ball.IsValid() ) return ball;
+		if ( _ball.IsValid() ) return _ball;
 
 		var inst = BallPrefab.Clone();
 		var x = inst.Components.Get<Ball>( FindMode.EnabledInSelfAndDescendants );
-		ball = x;
+		_ball = x;
+		inst.NetworkSpawn();
 
 		return x;
 	}
