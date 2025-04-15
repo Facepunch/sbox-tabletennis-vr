@@ -7,33 +7,27 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 	[Property, Group( "Sounds" )] public SoundEvent BallHitSound { get; set; }
 	[Property, Group( "Sounds" )] public SoundEvent BallBounceSound { get; set; }
 	[Property, Group( "Sounds" )] public float MinContactSpeed { get; set; } = 70f;
-
 	[Property] public Rigidbody Rigidbody { get; set; }
+
+	/// <summary>
+	/// The grab reference for this paddle
+	/// </summary>
+	[Property] public GrabReference GrabReference { get; set; }
 
 	/// <summary>
 	/// The hand that is holding this object ( can be null )
 	/// </summary>
 	public Hand Hand { get; set; }
 
-	/// <summary>
-	/// The grab reference for this paddle
-	/// </summary>
-	[Property]
-	public GrabReference GrabReference { get; set; }
-
 	// IGrabbable 
-
 	Hand IGrabbable.Hand => Hand;
-
 	GrabInput IGrabbable.GrabInput => GrabInput.Grip;
-
 	HandPreset IGrabbable.GetHandPreset( Hand hand ) => GrabReference.HandPreset;
 
 	bool IGrabbable.StartGrabbing( Hand hand )
 	{
 		Hand = hand;
 		Rigidbody.MotionEnabled = false;
-
 		return true;
 	}
 
@@ -47,7 +41,6 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 		}
 
 		Hand = null;
-
 		return true;
 	}
 

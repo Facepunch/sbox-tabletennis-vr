@@ -2777,15 +2777,6 @@
       "__PrefabVariables": {}
     },
     {
-      "__guid": "ec6cc4e4-6b32-4e56-bb84-47bd91aaea00",
-      "Flags": 0,
-      "Name": "ball",
-      "Position": "1.34304,-30.94763,96",
-      "Rotation": "0,0.6968268,0,0.7172394",
-      "__Prefab": "prefabs/player/ball.prefab",
-      "__PrefabVariables": {}
-    },
-    {
       "__guid": "bb575e11-0fca-46d2-abf3-33f15892e8a0",
       "Flags": 0,
       "Name": "origin",
@@ -2793,124 +2784,6 @@
       "Rotation": "0,0.7071067,0,0.7071067",
       "Components": [],
       "Children": []
-    },
-    {
-      "__guid": "d87a3e0d-56b7-4b5b-a961-642194f7f0b8",
-      "Flags": 0,
-      "Name": "paddle",
-      "Position": "-4.426104,-30.94763,51.35988",
-      "Rotation": "0,0.7071067,0,0.7071067",
-      "Tags": "paddle",
-      "Components": [
-        {
-          "__type": "Sandbox.Rigidbody",
-          "__guid": "e1507a5c-749a-4b19-b27c-cefac00c1191",
-          "AngularDamping": 0,
-          "Gravity": true,
-          "LinearDamping": 0,
-          "Locking": {
-            "X": false,
-            "Y": false,
-            "Z": false,
-            "Pitch": false,
-            "Yaw": false,
-            "Roll": false
-          },
-          "MassCenterOverride": "0,0,0",
-          "MassOverride": 0,
-          "MotionEnabled": false,
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OverrideMassCenter": false,
-          "RigidbodyFlags": 0,
-          "StartAsleep": false
-        },
-        {
-          "__type": "Sandbox.ModelCollider",
-          "__guid": "a77f4823-f38d-4f0f-9fa6-d53194cb53ff",
-          "Friction": null,
-          "IsTrigger": false,
-          "Model": "models/tabletennis.paddle.vmdl",
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null,
-          "OnObjectTriggerEnter": null,
-          "OnObjectTriggerExit": null,
-          "OnTriggerEnter": null,
-          "OnTriggerExit": null,
-          "Static": false,
-          "Surface": "surfaces/tabletennis.paddle_rubber.surface",
-          "SurfaceVelocity": "0,0,0"
-        },
-        {
-          "__type": "PaddleTestComponent",
-          "__guid": "9ef97e76-80a1-421d-9181-0414c13269db",
-          "Ball": {
-            "_type": "gameobject",
-            "go": "ec6cc4e4-6b32-4e56-bb84-47bd91aaea00"
-          },
-          "BallOrigin": {
-            "_type": "gameobject",
-            "go": "bb575e11-0fca-46d2-abf3-33f15892e8a0"
-          },
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
-        }
-      ],
-      "Children": [
-        {
-          "__guid": "6eeac84e-7309-4cbc-b75b-f3e35fdd9232",
-          "Flags": 0,
-          "Name": "Model",
-          "Enabled": true,
-          "Components": [
-            {
-              "__type": "Sandbox.ModelRenderer",
-              "__guid": "a3840611-c9c7-4beb-a6a9-2fc0c8ae3bd6",
-              "BodyGroups": 18446744073709551615,
-              "CreateAttachments": false,
-              "MaterialGroup": null,
-              "MaterialOverride": null,
-              "Model": "models/tabletennis.paddle.vmdl",
-              "OnComponentDestroy": null,
-              "OnComponentDisabled": null,
-              "OnComponentEnabled": null,
-              "OnComponentFixedUpdate": null,
-              "OnComponentStart": null,
-              "OnComponentUpdate": null,
-              "RenderOptions": {
-                "GameLayer": true,
-                "OverlayLayer": false,
-                "BloomLayer": false,
-                "AfterUILayer": false
-              },
-              "RenderType": "Off",
-              "Tint": "1,1,1,1"
-            }
-          ],
-          "Children": []
-        },
-        {
-          "__guid": "9e6d8e75-1191-4110-b5fb-1e173f117127",
-          "Flags": 0,
-          "Name": "Hold Origin",
-          "Position": "0,0,-0.7831359",
-          "Enabled": true,
-          "Components": [],
-          "Children": []
-        }
-      ]
     },
     {
       "__guid": "8173f065-486c-49a1-91d8-0ac6541aa8f3",
@@ -2992,7 +2865,12 @@
         {
           "__type": "Sandbox.Reflect",
           "__guid": "69952f7e-72db-433d-af52-2e24374f6ae9",
-          "Collider": null,
+          "Collider": {
+            "_type": "component",
+            "component_id": "e67e0085-6bd8-462a-a4c7-e771dc632932",
+            "go": "1292b8a3-68ca-407d-87e2-244f38f1d22e",
+            "component_type": "BoxCollider"
+          },
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -3041,7 +2919,7 @@
           "OnComponentFixedUpdate": null,
           "OnComponentStart": null,
           "OnComponentUpdate": null,
-          "Power": 400
+          "Power": 250
         }
       ],
       "Children": []

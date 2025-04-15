@@ -19,6 +19,7 @@ public sealed class BallShooter : Component
 
 	private void Shoot()
 	{
+		Ball.Hand.Release();
 		Ball.WorldPosition = WorldPosition;
 		Ball.Rigidbody.Velocity = Vector3.Zero;
 		Ball.Rigidbody.AngularVelocity = Vector3.Zero;

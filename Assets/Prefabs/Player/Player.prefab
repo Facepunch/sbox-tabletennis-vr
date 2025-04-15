@@ -55,7 +55,10 @@
           {
             "__type": "Hand",
             "__guid": "7fe75a99-12be-4dbe-b6f4-6df5d607be2a",
-            "DefaultGrabbable": null,
+            "DefaultGrabbable": {
+              "_type": "gameobject",
+              "go": "b29681b8-7475-44ef-bde3-4bb5217c477d"
+            },
             "HandSource": "Right",
             "IsToggleGrab": true,
             "OnComponentDestroy": null,
@@ -389,6 +392,15 @@
           }
         ],
         "Children": []
+      },
+      {
+        "__guid": "b29681b8-7475-44ef-bde3-4bb5217c477d",
+        "Flags": 0,
+        "Name": "paddle",
+        "Tags": "paddle",
+        "Enabled": true,
+        "__Prefab": "prefabs/player/paddle.prefab",
+        "__PrefabVariables": {}
       }
     ],
     "__variables": [],
