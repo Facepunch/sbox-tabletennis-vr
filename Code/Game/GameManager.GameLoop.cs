@@ -209,14 +209,77 @@ public partial class GameManager
 		return Team.Blue;
 	}
 
-	/// <summary>
-	/// Called when the ball is hit by the paddle.
-	/// </summary>
-	/// <param name="e"></param>
-	public void OnBallHit( BallHitEvent e )
+	void IGameEvents.OnBallBounce( Ball ball, Collision collision, bool isTableHit )
 	{
-		OnBallHitEvent?.Invoke( e );
+		// The bounce winner is the person who wins based on where the ball landed.
+		var areaTeam = PlayArea.GetTeamForArea( collision.Contact.Point );
 
+		// Get the opposing team for where the ball landed, since they're gonna win this
+		var bounceWinner = GetOpposingTeam( areaTeam );
+
+		CurrentBounce++;
+
+		switch ( State )
+		{
+			case GameState.Serving:
+				{
+					// If the ball bounces somewhere while we're serving, assume that the paddle was not hit once.
+					// The state gets set to Playing if the paddle is hit.
+					State = GameState.FailedServe;
+
+				}
+				break;
+			case GameState.Playing:
+				{
+
+					bool isTable = collision.Other.GameObject.Tags.Has( "table" );
+
+					if ( !isTable )
+					{
+						if ( CurrentBounce == 3 )
+						{
+							WinRound( ServingTeam );
+						}
+						else
+						{
+							WinRound( GetOpposingTeam( ServingTeam ) );
+						}
+					}
+					// RallyCount == 1 assumes that the player just served, but hit the ball once.
+					// Let's behave differently here.
+					else if ( RallyCount == 1 )
+					{
+						if ( CurrentBounce == 1 )
+						{
+							// The ball must hit the serving team's side, otherwise it's illegal play.
+							if ( areaTeam == ServingTeam )
+							{
+								WinRound( GetOpposingTeam( ServingTeam ) );
+							}
+						}
+						// If we hit the third bounce.
+						else if ( CurrentBounce == 3 )
+						{
+							WinRound( bounceWinner );
+						}
+					}
+					// If we're on any other rally other than the first rally, let's play normal.
+					// If the ball hits the second bounce, game over.
+					else if ( RallyCount > 1 )
+					{
+						if ( CurrentBounce == 2 )
+						{
+							WinRound( bounceWinner );
+						}
+					}
+
+				}
+				break;
+		}
+	}
+
+	void IGameEvents.OnBallHit( Ball ball, Paddle paddle, Collision collision )
+	{
 		TimeSinceBallHit = 0;
 
 		// Host is in charge of gameplay loop stuff.
@@ -224,7 +287,7 @@ public partial class GameManager
 			return;
 
 		// Look for a team component from the paddle's hierarchy.
-		LastBallHitTeam = e.Paddle.GetTeam();
+		LastBallHitTeam = paddle.GetTeam();
 
 		// Up the rally count
 		RallyCount++;
@@ -279,74 +342,5 @@ public partial class GameManager
 	{
 		var hand = GetLeftHand( player );
 		hand.Pickup( Ball );
-	}
-
-	public void OnBallBounced( BallBounceEvent e )
-	{
-		OnBallBouncedEvent?.Invoke( e );
-
-		// The bounce winner is the person who wins based on where the ball landed.
-		var areaTeam = PlayArea.GetTeamForArea( e.Collision.Contact.Point );
-
-		// Get the opposing team for where the ball landed, since they're gonna win this
-		var bounceWinner = GetOpposingTeam( areaTeam );
-
-		CurrentBounce++;
-
-		switch ( State )
-		{
-			case GameState.Serving:
-				{
-					// If the ball bounces somewhere while we're serving, assume that the paddle was not hit once.
-					// The state gets set to Playing if the paddle is hit.
-					State = GameState.FailedServe;
-
-				} break;
-			case GameState.Playing:
-				{
-
-					bool isTable = e.Collision.Other.GameObject.Tags.Has( "table" );
-
-					if ( !isTable )
-					{
-						if ( CurrentBounce == 3 )
-						{
-							WinRound( ServingTeam );
-						}
-						else
-						{
-							WinRound( GetOpposingTeam( ServingTeam ) );
-						}
-					}
-					// RallyCount == 1 assumes that the player just served, but hit the ball once.
-					// Let's behave differently here.
-					else if ( RallyCount == 1 )
-					{
-						if ( CurrentBounce == 1 )
-						{
-							// The ball must hit the serving team's side, otherwise it's illegal play.
-							if ( areaTeam == ServingTeam )
-							{
-								WinRound( GetOpposingTeam( ServingTeam ) );
-							}
-						}
-						// If we hit the third bounce.
-						else if ( CurrentBounce == 3 )
-						{
-							WinRound( bounceWinner );
-						}
-					}
-					// If we're on any other rally other than the first rally, let's play normal.
-					// If the ball hits the second bounce, game over.
-					else if ( RallyCount > 1 )
-					{
-						if ( CurrentBounce == 2 )
-						{
-							WinRound( bounceWinner );
-						}
-					}
-
-				} break;
-		}
 	}
 }

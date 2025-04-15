@@ -1,24 +1,17 @@
 namespace TableTennis;
 
-public partial class GameManager
+public interface IGameEvents : ISceneEvent<IGameEvents>
 {
-	public record BallBounceEvent( Ball Ball, Collision Collision );
-	public record BallHitEvent( Ball Ball, Paddle Paddle, Collision Collision );
+	public void OnBallBounce( Ball ball, Collision collision, bool isTableHit );
+	public void OnBallHit( Ball ball, Paddle paddle, Collision collision );
+}
 
+public partial class GameManager : IGameEvents
+{
 	/// <summary>
 	/// Points to the ball prefab.
 	/// </summary>
 	[Property] public GameObject BallPrefab { get; set; }
-
-	/// <summary>
-	/// Called when the ball bounces on a surface.
-	/// </summary>
-	public Action<BallBounceEvent> OnBallBouncedEvent { get; set; }
-
-	/// <summary>
-	/// Called when the ball bounces on a surface.
-	/// </summary>
-	public Action<BallHitEvent> OnBallHitEvent { get; set; }
 
 	private Ball ball;
 	private Ball GetOrCreateBall()

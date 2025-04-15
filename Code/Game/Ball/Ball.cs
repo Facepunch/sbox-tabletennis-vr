@@ -53,12 +53,12 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 			Sound.Play( BallHitSound, collision.Contact.Point );
 
 			var paddle = collision.Other.GameObject.Components.Get<Paddle>( FindMode.EnabledInSelfAndDescendants );
-			GameManager.Instance?.OnBallHit( new( this, paddle, collision ) );
+			Scene.RunEvent<IGameEvents>( x => x.OnBallHit( this, paddle, collision ) );
 		}
-		if ( collision.Other.GameObject.Tags.Has( "table" ) )
+		else
 		{
 			Sound.Play( BallBounceSound, collision.Contact.Point );
-			GameManager.Instance?.OnBallBounced( new( this, collision ) );
+			Scene.RunEvent<IGameEvents>( x => x.OnBallBounce( this, collision, collision.Other.GameObject.Tags.Has( "table" ) ) );
 		}
 	}
 
