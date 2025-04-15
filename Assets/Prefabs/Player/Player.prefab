@@ -8,6 +8,12 @@
       {
         "__type": "TableTennis.Player",
         "__guid": "df2dc1b7-820c-4470-9526-02d670710485",
+        "Camera": {
+          "_type": "component",
+          "component_id": "6424f89b-52be-4076-adbc-da98e799d843",
+          "go": "62128a1f-073e-436d-bce1-e31de0333522",
+          "component_type": "CameraComponent"
+        },
         "Head": {
           "_type": "gameobject",
           "go": "62128a1f-073e-436d-bce1-e31de0333522"
@@ -51,6 +57,7 @@
         "Position": "0.000001907349,-16,48",
         "Tags": "hand",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Hand",
@@ -182,6 +189,7 @@
         "Position": "0,16,48",
         "Tags": "hand",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Hand",
@@ -310,6 +318,7 @@
         "Position": "0,0,64",
         "Tags": "cameras",
         "Enabled": true,
+        "NetworkMode": 1,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
@@ -350,6 +359,7 @@
           {
             "__type": "Sandbox.CameraComponent",
             "__guid": "6424f89b-52be-4076-adbc-da98e799d843",
+            "__enabled": false,
             "BackgroundColor": "0.33333,0.46275,0.52157,1",
             "ClearFlags": "All",
             "FieldOfView": 80,

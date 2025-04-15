@@ -4,6 +4,8 @@
     "Flags": 0,
     "Name": "ball",
     "Enabled": true,
+    "NetworkMode": 1,
+    "OwnerTransfer": 0,
     "Components": [
       {
         "__type": "TableTennis.Ball",

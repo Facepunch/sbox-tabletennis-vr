@@ -28,6 +28,10 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 	{
 		Hand = hand;
 		Rigidbody.MotionEnabled = false;
+
+		// We're in charge
+		Network.AssignOwnership( hand.Network.Owner );
+
 		return true;
 	}
 

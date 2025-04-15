@@ -25,4 +25,18 @@ public partial class Player : Component
 	/// Auto-create a Team Component
 	/// </summary>
 	[RequireComponent] public TeamComponent Team { get; private set; }
+
+	/// <summary>
+	/// The player's camera
+	/// </summary>
+	[Property]
+	public CameraComponent Camera { get; set; }
+
+	protected override void OnStart()
+	{
+		if ( IsProxy )
+			return;
+
+		Camera.Enabled = true;
+	}
 }

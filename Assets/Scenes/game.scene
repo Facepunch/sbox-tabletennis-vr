@@ -2884,7 +2884,6 @@
       "Name": "Ball Shooter",
       "Position": "41.45245,-73.15772,57.49288",
       "Rotation": "0.0005678175,-0.0004015874,0.8164423,0.5774267",
-      "Enabled": true,
       "Components": [
         {
           "__type": "Sandbox.BallShooter",
