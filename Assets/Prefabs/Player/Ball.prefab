@@ -4,29 +4,25 @@
     "Flags": 0,
     "Name": "ball",
     "Enabled": true,
-    "NetworkMode": 2,
-    "NetworkInterpolation": true,
     "Components": [
       {
         "__type": "TableTennis.Ball",
         "__guid": "9d582563-88da-4073-9df1-7c3992a06ef5",
         "BallBounceSound": "sounds/tabletennis.bounce.sound",
         "BallHitSound": "sounds/tabletennis.serve.sound",
-        "HandAnglesOffset": "0,0,0",
-        "HandPreset": {
-          "Thumb": 1,
-          "Index": 1,
-          "Middle": 1,
-          "Ring": 1,
-          "Pinky": 1
+        "GrabReference": {
+          "_type": "component",
+          "component_id": "0d814bd9-5566-4045-9ab2-b4e51a63e6f1",
+          "go": "73c81482-5c14-4157-be35-281f049fa616",
+          "component_type": "GrabReference"
         },
-        "HoldInput": "GripButton",
-        "HoldPoint": {
-          "_type": "gameobject",
-          "go": "73c81482-5c14-4157-be35-281f049fa616"
-        },
-        "HoldType": "OnRelease",
         "MinContactSpeed": 70,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Rigidbody": {
           "_type": "component",
           "component_id": "fe17a9a4-22a5-48ee-9573-77ba5bb7341c",
@@ -40,9 +36,24 @@
         "AngularDamping": 0,
         "Gravity": true,
         "LinearDamping": 0,
-        "Locking": {},
+        "Locking": {
+          "X": false,
+          "Y": false,
+          "Z": false,
+          "Pitch": false,
+          "Yaw": false,
+          "Roll": false
+        },
+        "MassCenterOverride": "0,0,0",
         "MassOverride": 0,
         "MotionEnabled": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OverrideMassCenter": false,
         "RigidbodyFlags": 0,
         "StartAsleep": false
       },
@@ -50,10 +61,22 @@
         "__type": "Sandbox.SphereCollider",
         "__guid": "38148e94-6081-4b06-a0f6-44af6ec62133",
         "Center": "0,0,0",
+        "Friction": null,
         "IsTrigger": false,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
+        "OnObjectTriggerEnter": null,
+        "OnObjectTriggerExit": null,
+        "OnTriggerEnter": null,
+        "OnTriggerExit": null,
         "Radius": 1,
         "Static": false,
-        "Surface": "surfaces/tabletennis.ball.surface"
+        "Surface": "surfaces/tabletennis.ball.surface",
+        "SurfaceVelocity": "0,0,0"
       }
     ],
     "Children": [
@@ -62,32 +85,86 @@
         "Flags": 0,
         "Name": "Model",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true,
         "Components": [
           {
             "__type": "Sandbox.ModelRenderer",
             "__guid": "29accdeb-462d-4284-b69d-b33c01aba2e9",
             "BodyGroups": 18446744073709551615,
+            "CreateAttachments": false,
+            "MaterialGroup": null,
+            "MaterialOverride": null,
             "Model": "models/tabletennis.ball.vmdl",
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "RenderOptions": {
+              "GameLayer": true,
+              "OverlayLayer": false,
+              "BloomLayer": false,
+              "AfterUILayer": false
+            },
             "RenderType": "Off",
             "Tint": "1,1,1,1"
           }
-        ]
+        ],
+        "Children": []
       },
       {
         "__guid": "73c81482-5c14-4157-be35-281f049fa616",
         "Flags": 0,
         "Name": "Hold Position",
+        "Position": "-1.781496,0.3600058,-0.9711908",
         "Enabled": true,
-        "NetworkMode": 2,
-        "NetworkInterpolation": true
+        "Components": [
+          {
+            "__type": "GrabReference",
+            "__guid": "0d814bd9-5566-4045-9ab2-b4e51a63e6f1",
+            "HandPreset": {
+              "Thumb": 0.54,
+              "Index": 0.45,
+              "Middle": 1,
+              "Ring": 1,
+              "Pinky": 1
+            },
+            "OnComponentDestroy": null,
+            "OnComponentDisabled": null,
+            "OnComponentEnabled": null,
+            "OnComponentFixedUpdate": null,
+            "OnComponentStart": null,
+            "OnComponentUpdate": null,
+            "VisualHand": "Left"
+          }
+        ],
+        "Children": []
       }
-    ]
+    ],
+    "__variables": [],
+    "__properties": {
+      "NetworkInterpolation": true,
+      "TimeScale": 1,
+      "WantsSystemScene": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

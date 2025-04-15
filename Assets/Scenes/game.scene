@@ -11,7 +11,7 @@
           "__type": "Sandbox.SceneInformation",
           "__guid": "d3553058-1ecd-416b-8dea-3bc6db680834",
           "Author": null,
-          "Changes": null,
+          "Changes": "",
           "Description": "",
           "Group": null,
           "OnComponentDestroy": null,
@@ -2981,11 +2981,75 @@
         }
       ],
       "Children": []
+    },
+    {
+      "__guid": "1292b8a3-68ca-407d-87e2-244f38f1d22e",
+      "Flags": 0,
+      "Name": "ReflectBarrier",
+      "Position": "0.4271077,36.60761,41.16669",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.Reflect",
+          "__guid": "69952f7e-72db-433d-af52-2e24374f6ae9",
+          "Collider": null,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "e67e0085-6bd8-462a-a4c7-e771dc632932",
+          "Center": "0,18.46109,0",
+          "Friction": null,
+          "IsTrigger": false,
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "OnObjectTriggerEnter": null,
+          "OnObjectTriggerExit": null,
+          "OnTriggerEnter": null,
+          "OnTriggerExit": null,
+          "Scale": "50,13.0778,50",
+          "Static": false,
+          "Surface": null,
+          "SurfaceVelocity": "0,0,0"
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "08e827ec-9b9f-4ea1-81cf-4103c0d6aad5",
+      "Flags": 0,
+      "Name": "Ball Shooter",
+      "Position": "41.45245,-73.15772,57.49288",
+      "Rotation": "0.0005678175,-0.0004015874,0.8164423,0.5774267",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.BallShooter",
+          "__guid": "6c165899-4080-48f6-ba86-f2ec920045f3",
+          "OnComponentDestroy": null,
+          "OnComponentDisabled": null,
+          "OnComponentEnabled": null,
+          "OnComponentFixedUpdate": null,
+          "OnComponentStart": null,
+          "OnComponentUpdate": null,
+          "Power": 400
+        }
+      ],
+      "Children": []
     }
   ],
   "SceneProperties": {
     "NetworkInterpolation": true,
-    "TimeScale": 0.75,
+    "TimeScale": 0.5,
     "WantsSystemScene": true,
     "Metadata": {
       "Title": "game"

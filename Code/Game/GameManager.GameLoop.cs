@@ -1,3 +1,5 @@
+using VRTK;
+
 namespace TableTennis;
 
 public enum GameState
@@ -126,9 +128,16 @@ public partial class GameManager
 
 		if ( newState == GameState.FailedServe )
 		{
-			State = GameState.Serving;
+			SetStateAsync( GameState.Serving );	
 		}
 	}
+
+	private async void SetStateAsync( GameState state, float time = 0.5f )
+	{
+		await GameTask.DelaySeconds( time );
+		State = state;
+	}
+
 
 	/// <summary>
 	/// Called when a team wins a round
@@ -269,14 +278,7 @@ public partial class GameManager
 	public void PlaceBallInHand( Player player )
 	{
 		var hand = GetLeftHand( player );
-		var ball = Ball;
-		ball.GameObject.WorldPosition = hand.WorldPosition;
-
-		// TODO: fix this
-		// Anyone! Stop holding the ball!
-		// ball.HeldHand?.StopHolding();
-
-		// hand.StartHolding( ball );
+		hand.Pickup( Ball );
 	}
 
 	public void OnBallBounced( BallBounceEvent e )
@@ -289,6 +291,8 @@ public partial class GameManager
 		// Get the opposing team for where the ball landed, since they're gonna win this
 		var bounceWinner = GetOpposingTeam( areaTeam );
 
+		CurrentBounce++;
+
 		switch ( State )
 		{
 			case GameState.Serving:
@@ -300,7 +304,6 @@ public partial class GameManager
 				} break;
 			case GameState.Playing:
 				{
-					CurrentBounce++;
 
 					bool isTable = e.Collision.Other.GameObject.Tags.Has( "table" );
 

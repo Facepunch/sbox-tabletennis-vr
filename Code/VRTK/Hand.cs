@@ -108,6 +108,17 @@ public sealed class Hand : Component
 		return false;
 	}
 
+	public bool Pickup( IGrabbable grabbable )
+	{
+		if ( grabbable.StartGrabbing( this ) )
+		{
+			Grabbable = grabbable;
+			return true;
+		}
+
+		return false;
+	}
+
 	/// <summary>
 	/// Is the hand grip down?
 	/// </summary>

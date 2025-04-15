@@ -8,6 +8,8 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 	[Property, Group( "Sounds" )] public SoundEvent BallBounceSound { get; set; }
 	[Property, Group( "Sounds" )] public float MinContactSpeed { get; set; } = 70f;
 
+	[Property] public Rigidbody Rigidbody { get; set; }
+
 	/// <summary>
 	/// The hand that is holding this object ( can be null )
 	/// </summary>
@@ -23,18 +25,30 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 
 	Hand IGrabbable.Hand => Hand;
 
-	GrabInput IGrabbable.GrabInput => GrabInput.None;
+	GrabInput IGrabbable.GrabInput => GrabInput.Grip;
 
 	HandPreset IGrabbable.GetHandPreset( Hand hand ) => GrabReference.HandPreset;
 
 	bool IGrabbable.StartGrabbing( Hand hand )
 	{
-		return false;
+		Hand = hand;
+		Rigidbody.MotionEnabled = false;
+
+		return true;
 	}
 
 	bool IGrabbable.StopGrabbing( Hand hand )
 	{
-		return false;
+		Rigidbody.MotionEnabled = true;
+
+		if ( Hand.IsValid() )
+		{
+			Rigidbody.Velocity = Hand.Velocity;
+		}
+
+		Hand = null;
+
+		return true;
 	}
 
 	void ICollisionListener.OnCollisionStart( Sandbox.Collision collision )
@@ -52,6 +66,22 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 		{
 			Sound.Play( BallBounceSound, collision.Contact.Point );
 			GameManager.Instance?.OnBallBounced( new( this, collision ) );
+		}
+	}
+
+	protected override void OnUpdate()
+	{
+		if ( !Hand.IsValid() )
+			return;
+
+		if ( Hand.IsValid() )
+		{
+			var reference = GetComponentInChildren<GrabReference>();
+			var offset = reference.LocalPosition + reference.GetOffset( Hand.HandSource );
+			var rotatedOffset = Hand.WorldRotation * offset;
+
+			WorldPosition = Hand.WorldPosition - rotatedOffset;
+			WorldRotation = Hand.WorldRotation;
 		}
 	}
 }
