@@ -2,11 +2,11 @@ namespace TableTennis;
 
 public interface IGameEvents : ISceneEvent<IGameEvents>
 {
-	public void OnBallBounce( Ball ball, Collision collision, bool isTableHit );
-	public void OnBallHit( Ball ball, Paddle paddle, Collision collision );
+	public void OnBallBounce( Ball ball, bool isTableHit );
+	public void OnBallHit( Ball ball, Paddle paddle );
 }
 
-public partial class GameManager : IGameEvents
+public partial class GameManager
 {
 	/// <summary>
 	/// Points to the ball prefab.

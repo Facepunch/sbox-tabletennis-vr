@@ -1,3 +1,4 @@
+using Sandbox;
 using VRTK;
 
 namespace TableTennis;
@@ -47,29 +48,46 @@ public partial class Ball : Component, IGrabbable, Component.ICollisionListener
 		Hand = null;
 		return true;
 	}
+	// endof: IGrabbable
+
+	[Rpc.Broadcast]
+	private void Hit( Ball ball, Paddle paddle )
+	{
+		Sound.Play( BallHitSound, ball.WorldPosition );
+
+		Scene.RunEvent<IGameEvents>( x => x.OnBallHit( this, paddle ) );
+	}
+
+	[Rpc.Broadcast]
+	private void Bounce( Ball ball, bool tableHit )
+	{
+		Sound.Play( BallBounceSound, ball.WorldPosition );
+
+		Scene.RunEvent<IGameEvents>( x => x.OnBallBounce( this, tableHit ) );
+	}
 
 	void ICollisionListener.OnCollisionStart( Sandbox.Collision collision )
 	{
+		// Whoever is in charge of the ball, is in charge of the collision
+		if ( IsProxy ) return;
+
+		// We don't care for light collisions (rolling)
 		if ( collision.Contact.Speed.Length < MinContactSpeed ) return;
 
 		if ( collision.Other.GameObject.Tags.Has( "paddle" ) )
 		{
-			Sound.Play( BallHitSound, collision.Contact.Point );
-
 			var paddle = collision.Other.GameObject.Components.Get<Paddle>( FindMode.EnabledInSelfAndDescendants );
-			Scene.RunEvent<IGameEvents>( x => x.OnBallHit( this, paddle, collision ) );
+			Hit( this, paddle );
 		}
 		else
 		{
-			Sound.Play( BallBounceSound, collision.Contact.Point );
-			Scene.RunEvent<IGameEvents>( x => x.OnBallBounce( this, collision, collision.Other.GameObject.Tags.Has( "table" ) ) );
+			Bounce( this, collision.Other.GameObject.Tags.Has( "table" ) );
 		}
 	}
 
 	protected override void OnUpdate()
 	{
-		if ( !Hand.IsValid() )
-			return;
+		if ( !Hand.IsValid() ) return;
 
 		if ( Hand.IsValid() )
 		{

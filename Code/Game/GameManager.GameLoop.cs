@@ -34,7 +34,7 @@ public enum GameState
 	FreePlay = 100
 }
 
-public partial class GameManager
+public partial class GameManager : IGameEvents
 {
 	/// <summary>
 	/// The play area for this game. Used to dictate where the ball is bouncing, defined by two zones created in the editor.
@@ -207,10 +207,13 @@ public partial class GameManager
 		return Team.Blue;
 	}
 
-	void IGameEvents.OnBallBounce( Ball ball, Collision collision, bool isTableHit )
+	void IGameEvents.OnBallBounce( Ball ball, bool isTable )
 	{
+		if ( !Networking.IsHost )
+			return;
+
 		// The bounce winner is the person who wins based on where the ball landed.
-		var areaTeam = PlayArea.GetTeamForArea( collision.Contact.Point );
+		var areaTeam = PlayArea.GetTeamForArea( ball.WorldPosition );
 
 		// Get the opposing team for where the ball landed, since they're gonna win this
 		var bounceWinner = GetOpposingTeam( areaTeam );
@@ -229,8 +232,6 @@ public partial class GameManager
 				break;
 			case GameState.Playing:
 				{
-
-					bool isTable = collision.Other.GameObject.Tags.Has( "table" );
 
 					if ( !isTable )
 					{
@@ -276,13 +277,12 @@ public partial class GameManager
 		}
 	}
 
-	void IGameEvents.OnBallHit( Ball ball, Paddle paddle, Collision collision )
+	void IGameEvents.OnBallHit( Ball ball, Paddle paddle )
 	{
-		TimeSinceBallHit = 0;
-
-		// Host is in charge of gameplay loop stuff.
-		if ( IsProxy )
+		if ( !Networking.IsHost )
 			return;
+
+		TimeSinceBallHit = 0;
 
 		// Look for a team component from the paddle's hierarchy.
 		LastBallHitTeam = paddle.GetTeam();

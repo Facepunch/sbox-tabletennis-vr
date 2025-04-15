@@ -2,6 +2,9 @@ using VRTK;
 
 namespace TableTennis;
 
+/// <summary>
+/// The paddle. It hits balls very well.
+/// </summary>
 public partial class Paddle : Component, IGrabbable
 {
 	/// <summary>
@@ -35,12 +38,14 @@ public partial class Paddle : Component, IGrabbable
 	{
 		return false;
 	}
-
+	// endof: IGrabbable
+	
 	protected override void OnUpdate()
 	{
 		if ( !Hand.IsValid() )
 			return;
 
+		// All we do is update the position of the paddle to follow the player's hand
 		if ( Hand.IsValid() )
 		{
 			var reference = GetComponentInChildren<GrabReference>();
