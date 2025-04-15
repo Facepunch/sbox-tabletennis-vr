@@ -70,6 +70,21 @@ public static class TeamExtensions
 		return comp.Color;
 	}
 
+	/// <summary>
+	/// Crude method to get a good team
+	/// </summary>
+	/// <returns></returns>
+	public static Team GetBestTeam( this TeamComponent team )
+	{
+		var teams = Game.ActiveScene.GetAll<TeamComponent>();
+		var reds = teams.Count( x => x.Team == Team.Red );
+		var blues = teams.Count( x => x.Team == Team.Blue );
+
+		if ( reds > blues ) return Team.Blue;
+
+		return Team.Red;
+	}
+
 	public static Team GetTeam( this Component component ) => component.GameObject?.GetTeam() ?? Team.None;
 	public static Color GetTeamColor( this Component component ) => component.GameObject?.GetTeamColor() ?? Color.White;
 }

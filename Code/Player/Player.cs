@@ -24,5 +24,5 @@ public partial class Player : Component
 	/// <summary>
 	/// Auto-create a Team Component
 	/// </summary>
-	[RequireComponent] public TeamComponent TeamComponent { get; private set; }
+	[RequireComponent] public TeamComponent Team { get; private set; }
 }

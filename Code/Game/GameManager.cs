@@ -5,6 +5,9 @@ public partial class GameManager : Component, Component.INetworkListener, IScene
 {
 	public static GameManager Instance { get; private set; }
 
+	[Property]
+	public GameObject PlayerPrefab { get; set; }
+
 	protected override void OnStart()
 	{
 		Instance = this;
@@ -14,14 +17,58 @@ public partial class GameManager : Component, Component.INetworkListener, IScene
 	{
 		Networking.CreateLobby( new Sandbox.Network.LobbyConfig() { MaxPlayers = 2, DestroyWhenHostLeaves = true } );
 	}
+	
+	/// <summary>
+	/// Find a spawn point for a player
+	/// </summary>
+	/// <param name="player"></param>
+	/// <returns></returns>
+	private Transform GetSpawnTransform( Player player )
+	{
+		var spawnPoints = Scene.GetAll<SpawnPoint>();
+		var desired = spawnPoints.FirstOrDefault( x => x.Tags.Has( player.Team.Team.ToString().ToLowerInvariant() ) );
+		if ( desired.IsValid() )
+		{
+			return desired.WorldTransform.WithScale( 1f );
+		}
+		else
+		{
+			return global::Transform.Zero;
+		}
+	}
 
-	void Component.INetworkListener.OnActive( Connection channel )
+	/// <summary>
+	/// Assign a team for a player 
+	/// </summary>
+	/// <param name="player"></param>
+	private void AssignTeam( Player player )
+	{
+		player.Team.Team = player.Team.GetBestTeam();
+		Log.Info( $"Assigned {player.GameObject} to {player.Team.Team}" );
+	}
+
+	void INetworkListener.OnActive( Connection channel )
 	{
 		channel.CanSpawnObjects = false;
 
-		// TODO: create player here
+		var pl = PlayerPrefab?.Clone( new CloneConfig()
+		{
+			StartEnabled = true,
+			Name = channel.DisplayName
+		} );
 
-		State = GameState.Serving;
+		var player = pl.GetComponent<Player>();
+
+		AssignTeam( player );
+
+		pl.WorldTransform = GetSpawnTransform( player );
+		pl.NetworkSpawn( channel );
+
+		if ( GameSettings.FreePlay )
+			State = GameState.FreePlay;
+		else
+			State = GameState.Serving;
+
 		ServingTeam = Team.Red;
 	}
 }

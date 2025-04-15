@@ -2728,6 +2728,7 @@
       "Name": "Blue Spawn",
       "Position": "0,64,4",
       "Rotation": "0,-0,-0.7071068,0.7071068",
+      "Tags": "blue",
       "Enabled": true,
       "Components": [
         {
@@ -2750,6 +2751,7 @@
       "Name": "Red Spawn",
       "Position": "0,-64,4",
       "Rotation": "0,0,0.7071067,0.7071068",
+      "Tags": "red",
       "Enabled": true,
       "Components": [
         {
@@ -2765,16 +2767,6 @@
         }
       ],
       "Children": []
-    },
-    {
-      "__guid": "c5ca008b-515e-44da-abd4-1be71917d851",
-      "Flags": 0,
-      "Name": "Player",
-      "Position": "-3.999976,-76.35971,0.0000412507",
-      "Rotation": "0,0,0.7071068,0.7071068",
-      "Enabled": true,
-      "__Prefab": "prefabs/player/player.prefab",
-      "__PrefabVariables": {}
     },
     {
       "__guid": "bb575e11-0fca-46d2-abf3-33f15892e8a0",
@@ -2862,22 +2854,6 @@
       "Position": "0.4271077,36.60761,41.16669",
       "Enabled": true,
       "Components": [
-        {
-          "__type": "Sandbox.Reflect",
-          "__guid": "69952f7e-72db-433d-af52-2e24374f6ae9",
-          "Collider": {
-            "_type": "component",
-            "component_id": "e67e0085-6bd8-462a-a4c7-e771dc632932",
-            "go": "1292b8a3-68ca-407d-87e2-244f38f1d22e",
-            "component_type": "BoxCollider"
-          },
-          "OnComponentDestroy": null,
-          "OnComponentDisabled": null,
-          "OnComponentEnabled": null,
-          "OnComponentFixedUpdate": null,
-          "OnComponentStart": null,
-          "OnComponentUpdate": null
-        },
         {
           "__type": "Sandbox.BoxCollider",
           "__guid": "e67e0085-6bd8-462a-a4c7-e771dc632932",

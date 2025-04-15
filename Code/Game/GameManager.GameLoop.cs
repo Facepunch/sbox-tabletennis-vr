@@ -1,5 +1,3 @@
-using VRTK;
-
 namespace TableTennis;
 
 public enum GameState
